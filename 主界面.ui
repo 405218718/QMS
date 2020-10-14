@@ -1,0 +1,551 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="windowModality">
+   <enum>Qt::NonModal</enum>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1175</width>
+    <height>683</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle">
+   <string>飞云信息管理平台</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>ICO/主题.png</normaloff>ICO/主题.png</iconset>
+  </property>
+  <property name="statusTip">
+   <string/>
+  </property>
+  <property name="toolButtonStyle">
+   <enum>Qt::ToolButtonIconOnly</enum>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>800</width>
+     <height>505</height>
+    </size>
+   </property>
+   <layout class="QGridLayout" name="gridLayout_3">
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <item row="0" column="0">
+     <widget class="QTabWidget" name="ZhuCaiDan">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="mouseTracking">
+       <bool>true</bool>
+      </property>
+      <property name="tabletTracking">
+       <bool>true</bool>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::ClickFocus</enum>
+      </property>
+      <property name="contextMenuPolicy">
+       <enum>Qt::DefaultContextMenu</enum>
+      </property>
+      <property name="acceptDrops">
+       <bool>true</bool>
+      </property>
+      <property name="toolTipDuration">
+       <number>-1</number>
+      </property>
+      <property name="statusTip">
+       <string/>
+      </property>
+      <property name="autoFillBackground">
+       <bool>false</bool>
+      </property>
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <property name="documentMode">
+       <bool>false</bool>
+      </property>
+      <property name="tabsClosable">
+       <bool>true</bool>
+      </property>
+      <property name="movable">
+       <bool>false</bool>
+      </property>
+      <property name="tabBarAutoHide">
+       <bool>false</bool>
+      </property>
+      <widget class="QWidget" name="ranwu">
+       <attribute name="title">
+        <string>任务栏</string>
+       </attribute>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="caidan">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1175</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="ren_shi">
+    <property name="title">
+     <string>人事管理</string>
+    </property>
+    <addaction name="actFont_ranyuanchaxun"/>
+    <addaction name="请假记录"/>
+    <addaction name="加班记录"/>
+    <addaction name="考勤记录"/>
+    <addaction name="后勤申请"/>
+   </widget>
+   <widget class="QMenu" name="xiang_mu">
+    <property name="title">
+     <string>项目管理</string>
+    </property>
+    <addaction name="actFont_xiangmuxinxi"/>
+    <addaction name="项目计划"/>
+   </widget>
+   <widget class="QMenu" name="sheng_chan">
+    <property name="title">
+     <string>生产管理</string>
+    </property>
+    <addaction name="工程资料"/>
+    <addaction name="机台安排"/>
+    <addaction name="设备维修"/>
+   </widget>
+   <widget class="QMenu" name="pin_zhi">
+    <property name="title">
+     <string>品质管理</string>
+    </property>
+    <addaction name="产品信息"/>
+    <addaction name="验模信息"/>
+    <addaction name="检具管理"/>
+    <addaction name="仪校管理"/>
+    <addaction name="品质异常"/>
+    <addaction name="交样信息"/>
+   </widget>
+   <widget class="QMenu" name="chang_ku">
+    <property name="title">
+     <string>仓库管理</string>
+    </property>
+    <addaction name="详细清单"/>
+    <addaction name="入库管理"/>
+    <addaction name="出库管理"/>
+    <addaction name="退货管理"/>
+    <addaction name="借用管理"/>
+    <addaction name="库存管理"/>
+    <addaction name="报废清单"/>
+   </widget>
+   <widget class="QMenu" name="cai_wu">
+    <property name="title">
+     <string>财务管理</string>
+    </property>
+    <addaction name="采购申请"/>
+    <addaction name="报销申请"/>
+    <addaction name="separator"/>
+    <addaction name="采购管理"/>
+    <addaction name="外协管理"/>
+   </widget>
+   <widget class="QMenu" name="ti_xi">
+    <property name="tearOffEnabled">
+     <bool>false</bool>
+    </property>
+    <property name="title">
+     <string>体系管理</string>
+    </property>
+    <addaction name="体系查询"/>
+    <addaction name="体系修改"/>
+   </widget>
+   <widget class="QMenu" name="zong_he_fen_xi">
+    <property name="title">
+     <string>综合分析</string>
+    </property>
+    <addaction name="品质一览"/>
+    <addaction name="异常一览"/>
+    <addaction name="进度一览"/>
+    <addaction name="库存一览"/>
+   </widget>
+   <widget class="QMenu" name="chang_yong_ruan_jian">
+    <property name="title">
+     <string>常用软件</string>
+    </property>
+    <addaction name="截图软件"/>
+    <addaction name="翻译软件"/>
+    <addaction name="日历"/>
+   </widget>
+   <widget class="QMenu" name="bang_zhu">
+    <property name="title">
+     <string>帮助</string>
+    </property>
+    <addaction name="密码修改"/>
+    <addaction name="账号切换"/>
+    <addaction name="退出"/>
+    <addaction name="separator"/>
+    <addaction name="皮肤"/>
+   </widget>
+   <addaction name="ren_shi"/>
+   <addaction name="xiang_mu"/>
+   <addaction name="sheng_chan"/>
+   <addaction name="pin_zhi"/>
+   <addaction name="chang_ku"/>
+   <addaction name="cai_wu"/>
+   <addaction name="ti_xi"/>
+   <addaction name="zong_he_fen_xi"/>
+   <addaction name="chang_yong_ruan_jian"/>
+   <addaction name="bang_zhu"/>
+  </widget>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
+   </property>
+   <property name="allowedAreas">
+    <set>Qt::AllToolBarAreas</set>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Vertical</enum>
+   </property>
+   <property name="toolButtonStyle">
+    <enum>Qt::ToolButtonTextUnderIcon</enum>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>LeftToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actFont_ranyuanchaxun"/>
+   <addaction name="actFont_xiangmuxinxi"/>
+   <addaction name="加班记录"/>
+   <addaction name="请假记录"/>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+  <action name="actFont_ranyuanchaxun">
+   <property name="icon">
+    <iconset>
+     <normaloff>ICO/ico/shell32.dll(267).ico</normaloff>ICO/ico/shell32.dll(267).ico</iconset>
+   </property>
+   <property name="text">
+    <string>人员查询</string>
+   </property>
+  </action>
+  <action name="加班记录">
+   <property name="icon">
+    <iconset>
+     <normaloff>ICO/png/1218679.png</normaloff>ICO/png/1218679.png</iconset>
+   </property>
+   <property name="text">
+    <string>加班记录</string>
+   </property>
+  </action>
+  <action name="请假记录">
+   <property name="icon">
+    <iconset>
+     <normaloff>ICO/图标-07.png</normaloff>ICO/图标-07.png</iconset>
+   </property>
+   <property name="text">
+    <string>请假记录</string>
+   </property>
+  </action>
+  <action name="考勤记录">
+   <property name="text">
+    <string>考勤记录</string>
+   </property>
+  </action>
+  <action name="后勤申请">
+   <property name="text">
+    <string>后勤申请</string>
+   </property>
+  </action>
+  <action name="actFont_xiangmuxinxi">
+   <property name="icon">
+    <iconset>
+     <normaloff>ICO/图标-02.png</normaloff>ICO/图标-02.png</iconset>
+   </property>
+   <property name="text">
+    <string>项目信息</string>
+   </property>
+  </action>
+  <action name="项目计划">
+   <property name="text">
+    <string>项目计划</string>
+   </property>
+  </action>
+  <action name="机台安排">
+   <property name="text">
+    <string>机台安排</string>
+   </property>
+  </action>
+  <action name="设备维修">
+   <property name="text">
+    <string>设备维修</string>
+   </property>
+  </action>
+  <action name="产品信息">
+   <property name="text">
+    <string>产品信息</string>
+   </property>
+   <property name="toolTip">
+    <string>产品信息</string>
+   </property>
+  </action>
+  <action name="验模信息">
+   <property name="text">
+    <string>验模信息</string>
+   </property>
+   <property name="toolTip">
+    <string>验模信息</string>
+   </property>
+  </action>
+  <action name="检具管理">
+   <property name="text">
+    <string>检具管理</string>
+   </property>
+  </action>
+  <action name="仪校管理">
+   <property name="text">
+    <string>仪校管理</string>
+   </property>
+  </action>
+  <action name="品质异常">
+   <property name="text">
+    <string>品质异常</string>
+   </property>
+  </action>
+  <action name="交样信息">
+   <property name="text">
+    <string>交样信息</string>
+   </property>
+  </action>
+  <action name="工程资料">
+   <property name="text">
+    <string>工程资料</string>
+   </property>
+  </action>
+  <action name="详细清单">
+   <property name="text">
+    <string>详细清单</string>
+   </property>
+  </action>
+  <action name="入库管理">
+   <property name="text">
+    <string>入库管理</string>
+   </property>
+  </action>
+  <action name="出库管理">
+   <property name="text">
+    <string>出库管理</string>
+   </property>
+  </action>
+  <action name="退货管理">
+   <property name="text">
+    <string>退货管理</string>
+   </property>
+  </action>
+  <action name="借用管理">
+   <property name="text">
+    <string>借用管理</string>
+   </property>
+  </action>
+  <action name="库存管理">
+   <property name="text">
+    <string>库存管理</string>
+   </property>
+  </action>
+  <action name="报废清单">
+   <property name="text">
+    <string>报废清单</string>
+   </property>
+  </action>
+  <action name="采购申请">
+   <property name="text">
+    <string>采购申请</string>
+   </property>
+  </action>
+  <action name="品质一览">
+   <property name="text">
+    <string>品质一览</string>
+   </property>
+  </action>
+  <action name="异常一览">
+   <property name="text">
+    <string>异常一览</string>
+   </property>
+  </action>
+  <action name="进度一览">
+   <property name="text">
+    <string>进度一览</string>
+   </property>
+  </action>
+  <action name="库存一览">
+   <property name="text">
+    <string>库存一览</string>
+   </property>
+  </action>
+  <action name="截图软件">
+   <property name="icon">
+    <iconset>
+     <normaloff>ICO/ico/shell32.dll(3).ico</normaloff>ICO/ico/shell32.dll(3).ico</iconset>
+   </property>
+   <property name="text">
+    <string>截图软件</string>
+   </property>
+  </action>
+  <action name="翻译软件">
+   <property name="icon">
+    <iconset>
+     <normaloff>ICO/ico/shell32.dll(243).ico</normaloff>ICO/ico/shell32.dll(243).ico</iconset>
+   </property>
+   <property name="text">
+    <string>翻译软件</string>
+   </property>
+  </action>
+  <action name="日历">
+   <property name="icon">
+    <iconset>
+     <normaloff>ICO/png/1234864.png</normaloff>ICO/png/1234864.png</iconset>
+   </property>
+   <property name="text">
+    <string>日历</string>
+   </property>
+  </action>
+  <action name="密码修改">
+   <property name="icon">
+    <iconset>
+     <normaloff>ICO/ico/shell32.dll(194).ico</normaloff>ICO/ico/shell32.dll(194).ico</iconset>
+   </property>
+   <property name="text">
+    <string>密码修改</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+E</string>
+   </property>
+  </action>
+  <action name="账号切换">
+   <property name="icon">
+    <iconset>
+     <normaloff>ICO/ico/shell32.dll(269).ico</normaloff>ICO/ico/shell32.dll(269).ico</iconset>
+   </property>
+   <property name="text">
+    <string>账号切换</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+W</string>
+   </property>
+  </action>
+  <action name="退出">
+   <property name="icon">
+    <iconset>
+     <normaloff>ICO/ico/shell32.dll(240).ico</normaloff>ICO/ico/shell32.dll(240).ico</iconset>
+   </property>
+   <property name="text">
+    <string>退出</string>
+   </property>
+   <property name="statusTip">
+    <string>点击按钮退出程序！</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
+  </action>
+  <action name="皮肤">
+   <property name="icon">
+    <iconset>
+     <normaloff>ICO/1142575.png</normaloff>ICO/1142575.png</iconset>
+   </property>
+   <property name="text">
+    <string>皮肤</string>
+   </property>
+  </action>
+  <action name="采购管理">
+   <property name="text">
+    <string>采购管理</string>
+   </property>
+  </action>
+  <action name="外协管理">
+   <property name="text">
+    <string>外协管理</string>
+   </property>
+  </action>
+  <action name="报销申请">
+   <property name="text">
+    <string>报销申请</string>
+   </property>
+  </action>
+  <action name="体系查询">
+   <property name="text">
+    <string>体系查询</string>
+   </property>
+  </action>
+  <action name="体系修改">
+   <property name="text">
+    <string>体系修改</string>
+   </property>
+  </action>
+  <action name="actioncsdc">
+   <property name="text">
+    <string>csdc</string>
+   </property>
+  </action>
+ </widget>
+ <layoutdefault spacing="0" margin="0"/>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>退出</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>284</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>

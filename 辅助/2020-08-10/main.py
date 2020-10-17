@@ -13,6 +13,7 @@ class dengluUI(QMainWindow):
         self.ui = Ui_Form()  # 创建UI对象
         self.ui.setupUi(self)  # 构造UI界面
 
+
         # #美化界面，删除原生边框，设置窗口透明度
         # elf.setFixedSize(self.ui.width(), self.ui.height())  # 禁止拉伸窗口大小
         self.setWindowFlags(Qt.WindowMinimizeButtonHint)  # 禁止最大化按钮

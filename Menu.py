@@ -5,7 +5,7 @@ from PySide2.QtGui import QIcon
 from PySide2.QtWidgets import QApplication, QMessageBox, QLabel, QMainWindow, QTabBar
 from PySide2.QtCore import Slot, QDate, QDateTime, Qt
 from 主界面 import Ui_MainWindow
-from renyuanxingxi import UI_ryxx
+from RenYuanXingXi import UI_ryxx
 from xiangmuxingxi import UI_xmxx
 
 L = []

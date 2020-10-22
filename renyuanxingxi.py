@@ -3,7 +3,7 @@ from PySide2.QtCore import Slot
 from PySide2.QtWidgets import QApplication, QMainWindow, QMessageBox
 from General import DuiXiang as DX, DateEdit
 from 人员信息 import Ui_renyuanxinxi
-from renyuanxingxiluru import UI_ryxxlr
+from RenYuanXingXi_LuRu import UI_ryxxlr
 
 class UI_ryxx(QMainWindow):
     def __init__(self, parent=None):

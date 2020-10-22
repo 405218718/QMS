@@ -6,7 +6,7 @@ from PySide2.QtWidgets import QApplication, QMessageBox, QLabel, QMainWindow, QT
 from PySide2.QtCore import Slot, QDate, QDateTime, Qt
 from 主界面 import Ui_MainWindow
 from renyuanxingxi import UI_ryxx
-from xiangmuxingxi import UI_xmxx
+from XiangMuXingXi import UI_xmxx
 
 L = []
 bt = '飞云信息管理平台'     # 窗体标题

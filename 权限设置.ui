@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>367</width>
-    <height>492</height>
+    <width>234</width>
+    <height>454</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -32,52 +32,61 @@
    <item row="0" column="0">
     <widget class="QTabWidget" name="tabWidget">
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="ChaXun_SheZhi">
       <attribute name="title">
        <string>查询设置</string>
       </attribute>
-      <widget class="QTreeWidget" name="treeWidget">
+      <widget class="QListWidget" name="listWidget">
        <property name="geometry">
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>191</width>
-         <height>461</height>
+         <width>171</width>
+         <height>431</height>
         </rect>
        </property>
-       <property name="acceptDrops">
-        <bool>true</bool>
+       <property name="contextMenuPolicy">
+        <enum>Qt::CustomContextMenu</enum>
        </property>
-       <property name="editTriggers">
-        <set>QAbstractItemView::NoEditTriggers</set>
+       <property name="layoutMode">
+        <enum>QListView::SinglePass</enum>
        </property>
-       <property name="dragDropOverwriteMode">
-        <bool>true</bool>
+       <property name="viewMode">
+        <enum>QListView::ListMode</enum>
        </property>
-       <property name="dragDropMode">
-        <enum>QAbstractItemView::InternalMove</enum>
-       </property>
-       <property name="defaultDropAction">
-        <enum>Qt::MoveAction</enum>
-       </property>
-       <attribute name="headerVisible">
+       <property name="selectionRectVisible">
         <bool>false</bool>
-       </attribute>
-       <column>
-        <property name="text">
-         <string>编辑</string>
-        </property>
-       </column>
+       </property>
        <item>
         <property name="text">
-         <string>编辑</string>
+         <string>New Item</string>
+        </property>
+        <property name="checkState">
+         <enum>Checked</enum>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>:/icons/images/724.bmp</normaloff>:/icons/images/724.bmp</iconset>
+        </property>
+        <property name="flags">
+         <set>ItemIsSelectable|ItemIsEditable|ItemIsDragEnabled|ItemIsUserCheckable|ItemIsEnabled</set>
         </property>
        </item>
        <item>
         <property name="text">
-         <string>格式</string>
+         <string>New Item2</string>
+        </property>
+        <property name="checkState">
+         <enum>Unchecked</enum>
+        </property>
+        <property name="icon">
+         <iconset>
+          <normaloff>:/icons/images/724.bmp</normaloff>:/icons/images/724.bmp</iconset>
+        </property>
+        <property name="flags">
+         <set>ItemIsSelectable|ItemIsEditable|ItemIsUserCheckable|ItemIsEnabled</set>
         </property>
        </item>
       </widget>
@@ -96,7 +105,7 @@
         <rect>
          <x>0</x>
          <y>0</y>
-         <width>180</width>
+         <width>231</width>
          <height>471</height>
         </rect>
        </property>

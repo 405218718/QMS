@@ -47,7 +47,7 @@
     <string>姓名:</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="xingming">
+  <widget class="QLineEdit" name="Text_XingMing">
    <property name="geometry">
     <rect>
      <x>50</x>
@@ -107,7 +107,7 @@
     <string>部门:</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="bumen">
+  <widget class="QLineEdit" name="Text_BuMen">
    <property name="geometry">
     <rect>
      <x>50</x>
@@ -129,7 +129,7 @@
     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
    </property>
   </widget>
-  <widget class="QLineEdit" name="zhiwei">
+  <widget class="QLineEdit" name="Text_ZhiWei">
    <property name="geometry">
     <rect>
      <x>50</x>
@@ -192,7 +192,7 @@
     <string>工号:</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="gonghao">
+  <widget class="QLineEdit" name="Text_GongHao">
    <property name="geometry">
     <rect>
      <x>190</x>
@@ -255,7 +255,7 @@
     <string>组别:</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="zubie">
+  <widget class="QLineEdit" name="Text_ZuBie">
    <property name="geometry">
     <rect>
      <x>220</x>
@@ -299,7 +299,7 @@
     <string>入职日期:</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="ruzhiriqi">
+  <widget class="QLineEdit" name="Text_RuZhi_RiQi">
    <property name="geometry">
     <rect>
      <x>300</x>
@@ -324,7 +324,7 @@
     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lianxidianhua">
+  <widget class="QLineEdit" name="Text_LianXiDianHua">
    <property name="geometry">
     <rect>
      <x>80</x>
@@ -368,7 +368,7 @@
     <string>联系电话:</string>
    </property>
   </widget>
-  <widget class="QComboBox" name="xingbie">
+  <widget class="QComboBox" name="Text_XingBie">
    <property name="enabled">
     <bool>true</bool>
    </property>
@@ -402,7 +402,7 @@
     </property>
    </item>
   </widget>
-  <widget class="QLineEdit" name="jinjilianxihaoma">
+  <widget class="QLineEdit" name="Text_JinJiLianXiHaoMa">
    <property name="geometry">
     <rect>
      <x>270</x>
@@ -449,7 +449,7 @@
     <string>紧急联系电话:</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="jinjilianxiren">
+  <widget class="QLineEdit" name="Text_JinJiLianXiRen">
    <property name="geometry">
     <rect>
      <x>100</x>
@@ -493,7 +493,7 @@
     <string>紧急联系人:</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="chushengriqi">
+  <widget class="QLineEdit" name="Text_ChuSheng_RiQi">
    <property name="geometry">
     <rect>
      <x>290</x>
@@ -553,7 +553,7 @@
     <string>身份证号码：</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="shenfenzhenghaoma">
+  <widget class="QLineEdit" name="Text_ShenFenZhengHaoMa">
    <property name="geometry">
     <rect>
      <x>100</x>
@@ -578,7 +578,7 @@
     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
    </property>
   </widget>
-  <widget class="QLineEdit" name="dizhi">
+  <widget class="QLineEdit" name="Text_DiZhi">
    <property name="geometry">
     <rect>
      <x>50</x>
@@ -641,7 +641,7 @@
     <string>工作年份:</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="gongzuonianfen">
+  <widget class="QLineEdit" name="Text_GongZuoNianFen">
    <property name="geometry">
     <rect>
      <x>340</x>
@@ -666,7 +666,7 @@
     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
    </property>
   </widget>
-  <widget class="QLineEdit" name="tiaoxinriqi">
+  <widget class="QLineEdit" name="Text_TiaoXin_RiQi">
    <property name="geometry">
     <rect>
      <x>270</x>
@@ -729,7 +729,7 @@
     <string>备注:</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="beizhu">
+  <widget class="QLineEdit" name="Text_BeiZhu">
    <property name="geometry">
     <rect>
      <x>50</x>
@@ -754,7 +754,7 @@
     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
    </property>
   </widget>
-  <widget class="QPushButton" name="queren">
+  <widget class="QPushButton" name="action_queren">
    <property name="geometry">
     <rect>
      <x>400</x>
@@ -767,7 +767,7 @@
     <string>确认</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="chongzhi">
+  <widget class="QPushButton" name="action_chongzhi">
    <property name="geometry">
     <rect>
      <x>400</x>
@@ -780,7 +780,7 @@
     <string>重置</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="paizhao">
+  <widget class="QPushButton" name="action_paizhao">
    <property name="geometry">
     <rect>
      <x>550</x>
@@ -793,7 +793,7 @@
     <string>拍照</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="dakaixiangji">
+  <widget class="QPushButton" name="action_dakaixiangji">
    <property name="geometry">
     <rect>
      <x>410</x>
@@ -806,7 +806,7 @@
     <string>打开相机</string>
    </property>
   </widget>
-  <widget class="QDoubleSpinBox" name="daiyu">
+  <widget class="QDoubleSpinBox" name="Text_DaiYu">
    <property name="geometry">
     <rect>
      <x>50</x>
@@ -835,7 +835,7 @@
     </rect>
    </property>
   </widget>
-  <widget class="QLineEdit" name="lizhiriqi">
+  <widget class="QLineEdit" name="Text_LiZhi_RiQi">
    <property name="geometry">
     <rect>
      <x>270</x>
@@ -882,7 +882,7 @@
     <string>合同日期:</string>
    </property>
   </widget>
-  <widget class="QLineEdit" name="hetongriqi">
+  <widget class="QLineEdit" name="Text_HeTong_RiQi">
    <property name="geometry">
     <rect>
      <x>80</x>
@@ -928,27 +928,27 @@
   </widget>
  </widget>
  <tabstops>
-  <tabstop>xingming</tabstop>
-  <tabstop>ruzhiriqi</tabstop>
-  <tabstop>bumen</tabstop>
-  <tabstop>zubie</tabstop>
-  <tabstop>zhiwei</tabstop>
-  <tabstop>gonghao</tabstop>
-  <tabstop>gongzuonianfen</tabstop>
-  <tabstop>lianxidianhua</tabstop>
-  <tabstop>jinjilianxiren</tabstop>
-  <tabstop>jinjilianxihaoma</tabstop>
-  <tabstop>daiyu</tabstop>
-  <tabstop>shenfenzhenghaoma</tabstop>
-  <tabstop>dizhi</tabstop>
-  <tabstop>beizhu</tabstop>
-  <tabstop>dakaixiangji</tabstop>
-  <tabstop>paizhao</tabstop>
-  <tabstop>queren</tabstop>
-  <tabstop>chongzhi</tabstop>
-  <tabstop>tiaoxinriqi</tabstop>
-  <tabstop>chushengriqi</tabstop>
-  <tabstop>xingbie</tabstop>
+  <tabstop>Text_XingMing</tabstop>
+  <tabstop>Text_RuZhi_RiQi</tabstop>
+  <tabstop>Text_BuMen</tabstop>
+  <tabstop>Text_ZuBie</tabstop>
+  <tabstop>Text_ZhiWei</tabstop>
+  <tabstop>Text_GongHao</tabstop>
+  <tabstop>Text_GongZuoNianFen</tabstop>
+  <tabstop>Text_LianXiDianHua</tabstop>
+  <tabstop>Text_JinJiLianXiRen</tabstop>
+  <tabstop>Text_JinJiLianXiHaoMa</tabstop>
+  <tabstop>Text_DaiYu</tabstop>
+  <tabstop>Text_ShenFenZhengHaoMa</tabstop>
+  <tabstop>Text_DiZhi</tabstop>
+  <tabstop>Text_BeiZhu</tabstop>
+  <tabstop>action_dakaixiangji</tabstop>
+  <tabstop>action_paizhao</tabstop>
+  <tabstop>action_queren</tabstop>
+  <tabstop>action_chongzhi</tabstop>
+  <tabstop>Text_TiaoXin_RiQi</tabstop>
+  <tabstop>Text_ChuSheng_RiQi</tabstop>
+  <tabstop>Text_XingBie</tabstop>
  </tabstops>
  <resources/>
  <connections/>

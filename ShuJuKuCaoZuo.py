@@ -121,3 +121,11 @@ class DateEdit(QDateEdit):
         if self.date() == QDate(2000, 1, 1):
             self.setDate(QDate.currentDate())  # 设置当前日期
 
+db = DuiXiang().connect_db()
+cursor = db.cursor()
+sql = 'show databases;'
+try:
+    cursor.execute(sql)
+    print(db.commit())
+except Exception as e:
+    raise e

@@ -93,7 +93,7 @@ class DuiXiang:
 
 
     #获取MySql某个表所有字段名
-    def description(self,sql):
+    def HuoQuZiDuan(self,sql):
         """
         获取MySql某个表所有字段名
         sql = 'select * FROM 人员信息;'
@@ -113,6 +113,63 @@ class DuiXiang:
         # for field in desc:
         #     print(field[0])
         # cursor.close()
+
+    #新增
+    def XinZeng(self,sql_Table,values):
+        """
+        新增数据\n
+        insert into 表名(字段名列表) values(值1),...(值N);
+
+        单条新增\n
+        rows=cursor.execute(sql,('4','qzcsbj4'))
+
+        多条新增\n
+        rows=cursor.executemany(sql,[('5','qzcsbj5'),('6','qzcsbj6'),('7','qzcsbj7')])
+
+        大批量新增\n
+        values=[]\n
+        for i in range(100, 201):\n
+        values.append((i, 'qzcsbj'+str(i)))\n
+        sql='insert into test(id,name) values(%s,%s)'\n
+        rows=cursor.executemany(sql,values)
+
+        :param sql_Table: 表名(字段名列表)
+        :param values: (值1),...(值N)
+        :return:
+        """
+        db = self.connect_db()
+        sql = 'insert into s% values(%s);'
+        try:
+            self.cur.execute(sql,(sql_Table,values))   # 执行sql语句
+            db.commit() # 提交
+        except Exception as e:
+            db.rollback()   # 错误回滚
+        finally:
+            db.close()
+
+    #修改
+    def XiuGgai(self,sql_Table,values,condition):
+        """
+        更新表记录
+        1、update 表名 set 字段名1=值1,字段名2=值2,... where 条件;\n
+		2、注意:update语句后如果不加where条件子句会将表中所有记录全部更改
+        :param sql_Table: 表名
+        :param values: 字段名=值
+        :param condition: 条件
+        :return:
+        """
+        db = self.connect_db()
+        cur = db.cursor()
+        sql_update = "update %s set %s where %s"
+        try:
+            cur.execute(sql_update , (sql_Table,values,condition))
+            # 提交
+            db.commit()
+        except Exception as e:
+            # 错误回滚
+            db.rollback()
+        finally:
+            db.close()
 
 
 

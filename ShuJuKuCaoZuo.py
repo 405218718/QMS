@@ -114,28 +114,22 @@ class DuiXiang:
         #     print(field[0])
         # cursor.close()
 
-    #新增
+    #新增表记录
     def XinZeng(self,sql_Table,values):
         """
         新增数据\n
         insert into 表名(字段名列表) values(值1),...(值N);
-
-        单条新增\n
-        rows=cursor.execute(sql,('4','qzcsbj4'))
-
-        多条新增\n
-        rows=cursor.executemany(sql,[('5','qzcsbj5'),('6','qzcsbj6'),('7','qzcsbj7')])
-
+        \n param sql_Table: 表名(字段名列表)
+           param values: (值1),...(值N)
+        \n return:
+        单条新增：rows=cursor.execute(sql,('4','qzcsbj4'))   \n
+        多条新增：rows=cursor.executemany(sql,[('5','qzcsbj5'),('6','qzcsbj6'),('7','qzcsbj7')]) \n
         大批量新增\n
         values=[]\n
         for i in range(100, 201):\n
         values.append((i, 'qzcsbj'+str(i)))\n
         sql='insert into test(id,name) values(%s,%s)'\n
         rows=cursor.executemany(sql,values)
-
-        :param sql_Table: 表名(字段名列表)
-        :param values: (值1),...(值N)
-        :return:
         """
         db = self.connect_db()
         sql = 'insert into s% values(%s);'
@@ -147,22 +141,53 @@ class DuiXiang:
         finally:
             db.close()
 
-    #修改
+    #修改表记录
     def XiuGgai(self,sql_Table,values,condition):
         """
         更新表记录
         1、update 表名 set 字段名1=值1,字段名2=值2,... where 条件;\n
-		2、注意:update语句后如果不加where条件子句会将表中所有记录全部更改
-        :param sql_Table: 表名
-        :param values: 字段名=值
-        :param condition: 条件
-        :return:
+        2、注意:update语句后如果不加where条件子句会将表中所有记录全部更改；
+        \n param sql_Table: 表名
+           param values: 字段名=值
+           param condition: 条件
+       \n return:
+        sql='update test set name = %s where id = %s'
+        rows=cursor.executemany(sql,[('全栈测试笔记5','5'),('全栈测试笔记6','6')])
         """
         db = self.connect_db()
         cur = db.cursor()
         sql_update = "update %s set %s where %s"
         try:
             cur.execute(sql_update , (sql_Table,values,condition))
+            # 提交
+            db.commit()
+        except Exception as e:
+            # 错误回滚
+            db.rollback()
+        finally:
+            db.close()
+
+
+    #删除表记录
+    def ShanChu(self,sql_Table,condition):
+        """
+        删除表记录
+        1、delete from 表名 where 条件;\n
+        2、注意:	delete语句后如果不佳where条件子句,会将表中所有记录全部删除
+        \n param sql_Table:表名
+           param condition:条件
+        \n return:
+        sql='delete from test where id = %s' \n
+        单条删除：rows=cursor.execute(sql,('1',)) \n
+        多条删除：rows=cursor.executemany(sql,[('2'),('3')])
+        """
+        # 使用cursor()获取操作游标
+        db = self.connect_db()
+        cur = db.cursor()
+        sql_delete = "delete from %s where %s"
+        try:
+            # 向sql语句传递参数
+            cur.execute(sql_delete,(sql_Table,condition))
             # 提交
             db.commit()
         except Exception as e:

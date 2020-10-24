@@ -13,6 +13,11 @@ class DuiXiang:
 
     # 添加选项卡通用函数
     def add_tab(biao_tou: list,tableWidgetX: QTableWidgetItem):
+        """
+        列表控件项设置
+        :param tableWidgetX:
+        :return:
+        """
         tableWidgetX.setColumnCount(len(biao_tou))  # 设置列数
         tableWidgetX.setRowCount(0)                 # 设置数据区行数
         tableWidgetX.setHorizontalHeaderLabels(biao_tou)  # 设置列命名biao_tou
@@ -23,6 +28,12 @@ class DuiXiang:
 
     # 添加tableWidget内容通用函数
     def chaxun(self, tableWidgetX: QTableWidgetItem, text: str, headerText: list):
+        """
+        查询显示显示对应数据，并清空列表控件项
+        :param tableWidgetX: 列表控件项名称
+        :param text: 使用的MySQL语句
+        :param headerText: 需要显示的内容
+        """
         tableWidgetX.setSortingEnabled(False)  # 设置排序关闭
         tableWidgetX.clearContents()   # 清空表格内容
         tableWidgetX.setRowCount(0)    # 设置数据区行数
@@ -50,9 +61,14 @@ class DuiXiang:
         tableWidgetX.horizontalHeader().setStyleSheet(str)         #修改排序图标的展现方式（修改图标、位置）
         tableWidgetX.horizontalHeader().setSortIndicatorShown(True)        # 显示排序图标
         tableWidgetX.setSortingEnabled(True)            # 设置排序已启用
+        self.cur.close()
+
 
     # 数据库连接
     def connect_db(self):
+        """
+        MySQL数据库连接
+        """
         try:
             file = open('my.ini', 'r')
             L = []
@@ -74,6 +90,30 @@ class DuiXiang:
             return db
         except IOError:
             QMessageBox.about(self, '提示信息', '服务器链接失败')
+
+
+    #获取MySql某个表所有字段名
+    def description(self,sql):
+        """
+        获取MySql某个表所有字段名
+        sql = 'select * FROM 人员信息;'
+        """
+        result = self.cur.execute(sql)      #sql = 'select * FROM 人员信息;'
+        desc = self.cur.description
+        for field in desc:
+            print(field[0])
+        self.cur.close()
+
+        #举例
+        # db = DuiXiang().connect_db()
+        # cursor = db.cursor()
+        # sql = 'select * FROM 人员信息;'
+        # # result = cursor.execute(sql)
+        # desc = cursor.description
+        # for field in desc:
+        #     print(field[0])
+        # cursor.close()
+
 
 
 # QLineEdit日期显示
@@ -121,11 +161,4 @@ class DateEdit(QDateEdit):
         if self.date() == QDate(2000, 1, 1):
             self.setDate(QDate.currentDate())  # 设置当前日期
 
-db = DuiXiang().connect_db()
-cursor = db.cursor()
-sql = 'show databases;'
-try:
-    cursor.execute(sql)
-    print(db.commit())
-except Exception as e:
-    raise e
+

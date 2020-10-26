@@ -1,7 +1,7 @@
 import pymysql
 import sys
 from PySide2.QtCore import Qt, QDate, Slot
-from PySide2.QtWidgets import QApplication, QMainWindow, QDialog, QMessageBox
+from PySide2.QtWidgets import QApplication, QMainWindow, QDialog
 from General import DuiXiang as DX, DateEdit
 from 人员信息录入 import Ui_Dialog
 
@@ -13,10 +13,6 @@ class UI_ryxxlr(QDialog):
         self.ui = Ui_Dialog()  # 创建UI对象
         self.ui.setupUi(self)  # 构造UI界面
         self.setWindowTitle('人员信息录入')  # 设置窗体标题
-        self.ui.action_queren.clicked.connect(self.queren_clicked)
-        self.ui.Text_ShenFenZhengHaoMa.setMaxLength(18) #设置输入最大字符数量为18
-        # self.ShenFenZhengHaoMa = self.ui.Text_ShenFenZhengHaoMa.validator()
-        # self.ui.Text_ShenFenZhengHaoMa.editinfinished(self.ShenFenZhengHaoMa_valueChanged())
         self.Text_RuZhi = DateEdit(self.ui.Text_RuZhi_RiQi)
         self.Text_RuZhi.resize(self.ui.Text_RuZhi_RiQi.width(),self.ui.Text_RuZhi_RiQi.height())
         self.Text_LiZhi = DateEdit(self.ui.Text_HeTong_RiQi)
@@ -27,49 +23,27 @@ class UI_ryxxlr(QDialog):
         self.Text_LiZhi.resize(self.ui.Text_LiZhi_RiQi.width(), self.ui.Text_LiZhi_RiQi.height())
         # self.ui.Text_XingBie.set
 
-    def on_Text_ShenFenZhengHaoMa_editingFinished(self):
+
+    @Slot(bool)
+    def on_Text_ShenFenZhengHaoMa_valueChanged(self,count):
         print(1)
-        count = self.ui.Text_ShenFenZhengHaoMa.text()
-        if len(count) < 18:
+        if len(count)>18:
             QMessageBox.about(self, '提示信息', '身份证号码超过18位')
         else:
-            year = count[6:10]  # 出生年份
-            month = count[10:12]  # 出生月份
-            date = count[12:14]  # 出生日
-            sex = count[16:17]  # 判断性别
+            year = count[6:10] // 出生年份
+            month = count[10:12] // 出生月份
+            date = count[12:14] // 出生日
+            sex = count[16:17] // 判断性别
             sex = int(sex)
             if sex % 2:
                 self.ui.Text_XingBie.setText("男")
             else:
                 self.ui.Text_XingBie.setText("女")
-            self.ui.Text_ChuSheng_RiQi.setDate(year, month, date)
+            self.ui.Text_ChuSheng_RiQi.setDate(year,month,date)
 
-    # def ShenFenZhengHaoMa_valueChanged(self):
-    #     print(1)
-    #     count = self.ui.Text_ShenFenZhengHaoMa.text()
-    #     if len(count)<18:
-    #         QMessageBox.about(self, '提示信息', '身份证号码超过18位')
-    #     else:
-    #         year = count[6:10] # 出生年份
-    #         month = count[10:12] # 出生月份
-    #         date = count[12:14] # 出生日
-    #         sex = count[16:17] # 判断性别
-    #         sex = int(sex)
-    #         if sex % 2:
-    #             self.ui.Text_XingBie.setText("男")
-    #         else:
-    #             self.ui.Text_XingBie.setText("女")
-    #         self.ui.Text_ChuSheng_RiQi.setDate(year,month,date)
 
-    def queren_clicked(self):
-        sql = {}
-        sql['姓名'] = self.ui.Text_XingMing.text()
-        sql['性别'] = self.ui.Text_XingBie.currentText()
-        sql_Table = '人员信息'+str(tuple(list(sql.keys())))   #列表转元组转字符串
-        values = tuple(list(sql.values()))                  #列表转元组
-        print(sql_Table)
-        print(values)
-
+        #
+        # self.setWindowFlags(Qt.MSWindowsFixedSizeDialogHint)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)  # 创建一个QApplication，也就是你要开发的软件app

@@ -574,6 +574,9 @@
    <property name="text">
     <string/>
    </property>
+   <property name="maxLength">
+    <number>18</number>
+   </property>
    <property name="alignment">
     <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
    </property>

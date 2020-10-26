@@ -63,7 +63,6 @@ class DuiXiang:
         tableWidgetX.setSortingEnabled(True)            # 设置排序已启用
         self.cur.close()
 
-
     # 数据库连接
     def connect_db(self):
         """
@@ -90,7 +89,6 @@ class DuiXiang:
             return db
         except IOError:
             QMessageBox.about(self, '提示信息', '服务器链接失败')
-
 
     #获取MySql某个表所有字段名
     def HuoQuZiDuan(self,sql):
@@ -167,7 +165,6 @@ class DuiXiang:
         finally:
             db.close()
 
-
     #删除表记录
     def ShanChu(self,sql_Table,condition):
         """
@@ -195,6 +192,7 @@ class DuiXiang:
             db.rollback()
         finally:
             db.close()
+
 
 
 

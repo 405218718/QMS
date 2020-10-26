@@ -10,7 +10,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1db424f2-bf0c-4b61-a39c-efb3024276f4" name="Default Changelist" comment="">
+    <list default="true" id="1db424f2-bf0c-4b61-a39c-efb3024276f4" name="Default Changelist" comment="数据库函数：增加”新增、修改、删除”">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ShuJuKuCaoZuo.py" beforeDir="false" afterPath="$PROJECT_DIR$/ShuJuKuCaoZuo.py" afterDir="false" />
     </list>
@@ -18,6 +18,13 @@
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
@@ -47,23 +54,23 @@
     <property name="node.js.path.for.package.tslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
-  <component name="RunManager" selected="Python.ShuJuKuCaoZuo">
-    <configuration name="QiDong" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.RenYuanXingXi_LuRu">
+    <configuration name="154" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="AAAA" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="C:\Program Files\Python\python.exe" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="false" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/辅助/旧" />
+      <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/QiDong.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/辅助/旧/154.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -72,7 +79,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="RenYuanXingXi" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="DengLu" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="AAAA" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -85,7 +92,29 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/RenYuanXingXi.py" />
+      <option name="SCRIPT_NAME" value="E:\曾凡威\Python 3.8\3.教程\AAAA\DengLu.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="JDmiaosha" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="AAAA" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/辅助" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/辅助/JDmiaosha.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -138,35 +167,13 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="renyuanxingxi" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="AAAA" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="C:\Program Files\Python\python.exe" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/renyuanxingxi.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.ShuJuKuCaoZuo" />
-        <item itemvalue="Python.QiDong" />
         <item itemvalue="Python.RenYuanXingXi_LuRu" />
-        <item itemvalue="Python.RenYuanXingXi" />
-        <item itemvalue="Python.renyuanxingxi" />
+        <item itemvalue="Python.154" />
+        <item itemvalue="Python.JDmiaosha" />
+        <item itemvalue="Python.ShuJuKuCaoZuo" />
+        <item itemvalue="Python.DengLu" />
       </list>
     </recent_temporary>
   </component>
@@ -204,7 +211,12 @@
       <workItem from="1603423355887" duration="2053000" />
       <workItem from="1603431321178" duration="1644000" />
       <workItem from="1603517920752" duration="1838000" />
-      <workItem from="1603526456971" duration="4675000" />
+      <workItem from="1603526456971" duration="5183000" />
+      <workItem from="1603671122245" duration="656000" />
+      <workItem from="1603691263197" duration="1702000" />
+      <workItem from="1603699989464" duration="807000" />
+      <workItem from="1603709251763" duration="3423000" />
+      <workItem from="1603713174824" duration="3844000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1602932227208</created>
@@ -290,7 +302,14 @@
       <option name="project" value="LOCAL" />
       <updated>1603530392380</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="数据库函数：增加”新增、修改、删除”">
+      <created>1603531781721</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1603531781721</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -321,7 +340,8 @@
     <MESSAGE value="读库取表数据" />
     <MESSAGE value="更新函数语句说明" />
     <MESSAGE value="数据库函数：增加”新增、修改”" />
-    <option name="LAST_COMMIT_MESSAGE" value="数据库函数：增加”新增、修改”" />
+    <MESSAGE value="数据库函数：增加”新增、修改、删除”" />
+    <option name="LAST_COMMIT_MESSAGE" value="数据库函数：增加”新增、修改、删除”" />
   </component>
   <component name="WindowStateProjectService">
     <state x="536" y="101" key="#General" timestamp="1602768101272">
@@ -372,22 +392,22 @@
       <screen x="0" y="0" width="1680" height="1020" />
     </state>
     <state x="536" y="101" key="#xiangmuxingxi/0.0.1680.1020@0.0.1680.1020" timestamp="1602768423832" />
-    <state x="438" y="63" key="CommitChangelistDialog2" timestamp="1603530391652">
+    <state x="438" y="63" key="CommitChangelistDialog2" timestamp="1603713896011">
       <screen x="0" y="0" width="1680" height="1020" />
     </state>
-    <state x="438" y="63" key="CommitChangelistDialog2/0.0.1680.1020@0.0.1680.1020" timestamp="1603530391652" />
+    <state x="438" y="63" key="CommitChangelistDialog2/0.0.1680.1020@0.0.1680.1020" timestamp="1603713896011" />
     <state width="304" height="442" key="Diff.GoToChangePopup" timestamp="1602935121620">
       <screen x="0" y="0" width="1680" height="1020" />
     </state>
     <state width="304" height="442" key="Diff.GoToChangePopup/0.0.1680.1020@0.0.1680.1020" timestamp="1602935121620" />
-    <state x="287" y="155" width="863" height="820" maximized="true" key="DiffContextDialog" timestamp="1602935838747">
+    <state x="287" y="155" width="863" height="820" maximized="true" key="DiffContextDialog" timestamp="1603713084793">
       <screen x="0" y="0" width="1680" height="1020" />
     </state>
-    <state x="287" y="155" width="863" height="820" maximized="true" key="DiffContextDialog/0.0.1680.1020@0.0.1680.1020" timestamp="1602935838747" />
-    <state x="620" y="251" key="FileChooserDialogImpl" timestamp="1602935464088">
+    <state x="287" y="155" width="863" height="820" maximized="true" key="DiffContextDialog/0.0.1680.1020@0.0.1680.1020" timestamp="1603713084793" />
+    <state x="620" y="251" key="FileChooserDialogImpl" timestamp="1603716597529">
       <screen x="0" y="0" width="1680" height="1020" />
     </state>
-    <state x="620" y="251" key="FileChooserDialogImpl/0.0.1680.1020@0.0.1680.1020" timestamp="1602935464088" />
+    <state x="620" y="251" key="FileChooserDialogImpl/0.0.1680.1020@0.0.1680.1020" timestamp="1603716597529" />
     <state x="626" y="376" key="Github.CreatePullRequestDialog" timestamp="1602935201899">
       <screen x="0" y="0" width="1680" height="1020" />
     </state>
@@ -396,22 +416,22 @@
       <screen x="0" y="0" width="1680" height="1020" />
     </state>
     <state x="712" y="407" key="Github.ShareDialog/0.0.1680.1020@0.0.1680.1020" timestamp="1602932074224" />
-    <state width="794" height="89" key="GridCell.Tab.0.bottom" timestamp="1603519774260">
+    <state width="816" height="87" key="GridCell.Tab.0.bottom" timestamp="1603717433049">
       <screen x="0" y="0" width="1680" height="1020" />
     </state>
-    <state width="794" height="89" key="GridCell.Tab.0.bottom/0.0.1680.1020@0.0.1680.1020" timestamp="1603519774260" />
-    <state width="794" height="89" key="GridCell.Tab.0.center" timestamp="1603519774260">
+    <state width="816" height="87" key="GridCell.Tab.0.bottom/0.0.1680.1020@0.0.1680.1020" timestamp="1603717433049" />
+    <state width="816" height="87" key="GridCell.Tab.0.center" timestamp="1603717433049">
       <screen x="0" y="0" width="1680" height="1020" />
     </state>
-    <state width="794" height="89" key="GridCell.Tab.0.center/0.0.1680.1020@0.0.1680.1020" timestamp="1603519774260" />
-    <state width="794" height="89" key="GridCell.Tab.0.left" timestamp="1603519774259">
+    <state width="816" height="87" key="GridCell.Tab.0.center/0.0.1680.1020@0.0.1680.1020" timestamp="1603717433049" />
+    <state width="816" height="87" key="GridCell.Tab.0.left" timestamp="1603717433049">
       <screen x="0" y="0" width="1680" height="1020" />
     </state>
-    <state width="794" height="89" key="GridCell.Tab.0.left/0.0.1680.1020@0.0.1680.1020" timestamp="1603519774259" />
-    <state width="794" height="89" key="GridCell.Tab.0.right" timestamp="1603519774260">
+    <state width="816" height="87" key="GridCell.Tab.0.left/0.0.1680.1020@0.0.1680.1020" timestamp="1603717433049" />
+    <state width="816" height="87" key="GridCell.Tab.0.right" timestamp="1603717433049">
       <screen x="0" y="0" width="1680" height="1020" />
     </state>
-    <state width="794" height="89" key="GridCell.Tab.0.right/0.0.1680.1020@0.0.1680.1020" timestamp="1603519774260" />
+    <state width="816" height="87" key="GridCell.Tab.0.right/0.0.1680.1020@0.0.1680.1020" timestamp="1603717433049" />
     <state width="794" height="219" key="GridCell.Tab.1.bottom" timestamp="1603519774255">
       <screen x="0" y="0" width="1680" height="1020" />
     </state>
@@ -428,18 +448,18 @@
       <screen x="0" y="0" width="1680" height="1020" />
     </state>
     <state width="794" height="219" key="GridCell.Tab.1.right/0.0.1680.1020@0.0.1680.1020" timestamp="1603519774255" />
-    <state x="621" y="285" key="RollbackChangesDialog" timestamp="1602932235828">
+    <state x="621" y="285" key="RollbackChangesDialog" timestamp="1603713946803">
       <screen x="0" y="0" width="1680" height="1020" />
     </state>
-    <state x="621" y="285" key="RollbackChangesDialog/0.0.1680.1020@0.0.1680.1020" timestamp="1602932235828" />
-    <state x="365" y="114" key="SettingsEditor" timestamp="1603369259802">
+    <state x="621" y="285" key="RollbackChangesDialog/0.0.1680.1020@0.0.1680.1020" timestamp="1603713946803" />
+    <state x="365" y="114" key="SettingsEditor" timestamp="1603716599120">
       <screen x="0" y="0" width="1680" height="1020" />
     </state>
-    <state x="365" y="114" key="SettingsEditor/0.0.1680.1020@0.0.1680.1020" timestamp="1603369259802" />
-    <state x="800" y="250" key="Vcs.Push.Dialog.v2" timestamp="1603519315327">
+    <state x="365" y="114" key="SettingsEditor/0.0.1680.1020@0.0.1680.1020" timestamp="1603716599120" />
+    <state x="800" y="250" key="Vcs.Push.Dialog.v2" timestamp="1603716641928">
       <screen x="0" y="0" width="1680" height="1020" />
     </state>
-    <state x="800" y="250" key="Vcs.Push.Dialog.v2/0.0.1680.1020@0.0.1680.1020" timestamp="1603519315327" />
+    <state x="800" y="250" key="Vcs.Push.Dialog.v2/0.0.1680.1020@0.0.1680.1020" timestamp="1603716641928" />
     <state x="1053" y="423" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1603369176514">
       <screen x="0" y="0" width="1680" height="1020" />
     </state>
@@ -456,28 +476,30 @@
       <screen x="0" y="0" width="1680" height="1020" />
     </state>
     <state x="1079" y="370" key="git4idea.rebase.GitRebaseDialog/0.0.1680.1020@0.0.1680.1020" timestamp="1602932296613" />
-    <state x="1004" y="406" key="git4idea.remote.GitConfigureRemotesDialog" timestamp="1603369302963">
+    <state x="1004" y="406" key="git4idea.remote.GitConfigureRemotesDialog" timestamp="1603712935082">
       <screen x="0" y="0" width="1680" height="1020" />
     </state>
-    <state x="1004" y="406" key="git4idea.remote.GitConfigureRemotesDialog/0.0.1680.1020@0.0.1680.1020" timestamp="1603369302963" />
-    <state x="503" y="220" width="672" height="678" key="search.everywhere.popup" timestamp="1603527740062">
+    <state x="1004" y="406" key="git4idea.remote.GitConfigureRemotesDialog/0.0.1680.1020@0.0.1680.1020" timestamp="1603712935082" />
+    <state x="503" y="220" width="672" height="678" key="search.everywhere.popup" timestamp="1603709905778">
       <screen x="0" y="0" width="1680" height="1020" />
     </state>
-    <state x="503" y="220" width="672" height="678" key="search.everywhere.popup/0.0.1680.1020@0.0.1680.1020" timestamp="1603527740062" />
+    <state x="503" y="220" width="672" height="678" key="search.everywhere.popup/0.0.1680.1020@0.0.1680.1020" timestamp="1603709905778" />
     <state x="1120" y="359" key="svn.repositoryBrowser" timestamp="1602935433313">
       <screen x="0" y="0" width="1680" height="1020" />
     </state>
     <state x="1120" y="359" key="svn.repositoryBrowser/0.0.1680.1020@0.0.1680.1020" timestamp="1602935433313" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/AAAA$xiangmuxingxi.coverage" NAME="xiangmuxingxi Coverage Results" MODIFIED="1602806541796" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/AAAA$renyuanxingxi.coverage" NAME="renyuanxingxi Coverage Results" MODIFIED="1603350920069" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/AAAA$renyuanxingxiluru.coverage" NAME="renyuanxingxiluru Coverage Results" MODIFIED="1602741509643" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/AAAA$ssssssz.coverage" NAME="ssssssz Coverage Results" MODIFIED="1602827017724" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/辅助/参考" />
     <SUITE FILE_PATH="coverage/AAAA$main.coverage" NAME="main Coverage Results" MODIFIED="1603349100246" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/AAAA$RenYuanXingXi_LuRu.coverage" NAME="RenYuanXingXi_LuRu Coverage Results" MODIFIED="1603368693771" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/AAAA$154.coverage" NAME="154 Coverage Results" MODIFIED="1603692972559" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/辅助/旧" />
     <SUITE FILE_PATH="coverage/AAAA$QiDong.coverage" NAME="QiDong Coverage Results" MODIFIED="1603370477308" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/AAAA$Menu.coverage" NAME="Menu Coverage Results" MODIFIED="1602807008452" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/AAAA$JDmiaosha.coverage" NAME="JDmiaosha Coverage Results" MODIFIED="1603692904830" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/辅助" />
+    <SUITE FILE_PATH="coverage/AAAA$xiangmuxingxi.coverage" NAME="xiangmuxingxi Coverage Results" MODIFIED="1602806541796" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/AAAA$renyuanxingxi.coverage" NAME="renyuanxingxi Coverage Results" MODIFIED="1603350920069" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/AAAA$ssssssz.coverage" NAME="ssssssz Coverage Results" MODIFIED="1602827017724" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/辅助/参考" />
+    <SUITE FILE_PATH="coverage/AAAA$RenYuanXingXi_LuRu.coverage" NAME="RenYuanXingXi_LuRu Coverage Results" MODIFIED="1603715775520" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/AAAA$ShuJuKuCaoZuo.coverage" NAME="ShuJuKuCaoZuo Coverage Results" MODIFIED="1603530336822" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/AAAA$RenYuanXingXi.coverage" NAME="RenYuanXingXi Coverage Results" MODIFIED="1603351095495" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/AAAA$General.coverage" NAME="General Coverage Results" MODIFIED="1602768101297" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />

@@ -13,6 +13,7 @@ class UI_ryxxlr(QDialog):
         self.ui = Ui_Dialog()  # 创建UI对象
         self.ui.setupUi(self)  # 构造UI界面
         self.setWindowTitle('人员信息录入')  # 设置窗体标题
+        self.ui.action_queren.clicked.connect(self.queren_clicked)
         self.Text_RuZhi = DateEdit(self.ui.Text_RuZhi_RiQi)
         self.Text_RuZhi.resize(self.ui.Text_RuZhi_RiQi.width(),self.ui.Text_RuZhi_RiQi.height())
         self.Text_LiZhi = DateEdit(self.ui.Text_HeTong_RiQi)
@@ -42,8 +43,14 @@ class UI_ryxxlr(QDialog):
             self.ui.Text_ChuSheng_RiQi.setDate(year,month,date)
 
 
-        #
-        # self.setWindowFlags(Qt.MSWindowsFixedSizeDialogHint)
+    def queren_clicked(self):
+        sql = {}
+        sql['姓名'] = self.ui.Text_XingMing.text()
+        sql['性别'] = self.ui.Text_XingBie.currentText()
+        sql_Table = '人员信息'+str(tuple(list(sql.keys())))     #列表转元组转字符串
+        values = tuple(list(sql.values()))                    #列表转元组
+        print(sql_Table)
+        print(values)
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)  # 创建一个QApplication，也就是你要开发的软件app

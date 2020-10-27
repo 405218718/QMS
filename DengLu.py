@@ -120,7 +120,7 @@ class dengluUI(QMainWindow):
                 self.main_window.show()
 
             else:
-                QMessageBox.about(self, '提示信息', '用户名或密码错误')
+                QMessageBox.information(self, '提示信息', '用户名或密码错误')
                 return
 
     # 设置按钮

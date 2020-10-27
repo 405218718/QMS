@@ -1,7 +1,7 @@
 import pymysql
 import sys
 from PySide2.QtWidgets import QMainWindow, QApplication, QMessageBox
-from PySide2.QtCore import Qt
+from PySide2.QtCore import Qt, Slot
 from 登陆 import Ui_Form
 from ZhuCaiDan import zhujiemian_UI
 
@@ -51,10 +51,7 @@ class dengluUI(QMainWindow):
         self.ui.tabWidget.setStyleSheet(str)
 
 
-        # 功能键
-        self.ui.denglu_2.clicked.connect(self.denglu_clicked)
-        self.ui.shezhi_2.clicked.connect(self.shezhi_clicked)
-        self.ui.queren.clicked.connect(self.queren_clicked)
+
 
     def mousePressEvent(self, event):
         if event.button() == Qt.LeftButton:
@@ -86,7 +83,9 @@ class dengluUI(QMainWindow):
             QMessageBox.about(self, '提示信息', '连接数据库失败')
             # exit()
 
-    def denglu_clicked(self):
+    #登录按钮
+    @Slot(bool)
+    def on_denglu_2_clicked(self,checked):
         zhanghao = self.ui.zhanghao.text()
         mima = self.ui.mima.text()
         db = self.connect_db()
@@ -124,10 +123,14 @@ class dengluUI(QMainWindow):
                 QMessageBox.about(self, '提示信息', '用户名或密码错误')
                 return
 
-    def shezhi_clicked(self):
+    # 设置按钮
+    @Slot(bool)
+    def on_shezhi_2_clicked(self,checked):
         self.ui.tabWidget.setCurrentIndex(1)
 
-    def queren_clicked(self):
+    # 确认按钮
+    @Slot(bool)
+    def on_queren_clicked(self,checked):
         try:
             self.connect_db()
             file = open('my.ini', 'w')

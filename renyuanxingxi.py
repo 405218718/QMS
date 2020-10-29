@@ -1,7 +1,7 @@
 import sys
 from PySide2.QtCore import Slot
 from PySide2.QtWidgets import QApplication, QMainWindow, QMessageBox
-from General import DuiXiang as DX, DateEdit
+from ShuJuKuCaoZuo import DuiXiang as DX, DateEdit
 from 人员信息 import Ui_renyuanxinxi
 from RenYuanXingXi_LuRu import UI_ryxxlr
 
@@ -27,12 +27,6 @@ class UI_ryxx(QMainWindow):
         self.tab['renyuanxinxi'] = ["部门", "组别", "职位", "工号", "姓名", "性别", "联系电话", "入职日期", "出生日期",
                                     "身份证号码", "地址", "待遇", "调薪日期", "离职日期", "备注"]
         DX.add_tab(self.tab['renyuanxinxi'], self.ui.Text_ShuJuXianShi)
-
-    # 新增按钮
-    @Slot(bool)
-    def on_action_xinzeng_triggered(self, clicked):
-        dlgTableSize = UI_ryxxlr(self)
-        dlgTableSize.show()
 
     # 查询按钮
     @Slot(bool)
@@ -95,7 +89,7 @@ class UI_ryxx(QMainWindow):
                 elif self.Text_QiShi_RiQi.text() == "" and self.Text_JieShu_RiQi.text() != "":
                     L.append('出生日期 <= \'%s\'' % self.Text_JieShu_RiQi.text())
                 else:
-                    QMessageBox.about(self, '提示信息', '日期范围不能为空')
+                    QMessageBox.critical(self, '提示信息', '日期范围不能为空')
                     return
             s = "select * FROM 人员信息 WHERE " + " and ".join(L)
         else:
@@ -106,19 +100,36 @@ class UI_ryxx(QMainWindow):
         # if self.Text_JieShu_RiQi.text() != "":
         #     L.append('RiQi <= %s'% self.Text_JieShu_RiQi.text())
 
-        print(s)
+        # print(s)
         # if self.ui.Text_BuMen.currentText() != "":
         #     text_x = 'BuMen = %s' % self.ui.Text_BuMen.currentText()
-
         # text = 'select * FROM 人员信息;'
-        db = DX()
-        DX.chaxun(db, self.ui.Text_ShuJuXianShi, s, self.tab['renyuanxinxi'])
+        DX.chaxun(DX(), self.ui.Text_ShuJuXianShi, s, self.tab['renyuanxinxi'])
+
+    # 新增按钮
+    @Slot(bool)
+    def on_action_xinzeng_triggered(self, clicked):
+        dlgTableSize = UI_ryxxlr(self)
+        dlgTableSize.show()
+
+    # 修改按钮
+    @Slot(bool)
+    def on_action_xiugai_triggered(self, clicked):
+        dlgTableSize = UI_ryxxlr(self)
+        dlgTableSize.show()
+
+    # 删除按钮
+    @Slot(bool)
+    def on_action_shanchu_triggered(self, clicked):
+        dlgTableSize = UI_ryxxlr(self)
+        dlgTableSize.show()
 
     # 表头设置
     @Slot(bool)
     def on_action_biaotoushezhi_triggered(self, clicked):
-        s = "select * FROM 人员信息; "
-        print(s)
+        sql = 'select * FROM 人员信息;'
+        biaotou = DX.HuoQuZiDuan(DX(),sql)
+        print(biaotou)
 
 
 if __name__ == "__main__":

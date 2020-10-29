@@ -1,6 +1,6 @@
 import sys
-from PySide2.QtCore import Slot, QDate
-from PySide2.QtGui import QRegExpValidator, QFocusEvent
+from PySide2.QtCore import Slot
+from PySide2.QtGui import QRegExpValidator
 from PySide2.QtWidgets import QApplication, QDialog, QMessageBox, QLineEdit
 from ShuJuKuCaoZuo import DuiXiang as DX, DateEdit
 from 人员信息录入 import Ui_Dialog
@@ -42,6 +42,11 @@ class UI_ryxxlr(QDialog):
     #身份证号码变更触发
     @Slot()
     def on_Text_ShenFenZhengHaoMa_editingFinished(self):
+        # if self.ui.Text_ShenFenZhengHaoMa.hasFocus():
+        #     return
+        # else:
+        #     print(2)
+            # self.ui.Text_ShenFenZhengHaoMa.setFocus()  # 获取焦点
         count = self.ui.Text_ShenFenZhengHaoMa.text()
         if len(count) < 18:
             QMessageBox.about(self, '提示信息', '身份证号码需要18位！！！')

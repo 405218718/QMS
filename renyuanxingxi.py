@@ -1,5 +1,4 @@
 import sys
-
 import pymysql
 from PySide2.QtCore import Slot
 from PySide2.QtWidgets import QApplication, QMainWindow, QMessageBox
@@ -127,7 +126,6 @@ class UI_ryxx(QMainWindow):
         jieguo = results[rows - 1]  # 提取最后一个字典
         print(jieguo)
         UI_ryxxlr(self).show()
-
 
     # 删除按钮
     @Slot(bool)

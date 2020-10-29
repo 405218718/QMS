@@ -96,11 +96,14 @@ class DuiXiang:
         获取MySql某个表所有字段名
         sql = 'select * FROM 人员信息;'
         """
+        biaotou = []
         result = self.cur.execute(sql)      #sql = 'select * FROM 人员信息;'
         desc = self.cur.description
         for field in desc:
-            print(field[0])
+            biaotou.append(field[0])
+            # print(field[0])
         self.cur.close()
+        return biaotou
 
         #举例
         # db = DuiXiang().connect_db()
@@ -130,10 +133,12 @@ class DuiXiang:
         rows=cursor.executemany(sql,values)
         """
         db = self.connect_db()
-        sql = 'insert into s% values(%s);'
+        cur = db.cursor()
+        sql = "insert into %s values %s;"
         try:
-            self.cur.execute(sql,(sql_Table,values))   # 执行sql语句
+            cur.execute(sql%(sql_Table,values)) # 执行sql语句
             db.commit() # 提交
+            return 'ok'
         except Exception as e:
             db.rollback()   # 错误回滚
         finally:
@@ -156,9 +161,10 @@ class DuiXiang:
         cur = db.cursor()
         sql_update = "update %s set %s where %s"
         try:
-            cur.execute(sql_update , (sql_Table,values,condition))
+            cur.execute(sql_update%(sql_Table,sql_Table,values))
             # 提交
             db.commit()
+            return 'OK'
         except Exception as e:
             # 错误回滚
             db.rollback()
@@ -187,6 +193,7 @@ class DuiXiang:
             cur.execute(sql_delete,(sql_Table,condition))
             # 提交
             db.commit()
+            return 'OK'
         except Exception as e:
             # 错误回滚
             db.rollback()

@@ -1,4 +1,6 @@
 import sys
+
+import pymysql
 from PySide2.QtCore import Slot
 from PySide2.QtWidgets import QApplication, QMainWindow, QMessageBox
 from ShuJuKuCaoZuo import DuiXiang as DX, DateEdit
@@ -115,8 +117,17 @@ class UI_ryxx(QMainWindow):
     # 修改按钮
     @Slot(bool)
     def on_action_xiugai_triggered(self, clicked):
-        dlgTableSize = UI_ryxxlr(self)
-        dlgTableSize.show()
+        row = self.ui.Text_ShuJuXianShi.currentRow()    # currentRow当前行号,currentColumn当前列号
+        text = self.ui.Text_ShuJuXianShi.item(row, 3).text()   # 读取表格相对位置文本
+        db = DX.connect_db(DX())
+        cur = db.cursor(pymysql.cursors.DictCursor)     # 使用字典类型输出
+        sql_update = "select * FROM 人员信息 WHERE 工号 = %s"
+        rows = cur.execute(sql_update, text)  # 条数
+        results = cur.fetchall()  # 查询到的字典组数
+        jieguo = results[rows - 1]  # 提取最后一个字典
+        print(jieguo)
+        UI_ryxxlr(self).show()
+
 
     # 删除按钮
     @Slot(bool)

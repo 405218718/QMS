@@ -1,6 +1,7 @@
 import sys
-from PySide2.QtCore import Slot
-from PySide2.QtWidgets import QApplication, QDialog, QMessageBox
+from PySide2.QtCore import Slot, QDate
+from PySide2.QtGui import QRegExpValidator, QFocusEvent
+from PySide2.QtWidgets import QApplication, QDialog, QMessageBox, QLineEdit
 from ShuJuKuCaoZuo import DuiXiang as DX, DateEdit
 from 人员信息录入 import Ui_Dialog
 
@@ -12,8 +13,6 @@ class UI_ryxxlr(QDialog):
         self.ui = Ui_Dialog()  # 创建UI对象
         self.ui.setupUi(self)  # 构造UI界面
         self.setWindowTitle('人员信息录入')  # 设置窗体标题
-        self.Text_ChuSheng = DateEdit(self.ui.Text_ChuSheng_RiQi)
-        self.Text_ChuSheng.resize(self.ui.Text_ChuSheng_RiQi.width(), self.ui.Text_ChuSheng_RiQi.height())
         self.Text_RuZhi = DateEdit(self.ui.Text_RuZhi_RiQi)
         self.Text_RuZhi.resize(self.ui.Text_RuZhi_RiQi.width(), self.ui.Text_RuZhi_RiQi.height())
         self.Text_HeTong = DateEdit(self.ui.Text_HeTong_RiQi)
@@ -23,22 +22,41 @@ class UI_ryxxlr(QDialog):
         self.Text_LiZhi = DateEdit(self.ui.Text_LiZhi_RiQi)
         self.Text_LiZhi.resize(self.ui.Text_LiZhi_RiQi.width(), self.ui.Text_LiZhi_RiQi.height())
 
-    # @Slot(bool)
-    # def on_Text_ShenFenZhengHaoMa_valueChanged(self,count):
-    #     print(1)
-    #     if len(count)<18:
-    #         QMessageBox.about(self, '提示信息', '身份证号码超过18位')
-    #     else:
-    #         year = count[6:10] // 出生年份
-    #         month = count[10:12] // 出生月份
-    #         date = count[12:14] // 出生日
-    #         sex = count[16:17] // 判断性别
-    #         sex = int(sex)
-    #         if sex % 2:
-    #             self.ui.Text_XingBie.setText("男")
-    #         else:
-    #             self.ui.Text_XingBie.setText("女")
-    #         self.ui.Text_ChuSheng_RiQi.setDate(year,month,date)
+        #限制输入
+        regx1 = ("[a-zA-Z0-9.-]+$")  #限制输入数值+字母+"."+"-"
+        # regx2 = ("[0-9.]+$")  # 限制输入数值+“.”
+        regx3 = ("[0-9]+$")  # 限制输入数值
+        regx4 = ("[X0-9]+$")  # 限制输入数值+字母"X"
+        # self.ui.Text_GongHao.setMaxLength(128)  #限制输入长度, 最大为128
+        self.ui.Text_GongHao.setValidator(QRegExpValidator(regx1,self.ui.Text_GongHao))
+        self.ui.Text_GongZuoNianFen.setValidator(QRegExpValidator(regx3,self.ui.Text_GongHao))
+        self.ui.Text_LianXiDianHua.setValidator(QRegExpValidator(regx3, self.ui.Text_GongHao))
+        self.ui.Text_JinJiLianXiHaoMa.setValidator(QRegExpValidator(regx3, self.ui.Text_GongHao))
+        self.ui.Text_ShenFenZhengHaoMa.setValidator(QRegExpValidator(regx4, self.ui.Text_GongHao))
+
+
+    def yincang(self):
+        self.ui.Text_ShenFenZhengHaoMa.setEchoMode(QLineEdit.NoEcho)    #NoEcho任何输入都看不见,Normal默认，Password密码,
+        # PasswordEchoOnEdit编辑时输入字符显示输入内容,否则用小黑点代替,NoEcho任何输入都看不见（只是看不见，不是不能输入）
+
+    #身份证号码变更触发
+    @Slot()
+    def on_Text_ShenFenZhengHaoMa_editingFinished(self):
+        count = self.ui.Text_ShenFenZhengHaoMa.text()
+        if len(count) < 18:
+            QMessageBox.about(self, '提示信息', '身份证号码需要18位！！！')
+            self.ui.Text_ShenFenZhengHaoMa.setFocus()   # 获取焦点
+        else:
+            year = count[6:10]   # 出生年份
+            month = count[10:12]     # 出生月份
+            date = count[12:14]     # 出生日
+            sex = count[16:17]  # 判断性别
+            sex = int(sex)
+            if sex % 2 == 0:
+                self.ui.Text_XingBie.setEditText('女')
+            else:
+                self.ui.Text_XingBie.setEditText('男')
+            self.ui.Text_ChuSheng_RiQi.setText(year+'/'+month+'/'+date)
 
 
     #确认按钮
@@ -63,7 +81,7 @@ class UI_ryxxlr(QDialog):
         sql['地址'] = self.ui.Text_DiZhi.text()
         sql['紧急联系人'] = self.ui.Text_JinJiLianXiRen.text()
         sql['紧急联系人电话'] = self.ui.Text_JinJiLianXiHaoMa.text()
-        sql['出生日期'] = self.Text_ChuSheng.text()
+        sql['出生日期'] = self.ui.Text_ChuSheng_RiQi.text()
         sql['合同日期'] = self.Text_HeTong.text()
         for key in list(sql.keys()):
             if not sql.get(key):

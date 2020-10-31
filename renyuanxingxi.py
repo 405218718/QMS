@@ -105,27 +105,30 @@ class UI_ryxx(QMainWindow):
         # if self.ui.Text_BuMen.currentText() != "":
         #     text_x = 'BuMen = %s' % self.ui.Text_BuMen.currentText()
         # text = 'select * FROM 人员信息;'
-        DX.chaxun(DX(), self.ui.Text_ShuJuXianShi, s, self.tab['renyuanxinxi'])
+        DX().chaxun(self.ui.Text_ShuJuXianShi, s, self.tab['renyuanxinxi'])
 
     # 新增按钮
     @Slot(bool)
     def on_action_xinzeng_triggered(self, clicked):
         dlgTableSize = UI_ryxxlr(self)
-        dlgTableSize.show()
+        dlgTableSize.exec_()
 
     # 修改按钮
     @Slot(bool)
     def on_action_xiugai_triggered(self, clicked):
         row = self.ui.Text_ShuJuXianShi.currentRow()    # currentRow当前行号,currentColumn当前列号
         text = self.ui.Text_ShuJuXianShi.item(row, 3).text()   # 读取表格相对位置文本
-        db = DX.connect_db(DX())
+        db = DX().connect_db()
         cur = db.cursor(pymysql.cursors.DictCursor)     # 使用字典类型输出
         sql_update = "select * FROM 人员信息 WHERE 工号 = %s"
         rows = cur.execute(sql_update, text)  # 条数
         results = cur.fetchall()  # 查询到的字典组数
         jieguo = results[rows - 1]  # 提取最后一个字典
+        UI_ryxxlr().xiugai(jieguo)
+        UI_ryxxlr(self).exec_()
+
         print(jieguo)
-        UI_ryxxlr(self).show()
+
 
     # 删除按钮
     @Slot(bool)

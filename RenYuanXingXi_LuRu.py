@@ -39,7 +39,7 @@ class UI_ryxxlr(QDialog):
         self.ui.Text_ShenFenZhengHaoMa.setEchoMode(QLineEdit.NoEcho)    #NoEcho任何输入都看不见,Normal默认，Password密码,
         # PasswordEchoOnEdit编辑时输入字符显示输入内容,否则用小黑点代替,NoEcho任何输入都看不见（只是看不见，不是不能输入）
 
-    #身份证号码变更触发
+    # 身份证号码变更触发
     @Slot()
     def on_Text_ShenFenZhengHaoMa_editingFinished(self):
         # if self.ui.Text_ShenFenZhengHaoMa.hasFocus():
@@ -64,7 +64,7 @@ class UI_ryxxlr(QDialog):
             self.ui.Text_ChuSheng_RiQi.setText(year+'/'+month+'/'+date)
 
 
-    #确认按钮
+    # 确认按钮
     @Slot(bool)
     def on_action_queren_clicked(self,checked):
         sql = {}
@@ -144,12 +144,17 @@ class UI_ryxxlr(QDialog):
         else:
             pass
 
+    # 修改功能
+    def xiugai(self, sql: dict):
+        self.ui.Text_XingMing.setText(sql['姓名'])
+
+        
 
 
 
 
-if __name__ == "__main__":
-    app = QApplication(sys.argv)  # 创建一个QApplication，也就是你要开发的软件app
-    form = UI_ryxxlr()  # ui是Ui_MainWindow()类的实例化对象
-    form.show()  # 执行QMainWindow的show()方法，显示这个QMainWindow
-    sys.exit(app.exec_())  # 使用exit()或者点击关闭按钮退出QApplication
+# if __name__ == "__main__":
+#     app = QApplication(sys.argv)  # 创建一个QApplication，也就是你要开发的软件app
+#     form = UI_ryxxlr()  # ui是Ui_MainWindow()类的实例化对象
+#     form.show()  # 执行QMainWindow的show()方法，显示这个QMainWindow
+#     sys.exit(app.exec_())  # 使用exit()或者点击关闭按钮退出QApplication

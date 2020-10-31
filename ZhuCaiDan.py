@@ -73,8 +73,7 @@ class zhujiemian_UI(QMainWindow):
         self.ui.ZhuCaiDan.setCurrentIndex(0)  # 显示第一个选项卡
         self.ui.ZhuCaiDan.setTabsClosable(True)  # 所有选项加上关闭按钮
         self.ui.ZhuCaiDan.tabBar().setTabButton(0, QTabBar.RightSide, None)  # 第一项去掉关闭按钮
-        self.ui.ZhuCaiDan.tabCloseRequested.connect(
-            self.close_tab)  # ZhuCaiDan(页)关闭函数取消
+        self.ui.ZhuCaiDan.tabCloseRequested.connect(self.close_tab)  # ZhuCaiDan(页)关闭函数取消
 
         # self.setWindowState(Qt.WindowMaximized)  # 窗口最大化显示
 

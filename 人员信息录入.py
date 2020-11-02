@@ -20,7 +20,7 @@ class Ui_Dialog(object):
     def setupUi(self, Dialog):
         if not Dialog.objectName():
             Dialog.setObjectName(u"Dialog")
-        Dialog.resize(635, 363)
+        Dialog.resize(634, 363)
         sizePolicy = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -108,6 +108,7 @@ class Ui_Dialog(object):
         self.Text_LianXiDianHua.setGeometry(QRect(80, 100, 121, 21))
         self.Text_LianXiDianHua.setLayoutDirection(Qt.LeftToRight)
         self.Text_LianXiDianHua.setAutoFillBackground(False)
+        self.Text_LianXiDianHua.setMaxLength(11)
         self.Text_LianXiDianHua.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
         self.label_9 = QLabel(Dialog)
         self.label_9.setObjectName(u"label_9")
@@ -162,6 +163,7 @@ class Ui_Dialog(object):
         self.Text_ShenFenZhengHaoMa.setGeometry(QRect(100, 190, 291, 21))
         self.Text_ShenFenZhengHaoMa.setLayoutDirection(Qt.LeftToRight)
         self.Text_ShenFenZhengHaoMa.setAutoFillBackground(False)
+        self.Text_ShenFenZhengHaoMa.setMaxLength(18)
         self.Text_ShenFenZhengHaoMa.setAlignment(Qt.AlignLeading|Qt.AlignLeft|Qt.AlignVCenter)
         self.Text_DiZhi = QLineEdit(Dialog)
         self.Text_DiZhi.setObjectName(u"Text_DiZhi")
@@ -220,9 +222,6 @@ class Ui_Dialog(object):
         self.Text_DaiYu.setGeometry(QRect(50, 160, 121, 22))
         self.Text_DaiYu.setDecimals(2)
         self.Text_DaiYu.setMaximum(999999999.990000009536743)
-        self.widget = QWidget(Dialog)
-        self.widget.setObjectName(u"widget")
-        self.widget.setGeometry(QRect(390, 0, 241, 251))
         self.Text_LiZhi_RiQi = QLineEdit(Dialog)
         self.Text_LiZhi_RiQi.setObjectName(u"Text_LiZhi_RiQi")
         self.Text_LiZhi_RiQi.setGeometry(QRect(270, 250, 121, 21))
@@ -244,6 +243,9 @@ class Ui_Dialog(object):
         self.label_19.setObjectName(u"label_19")
         self.label_19.setGeometry(QRect(200, 250, 71, 21))
         self.label_19.setFont(font1)
+        self.Text_TuPian = QLabel(Dialog)
+        self.Text_TuPian.setObjectName(u"Text_TuPian")
+        self.Text_TuPian.setGeometry(QRect(400, 10, 231, 231))
         QWidget.setTabOrder(self.Text_XingMing, self.Text_RuZhi_RiQi)
         QWidget.setTabOrder(self.Text_RuZhi_RiQi, self.Text_BuMen)
         QWidget.setTabOrder(self.Text_BuMen, self.Text_ZuBie)
@@ -332,5 +334,6 @@ class Ui_Dialog(object):
         self.Text_HeTong_RiQi.setInputMask("")
         self.Text_HeTong_RiQi.setText("")
         self.label_19.setText(QCoreApplication.translate("Dialog", u"\u79bb\u804c\u65e5\u671f:", None))
+        self.Text_TuPian.setText("")
     # retranslateUi
 

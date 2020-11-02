@@ -1,9 +1,12 @@
 import sys
-from PySide2.QtCore import Slot
-from PySide2.QtGui import QRegExpValidator
+import time
+import cv2
+from PySide2.QtCore import Slot, QTimer
+from PySide2.QtGui import QRegExpValidator, QImage, QPixmap
 from PySide2.QtWidgets import QApplication, QDialog, QMessageBox, QLineEdit
 from ShuJuKuCaoZuo import DuiXiang as DX, DateEdit
 from 人员信息录入 import Ui_Dialog
+
 
 
 class UI_ryxxlr(QDialog):
@@ -12,6 +15,9 @@ class UI_ryxxlr(QDialog):
         self.ui = Ui_Dialog()  # 创建UI对象
         self.ui.setupUi(self)  # 构造UI界面
         self.setWindowTitle('人员信息录入')  # 设置窗体标题
+        self.cap = cv2.VideoCapture()   # 准备获取图像
+        self.CAM_NUM = 0                # 摄像头序号
+        self.timer_camera = QTimer()  # 定时器
         self.Text_RuZhi = DateEdit(self.ui.Text_RuZhi_RiQi)
         self.Text_RuZhi.resize(self.ui.Text_RuZhi_RiQi.width(), self.ui.Text_RuZhi_RiQi.height())
         self.Text_HeTong = DateEdit(self.ui.Text_HeTong_RiQi)
@@ -167,10 +173,38 @@ class UI_ryxxlr(QDialog):
         xiugai_ui.Text_TiaoXin.setFocus()       # 调薪日期获得焦点
         xiugai_ui.exec_()
 
+    # 打开相机
+    @Slot(bool)
+    def on_action_dakaixiangji_clicked(self, checked):
+        if self.timer_camera.isActive() == False:
+            flag = self.cap.open(self.CAM_NUM)
+            if flag == False:
+                QMessageBox.warning(self, u"Warning", u"请检测相机与电脑是否连接正确")
+        else:
+            self.timer_camera.start(30)
+
+        print(1)
 
 
-        
+    # 拍照
+    @Slot(bool)
+    def on_action_paizhao_clicked(self, checked):
+        if self.timer_camera.isActive() != False:
+            now_time = time.strftime('%Y-%m-%d-%H-%M-%S',time.localtime(time.time()))
+            print(now_time)
+            cv2.imwrite('QMS_'+str(now_time)+'.png',self.image)
 
+            cv2.putText(self.image, 'The picture have saved !',
+                        (int(self.image.shape[1]/2-130), int(self.image.shape[0]/2)),
+                        cv2.FONT_HERSHEY_SCRIPT_COMPLEX,
+                        1.0, (255, 0, 0), 1)
+
+            self.timer_camera.stop()
+
+            show = cv2.cvtColor(self.image, cv2.COLOR_BGR2RGB)  # 左右翻转
+            showImage = QImage(show.data, show.shape[1], show.shape[0], QImage.Format_RGB888)
+            self.ui.Text_TuPian.setPixmap(QPixmap.fromImage(showImage))
+            self.ui.Text_TuPian.setScaledContents(True)
 
 
 

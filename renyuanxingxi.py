@@ -6,6 +6,7 @@ from ShuJuKuCaoZuo import DuiXiang as DX, DateEdit
 from 人员信息 import Ui_renyuanxinxi
 from RenYuanXingXi_LuRu import UI_ryxxlr
 
+# 数据库切换 connect_db.select_db('库名')
 class UI_ryxx(QMainWindow):
     def __init__(self, parent=None):
         super().__init__(parent)  # 调用父类构造函数，创建窗体
@@ -125,9 +126,6 @@ class UI_ryxx(QMainWindow):
         results = cur.fetchall()  # 查询到的字典组数
         jieguo = results[rows - 1]  # 提取最后一个字典
         UI_ryxxlr().xiugai(jieguo)
-        UI_ryxxlr(self).exec_()
-
-        print(jieguo)
 
 
     # 删除按钮

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>635</width>
+    <width>634</width>
     <height>363</height>
    </rect>
   </property>
@@ -831,16 +831,6 @@
     <double>999999999.990000009536743</double>
    </property>
   </widget>
-  <widget class="QWidget" name="widget" native="true">
-   <property name="geometry">
-    <rect>
-     <x>390</x>
-     <y>0</y>
-     <width>241</width>
-     <height>251</height>
-    </rect>
-   </property>
-  </widget>
   <widget class="QLineEdit" name="Text_LiZhi_RiQi">
    <property name="geometry">
     <rect>
@@ -930,6 +920,19 @@
    </property>
    <property name="text">
     <string>离职日期:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="Text_TuPian">
+   <property name="geometry">
+    <rect>
+     <x>400</x>
+     <y>10</y>
+     <width>231</width>
+     <height>231</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
    </property>
   </widget>
  </widget>

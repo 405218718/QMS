@@ -6,7 +6,6 @@ from ShuJuKuCaoZuo import DuiXiang as DX, DateEdit
 from 人员信息录入 import Ui_Dialog
 
 
-
 class UI_ryxxlr(QDialog):
     def __init__(self, parent=None):
         super().__init__(parent)  # 调用父类构造函数，创建窗体
@@ -34,7 +33,7 @@ class UI_ryxxlr(QDialog):
         self.ui.Text_JinJiLianXiHaoMa.setValidator(QRegExpValidator(regx3, self.ui.Text_GongHao))
         self.ui.Text_ShenFenZhengHaoMa.setValidator(QRegExpValidator(regx4, self.ui.Text_GongHao))
 
-
+    # 隐藏
     def yincang(self):
         self.ui.Text_ShenFenZhengHaoMa.setEchoMode(QLineEdit.NoEcho)    #NoEcho任何输入都看不见,Normal默认，Password密码,
         # PasswordEchoOnEdit编辑时输入字符显示输入内容,否则用小黑点代替,NoEcho任何输入都看不见（只是看不见，不是不能输入）
@@ -62,7 +61,6 @@ class UI_ryxxlr(QDialog):
             else:
                 self.ui.Text_XingBie.setEditText('男')
             self.ui.Text_ChuSheng_RiQi.setText(year+'/'+month+'/'+date)
-
 
     # 确认按钮
     @Slot(bool)
@@ -146,15 +144,38 @@ class UI_ryxxlr(QDialog):
 
     # 修改功能
     def xiugai(self, sql: dict):
-        self.ui.Text_XingMing.setText(sql['姓名'])
+        xiugai_ui = UI_ryxxlr(self)
+        xiugai_ui.ui.Text_XingMing.setText(sql['姓名'])
+        xiugai_ui.ui.Text_XingBie.setCurrentText(sql['性别'])
+        xiugai_ui.ui.Text_BuMen.setText(sql['部门'])
+        xiugai_ui.ui.Text_GongHao.setText(sql['工号'])
+        xiugai_ui.ui.Text_ZuBie.setText(sql['组别'])
+        xiugai_ui.ui.Text_ZhiWei.setText(sql['职位'])
+        xiugai_ui.ui.Text_LianXiDianHua.setText(sql['联系电话'])
+        xiugai_ui.ui.Text_ShenFenZhengHaoMa.setText(sql['身份证号码'])
+        xiugai_ui.Text_RuZhi.setSpecialValueText(sql['入职日期'])
+        xiugai_ui.ui.Text_DaiYu.setSpecialValueText(sql['待遇'])
+        xiugai_ui.ui.Text_GongHao.setText(sql['密码'])
+        xiugai_ui.ui.Text_DiZhi.setText(sql['地址'])
+        xiugai_ui.ui.Text_JinJiLianXiRen.setText(sql['紧急联系人'])
+        xiugai_ui.ui.Text_JinJiLianXiHaoMa.setText(sql['紧急联系人电话'])
+        xiugai_ui.ui.Text_ChuSheng_RiQi.setText(sql['出生日期'])
+        xiugai_ui.Text_HeTong.setSpecialValueText(sql['合同日期'])
+        xiugai_ui.Text_TiaoXin.setSpecialValueText(sql['调薪日期'])
+        xiugai_ui.Text_LiZhi.setSpecialValueText(sql['离职日期'])
+        xiugai_ui.ui.Text_BeiZhu.setText(sql['备注'])
+        xiugai_ui.Text_TiaoXin.setFocus()       # 调薪日期获得焦点
+        xiugai_ui.exec_()
+
+
 
         
 
 
 
 
-# if __name__ == "__main__":
-#     app = QApplication(sys.argv)  # 创建一个QApplication，也就是你要开发的软件app
-#     form = UI_ryxxlr()  # ui是Ui_MainWindow()类的实例化对象
-#     form.show()  # 执行QMainWindow的show()方法，显示这个QMainWindow
-#     sys.exit(app.exec_())  # 使用exit()或者点击关闭按钮退出QApplication
+if __name__ == "__main__":
+    app = QApplication(sys.argv)  # 创建一个QApplication，也就是你要开发的软件app
+    form = UI_ryxxlr()  # ui是Ui_MainWindow()类的实例化对象
+    form.show()  # 执行QMainWindow的show()方法，显示这个QMainWindow
+    sys.exit(app.exec_())  # 使用exit()或者点击关闭按钮退出QApplication

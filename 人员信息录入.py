@@ -246,6 +246,12 @@ class Ui_Dialog(object):
         self.Text_TuPian = QLabel(Dialog)
         self.Text_TuPian.setObjectName(u"Text_TuPian")
         self.Text_TuPian.setGeometry(QRect(400, 10, 231, 231))
+        sizePolicy1 = QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.Text_TuPian.sizePolicy().hasHeightForWidth())
+        self.Text_TuPian.setSizePolicy(sizePolicy1)
+        self.Text_TuPian.setStyleSheet(u"background-color: rgb(170, 255, 255);")
         QWidget.setTabOrder(self.Text_XingMing, self.Text_RuZhi_RiQi)
         QWidget.setTabOrder(self.Text_RuZhi_RiQi, self.Text_BuMen)
         QWidget.setTabOrder(self.Text_BuMen, self.Text_ZuBie)
@@ -334,6 +340,6 @@ class Ui_Dialog(object):
         self.Text_HeTong_RiQi.setInputMask("")
         self.Text_HeTong_RiQi.setText("")
         self.label_19.setText(QCoreApplication.translate("Dialog", u"\u79bb\u804c\u65e5\u671f:", None))
-        self.Text_TuPian.setText("")
+        self.Text_TuPian.setText(QCoreApplication.translate("Dialog", u"<html><head/><body><p align=\"center\"><span style=\" font-size:18pt;\">\u70b9\u51fb\u6253\u5f00\u6444\u50cf\u5934</span></p></body></html>", None))
     # retranslateUi
 

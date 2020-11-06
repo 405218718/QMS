@@ -1,6 +1,7 @@
 import sys
 import time
 import cv2
+import pymysql
 from PySide2.QtCore import Slot, QTimer
 from PySide2.QtGui import QRegExpValidator, QImage, QPixmap
 from PySide2.QtWidgets import QApplication, QDialog, QMessageBox, QLineEdit
@@ -72,10 +73,10 @@ class UI_ryxxlr(QDialog):
 
     # 确认按钮
     @Slot(bool)
-    def on_action_queren_clicked(self,checked):
+    def on_action_queren_clicked(self, checked):
         sql = {}
         """['ID', '部门', '组别', '职位', '工号', '姓名', '性别', '联系电话', '入职日期', '离职日期', '待遇',
-         '出生日期', '身份证号码', '地址', '密码', '紧急联系人', '紧急联系人电话', '调薪日期', '备注']
+         '出生日期', '身份证号码', '地址', '密码', '紧急联系人', '紧急联系人电话', '调薪日期', '入职照片', '备注']
          """
         sql['姓名'] = self.ui.Text_XingMing.text()
         sql['性别'] = self.ui.Text_XingBie.currentText()
@@ -94,22 +95,28 @@ class UI_ryxxlr(QDialog):
         sql['紧急联系人电话'] = self.ui.Text_JinJiLianXiHaoMa.text()
         sql['出生日期'] = self.ui.Text_ChuSheng_RiQi.text()
         sql['合同日期'] = self.Text_HeTong.text()
-        for key in list(sql.keys()):
-            if not sql.get(key):
-                QMessageBox.warning(self, '提示信息', key+'不能为空')
-                break
-        else:
-            sql['调薪日期'] = self.Text_TiaoXin.text()
-            sql['离职日期'] = self.Text_LiZhi.text()
-            sql['备注'] = self.ui.Text_BeiZhu.text()
-            sql_Table = '人员信息' + str(tuple(list(sql.keys()))).replace('\'','')  # 列表转元组转字符串，再删除引号
-            values = tuple(list(sql.values()))  # 列表转元组
-            if DX.XinZeng(DX(),sql_Table,values) == 'ok':       #数据添加成功
-                QMessageBox.information(self, '提示信息', '操作成功!')
-                sql.clear()
-                self.close()
-            else:
-                QMessageBox.information(self, '提示信息', '操作失败!')
+
+        # for key in list(sql.keys()):
+        #     if not sql.get(key):
+        #         QMessageBox.warning(self, '提示信息', key+'不能为空')
+        #         break
+        # else:
+
+        sql['调薪日期'] = self.Text_TiaoXin.text()
+        sql['离职日期'] = self.Text_LiZhi.text()
+        sql['备注'] = self.ui.Text_BeiZhu.text()
+        sql['入职照片'] = (self.TuPian)
+        sql_Table = '人员信息' + str(tuple(list(sql.keys()))).replace('\'','')  # 列表转元组转字符串，再删除引号
+        print(sql_Table)
+        values = tuple(list(sql.values()))   # 列表转元组
+        values = values[0:(len(values)-1)]
+        print(values)
+        # if DX.XinZeng(DX(),sql_Table,values) == 'ok':       #数据添加成功
+        #     QMessageBox.information(self, '提示信息', '操作成功!')
+        #     sql.clear()
+        #     self.close()
+        # else:
+        #     QMessageBox.information(self, '提示信息', '操作失败!')
 
     # 重置按钮
     @Slot(bool)
@@ -178,22 +185,19 @@ class UI_ryxxlr(QDialog):
     # 打开相机
     @Slot(bool)
     def on_action_dakaixiangji_clicked(self, checked):
-        if self.timer_camera.isActive() == False:
+        if not self.timer_camera.isActive():
             flag = self.cap.open(self.CAM_NUM)
             if flag == False:
                 msg = QMessageBox.warning(
-                    self, u"Warning", u"请检测相机与电脑是否连接正确",
+                    self, u"提示信息", u"请检测相机与电脑是否连接正确",
                     buttons=QMessageBox.Ok,
                     defaultButton=QMessageBox.Ok)
             else:
                 self.timer_camera.start(30)
 
-
-        print(1)
-
     def show_camera(self):
         flag, self.image = self.cap.read()
-        self.image=cv2.flip(self.image, 1,1)  # 左右翻转
+        self.image = cv2.flip(self.image, 1, dst=None)  # 左右翻转
         show = cv2.cvtColor(self.image, cv2.COLOR_BGR2RGB)
         showImage = QImage(show.data, show.shape[1], show.shape[0], QImage.Format_RGB888)
         self.ui.Text_TuPian.setPixmap(QPixmap.fromImage(showImage))
@@ -202,25 +206,26 @@ class UI_ryxxlr(QDialog):
     # 拍照
     @Slot(bool)
     def on_action_paizhao_clicked(self, checked):
-        if self.timer_camera.isActive() != False:
-            now_time = time.strftime('%Y-%m-%d-%H-%M-%S',time.localtime(time.time()))
-            print(now_time)
-            cv2.imwrite('pic_'+str(now_time)+'.png',self.image)
-            cv2.putText(self.image, 'The picture have saved !',
+        if self.timer_camera.isActive():
+            now_time = time.strftime('%Y%m%d%H%M%S',time.localtime(time.time()))
+            # cv2.imwrite('QMS_'+str(now_time)+'.png',self.image)     # 保存命名和图像
+            cv2.putText(self.image, str(now_time),
                         (int(self.image.shape[1]/2-130), int(self.image.shape[0]-10)),
-                        cv2.FONT_HERSHEY_SCRIPT_COMPLEX,
-                        1.0, (255, 255, 255), 1)
-            self.timer_camera.stop()
+                        cv2.FONT_HERSHEY_DUPLEX,
+                        1.0, (255, 255, 255), 1)    # 图片对象、文本、像素、字体、字体大小、颜色、字体粗细
+            self.timer_camera.stop()    # 暂停定时器
             show = cv2.cvtColor(self.image, cv2.COLOR_BGR2RGB)
             showImage = QImage(show.data, show.shape[1], show.shape[0], QImage.Format_RGB888)
             self.ui.Text_TuPian.setPixmap(QPixmap.fromImage(showImage))
             self.ui.Text_TuPian.setScaledContents(True)
+            self.TuPian = pymysql.Binary(self.image)
+            # print(self.TuPian)
             if self.cap.isOpened():
                 self.cap.release()  # 释放摄像头
-            if self.timer_camera.isActive():
-                self.timer_camera.stop()    # 暂停定时器
+            # if self.timer_camera.isActive():
+            #     self.timer_camera.stop()      # 暂停定时器
 
-        print(2)
+
 
 
 if __name__ == "__main__":

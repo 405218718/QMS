@@ -92,6 +92,7 @@ class dengluUI(QMainWindow):
         # 获取游标
         cur = db.cursor(pymysql.cursors.DictCursor)  # 使用字典类型输出
         sql_renyuan = "select * FROM 人员信息 WHERE 工号 = %s"
+        # select * from AAAA limit 10 order by BBBB desc   查询AAAA字段10条记录，依据BBBB字段asc是表示升序，desc表示降序
         rows = cur.execute(sql_renyuan, zhanghao)  # 条数
         if rows == 0:
             QMessageBox.about(self, '提示信息', '用户名或密码错误')

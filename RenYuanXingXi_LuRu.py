@@ -1,14 +1,17 @@
+import os
 import sys
 import time
 import cv2
-import pymysql
-from PySide2.QtCore import Slot, QTimer
+from PySide2.QtCore import Slot, QTimer, QDate
 from PySide2.QtGui import QRegExpValidator, QImage, QPixmap
 from PySide2.QtWidgets import QApplication, QDialog, QMessageBox, QLineEdit
 from ShuJuKuCaoZuo import DuiXiang as DX, DateEdit
 from 人员信息录入 import Ui_Dialog
 
 
+"""
+使用此界面需先设置指定存放图片的路径\\image_rs
+"""
 
 class UI_ryxxlr(QDialog):
     def __init__(self, parent=None):
@@ -20,6 +23,11 @@ class UI_ryxxlr(QDialog):
         self.cap = cv2.VideoCapture()   # 准备获取图像
         self.CAM_NUM = 0                # 摄像头序号
         self.timer_camera.timeout.connect(self.show_camera)     # 定时器不未O时执行
+
+        # os.getcwd()   # 工作的目录路径
+        self.MuLu = "E:\\QMS\\" + "image_rs"    # 存放路径
+        if not os.path.exists(self.MuLu):       # 检查路径是否存在
+            os.mkdir("E:\\QMS\\" + "image_rs")  # 创建目录
 
         self.Text_RuZhi = DateEdit(self.ui.Text_RuZhi_RiQi)
         self.Text_RuZhi.resize(self.ui.Text_RuZhi_RiQi.width(), self.ui.Text_RuZhi_RiQi.height())
@@ -96,27 +104,30 @@ class UI_ryxxlr(QDialog):
         sql['出生日期'] = self.ui.Text_ChuSheng_RiQi.text()
         sql['合同日期'] = self.Text_HeTong.text()
 
-        # for key in list(sql.keys()):
-        #     if not sql.get(key):
-        #         QMessageBox.warning(self, '提示信息', key+'不能为空')
-        #         break
-        # else:
+        lujing = self.MuLu + "\\" + time.strftime('%Y')  # 工作的目录路径+文件夹+文件名=存放路径
+        if not os.path.exists(lujing):  # 检查路径是否存在
+            os.mkdir(self.MuLu + "\\" + time.strftime('%Y'))  # 创建目录
 
-        sql['调薪日期'] = self.Text_TiaoXin.text()
-        sql['离职日期'] = self.Text_LiZhi.text()
-        sql['备注'] = self.ui.Text_BeiZhu.text()
-        sql['入职照片'] = (self.TuPian)
-        sql_Table = '人员信息' + str(tuple(list(sql.keys()))).replace('\'','')  # 列表转元组转字符串，再删除引号
-        print(sql_Table)
-        values = tuple(list(sql.values()))   # 列表转元组
-        values = values[0:(len(values)-1)]
-        print(values)
-        # if DX.XinZeng(DX(),sql_Table,values) == 'ok':       #数据添加成功
-        #     QMessageBox.information(self, '提示信息', '操作成功!')
-        #     sql.clear()
-        #     self.close()
-        # else:
-        #     QMessageBox.information(self, '提示信息', '操作失败!')
+        sql['入职照片'] = lujing + '\\QMS_rs_' + str(self.now_time) + '.jpg'
+        for key in list(sql.keys()):
+            if not sql.get(key):
+                os.remove(sql['入职照片'])
+                QMessageBox.warning(self, '提示信息', key+'不能为空')
+                break
+        else:
+            sql['调薪日期'] = self.Text_TiaoXin.text()
+            sql['离职日期'] = self.Text_LiZhi.text()
+            sql['备注'] = self.ui.Text_BeiZhu.text()
+            sql_Table = '人员信息' + str(tuple(list(sql.keys()))).replace('\'','')  # 列表转元组转字符串，再删除引号
+            values = tuple(list(sql.values()))   # 列表转元组
+            if DX.XinZeng(DX(),sql_Table,values) == 'ok':       #数据添加成功
+                cv2.imwrite(lujing + '\\QMS_rs_' + str(self.now_time) + '.jpg', self.ZhaoPian)  # 保存路径+保存命名+图像
+                QMessageBox.information(self, '提示信息', '操作成功!')
+                sql.clear()
+                self.close()
+            else:
+                # os.remove(sql['入职照片'])  # 删除指定路径文件
+                QMessageBox.information(self, '提示信息', '操作失败!')
 
     # 重置按钮
     @Slot(bool)
@@ -149,11 +160,13 @@ class UI_ryxxlr(QDialog):
             self.ui.Text_DiZhi.clear()
             self.ui.Text_JinJiLianXiRen.clear()
             self.ui.Text_JinJiLianXiHaoMa.clear()
-            self.Text_ChuSheng.clear()
+            # self.Text_ChuSheng.clear()
             self.Text_HeTong.clear()
             self.Text_TiaoXin.clear()
             self.Text_LiZhi.clear()
             self.ui.Text_BeiZhu.clear()
+            self.ui.Text_TuPian.clear()
+
         else:
             pass
 
@@ -168,7 +181,9 @@ class UI_ryxxlr(QDialog):
         xiugai_ui.ui.Text_ZhiWei.setText(sql['职位'])
         xiugai_ui.ui.Text_LianXiDianHua.setText(sql['联系电话'])
         xiugai_ui.ui.Text_ShenFenZhengHaoMa.setText(sql['身份证号码'])
-        xiugai_ui.Text_RuZhi.setSpecialValueText(sql['入职日期'])
+        xiugai_ui.Text_RuZhi.setDate(QDate.fromString(sql['入职日期']))
+        xiugai_ui.ui.Text_RuZhi_RiQi.setText(sql['入职日期'])
+        print(xiugai_ui.ui.Text_RuZhi_RiQi.text())
         xiugai_ui.ui.Text_DaiYu.setSpecialValueText(sql['待遇'])
         xiugai_ui.ui.Text_GongHao.setText(sql['密码'])
         xiugai_ui.ui.Text_DiZhi.setText(sql['地址'])
@@ -178,6 +193,12 @@ class UI_ryxxlr(QDialog):
         xiugai_ui.Text_HeTong.setSpecialValueText(sql['合同日期'])
         xiugai_ui.Text_TiaoXin.setSpecialValueText(sql['调薪日期'])
         xiugai_ui.Text_LiZhi.setSpecialValueText(sql['离职日期'])
+
+        Image = cv2.imread(sql['入职照片'])
+        show = cv2.cvtColor(Image, cv2.COLOR_BGR2RGB)
+        showImage = QImage(show.data, show.shape[1], show.shape[0], QImage.Format_RGB888)
+        xiugai_ui.ui.Text_TuPian.setPixmap(QPixmap.fromImage(showImage))
+        xiugai_ui.ui.Text_TuPian.setScaledContents(True)    # 入职照片
         xiugai_ui.ui.Text_BeiZhu.setText(sql['备注'])
         xiugai_ui.Text_TiaoXin.setFocus()       # 调薪日期获得焦点
         xiugai_ui.exec_()
@@ -207,9 +228,8 @@ class UI_ryxxlr(QDialog):
     @Slot(bool)
     def on_action_paizhao_clicked(self, checked):
         if self.timer_camera.isActive():
-            now_time = time.strftime('%Y%m%d%H%M%S',time.localtime(time.time()))
-            # cv2.imwrite('QMS_'+str(now_time)+'.png',self.image)     # 保存命名和图像
-            cv2.putText(self.image, str(now_time),
+            self.now_time = time.strftime('%Y%m%d%H%M%S',time.localtime(time.time()))
+            cv2.putText(self.image, str(self.now_time),
                         (int(self.image.shape[1]/2-130), int(self.image.shape[0]-10)),
                         cv2.FONT_HERSHEY_DUPLEX,
                         1.0, (255, 255, 255), 1)    # 图片对象、文本、像素、字体、字体大小、颜色、字体粗细
@@ -218,8 +238,8 @@ class UI_ryxxlr(QDialog):
             showImage = QImage(show.data, show.shape[1], show.shape[0], QImage.Format_RGB888)
             self.ui.Text_TuPian.setPixmap(QPixmap.fromImage(showImage))
             self.ui.Text_TuPian.setScaledContents(True)
-            self.TuPian = pymysql.Binary(self.image)
-            # print(self.TuPian)
+            self.ZhaoPian = self.image
+
             if self.cap.isOpened():
                 self.cap.release()  # 释放摄像头
             # if self.timer_camera.isActive():

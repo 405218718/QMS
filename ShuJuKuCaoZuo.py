@@ -217,10 +217,10 @@ class DateEdit(QDateEdit):
             self.lineEdit().setText(self.text() or " ")
         })
 
-    def setDateTime(self, dateTime: QDate):
+    def setDateTime(self, date: QDate):
         """调用 super.setDateTime 后，Edit 会自动根据该 dateTime 格式设置最终的显示文本。"""
-        self.lineEdit().setText(dateTime.toString())
-        super().setDateTime(dateTime)
+        self.lineEdit().setText(date.toString())
+        super().setDate(date)
 
     def validate(self, input: str, pos: int):
         """时间验证器：not input 允许接受空值"""
@@ -242,6 +242,18 @@ class DateEdit(QDateEdit):
     def clear(self):
         self.lineEdit().clear()
 
+    def date_str(self, sql: str):
+        """
+        此函数只运用于字符串转日期
+        :param sql: 日期字符串2020/01/01
+        :return:
+        """
+        if sql != "":
+            date = QDate(int(sql.split('/')[0]), int(sql.split('/')[1]), int(sql.split('/')[2]))
+            self.lineEdit().setText(date.toString())
+            super().setDate(date)
+        else:
+            self.clear()
 
     def onDateChanged(self):
         # 日期发生改变时执行

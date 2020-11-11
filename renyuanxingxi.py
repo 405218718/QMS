@@ -44,13 +44,6 @@ class UI_ryxx(QMainWindow):
         if self.ui.Text_ShaiXuan.currentText() != "全部人员":
             LiZhi = 'STR_TO_DATE(离职日期,\'%Y/%m/%d\')'
             RuZhi = 'STR_TO_DATE(入职日期,\'%Y/%m/%d\')'
-                    # if self.ui.Text_ShaiXuan.currentText() == "在职人员":
-                    #     if self.Text_QiShi_RiQi.text() != "" and self.Text_JieShu_RiQi.text() != "":
-                    #         # 'STR_TO_DATE(离职日期, \'%Y-%m-%d\') BETWEEN STR_TO_DATE(起始时间, \'%Y-%m-%d\')'
-                    #         L.append(LiZhi + ' = "" or ' + LiZhi + '>= \'%s\'' % self.Text_QiShi_RiQi.text())
-                    #         L.append(RuZhi + ' <= \'%s\'' % self.Text_JieShu_RiQi.text())
-                    #     elif self.Text_QiShi_RiQi.text() == "" and self.Text_JieShu_RiQi.text() == "":
-                    #         L.append(LiZhi + ' = ""')
             if self.ui.Text_ShaiXuan.currentText() == "在职人员":
                 if self.Text_QiShi_RiQi.text() != "" and self.Text_JieShu_RiQi.text() != "":
                     # 'STR_TO_DATE(离职日期, \'%Y-%m-%d\') BETWEEN STR_TO_DATE(起始时间, \'%Y-%m-%d\')'
@@ -93,7 +86,8 @@ class UI_ryxx(QMainWindow):
                 else:
                     QMessageBox.critical(self, '提示信息', '日期范围不能为空')
                     return
-            s = "select * FROM 人员信息 WHERE " + " and ".join(L)
+            s = "select * FROM 人员信息 WHERE " + " and ".join(L) + 'order by ID desc'
+            # select * from AAAA order by BBBB desc limit 10   查询AAAA字段依据BBBB字段asc是表示升序，desc表示降序,查询10条记录
         else:
             s = 'select * FROM 人员信息;'
             # L.append('ShaiXuan = %s' % self.ui.Text_ShaiXuan.currentText())
@@ -121,24 +115,58 @@ class UI_ryxx(QMainWindow):
         text = self.ui.Text_ShuJuXianShi.item(row, 3).text()   # 读取表格相对位置文本
         db = DX().connect_db()
         cur = db.cursor(pymysql.cursors.DictCursor)     # 使用字典类型输出
-        sql_update = "select * FROM 人员信息 WHERE 工号 = %s"
+        sql_update = "select * FROM 人员信息 WHERE 工号 = %s order by ID desc limit 1"
         rows = cur.execute(sql_update, text)  # 查找对应的数据
         results = cur.fetchall()  # 查询到的字典组数
         jieguo = results[rows - 1]  # 提取最后一个字典
         UI_ryxxlr().xiugai(jieguo)
 
-
     # 删除按钮
     @Slot(bool)
     def on_action_shanchu_triggered(self, clicked):
-        dlgTableSize = UI_ryxxlr(self)
-        dlgTableSize.show()
+        row = self.ui.Text_ShuJuXianShi.currentRow()    # currentRow当前行号,currentColumn当前列号
+        text = self.ui.Text_ShuJuXianShi.item(row, 3).text()   # 读取表格相对位置文本
+        text1 = self.ui.Text_ShuJuXianShi.item(row, 4).text()  # 读取表格相对位置文本
+        # ret = QMessageBox.warning(self, '提示信息', '确定重置吗？？？!', QStringLiteral("确定"),QStringLiteral("取消"))
+        msgbox = QMessageBox(self)  # 指定父窗口控件
+        msgbox.setWindowTitle('提示信息')  # 对话框标题
+        msgbox.setText("确定要删除  %s  %s   吗？？？" % (text, text1))  # 设置文本
+        msgbox.setStandardButtons(QMessageBox.Yes | QMessageBox.No)     # 设置对话框有几个按钮
+        msgbox.button(QMessageBox.Yes).setText("确定")    # 设置按钮文本
+        msgbox.button(QMessageBox.No).setText("取消")     # 设置按钮文本
+        # msgbox.button(QMessageBox.Cancel).setText("结束")   #还有abort,retry,ignore按钮
+        # msgbox.setGeometry(500,500,0,0)     #消息框位置、大小设置
+        msgbox.setIcon(QMessageBox.Warning)  # 图标图片：QMessageBox.Information信息框，QMessageBox.Question问答框，
+        # QMessageBox.Warning警告框，QMessageBox.Ctitical危险框，QMessageBox.About关于框
+        result = msgbox.exec() # 执行对话框，并获取返回值
+        if result == QMessageBox.Yes:
+            db = DX().connect_db()
+            cur = db.cursor(pymysql.cursors.DictCursor)     # 使用字典类型输出
+            sql_update = "delete FROM 人员信息 WHERE 工号 = %s order by ID desc limit 1"
+            try:
+                # 向sql语句传递参数
+                cur.execute(sql_update, text)
+                # 提交
+                db.commit()
+                self.ui.action_chaxun.trigger()     # 触发查询按钮,设置触发功能：triggered.connect(lambda:print("退出"))
+
+            except Exception as e:
+                # 错误回滚
+                db.rollback()
+
 
     # 表头设置
     @Slot(bool)
     def on_action_biaotoushezhi_triggered(self, clicked):
+        """
+        ['ID', '部门', '组别', '职位', '工号', '姓名', '性别', '联系电话', '入职日期', '入职工龄', '合同日期', '离职日期', '待遇',
+        '出生日期', '身份证号码', '地址', '密码', '紧急联系人', '紧急联系人电话', '调薪日期', '入职照片', '备注']
+        :param clicked:
+        :return:
+        """
         sql = 'select * FROM 人员信息;'
         biaotou = DX.HuoQuZiDuan(DX(),sql)
+
         print(biaotou)
 
 

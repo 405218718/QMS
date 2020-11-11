@@ -91,7 +91,7 @@ class dengluUI(QMainWindow):
         db = self.connect_db()
         # 获取游标
         cur = db.cursor(pymysql.cursors.DictCursor)  # 使用字典类型输出
-        sql_renyuan = "select * FROM 人员信息 WHERE 工号 = %s"
+        sql_renyuan = "select * FROM 人员信息 WHERE 工号 = %s order by ID desc limit 1;"
         # select * from AAAA limit 10 order by BBBB desc   查询AAAA字段10条记录，依据BBBB字段asc是表示升序，desc表示降序
         rows = cur.execute(sql_renyuan, zhanghao)  # 条数
         if rows == 0:

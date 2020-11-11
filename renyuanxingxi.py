@@ -122,7 +122,7 @@ class UI_ryxx(QMainWindow):
         db = DX().connect_db()
         cur = db.cursor(pymysql.cursors.DictCursor)     # 使用字典类型输出
         sql_update = "select * FROM 人员信息 WHERE 工号 = %s"
-        rows = cur.execute(sql_update, text)  # 条数
+        rows = cur.execute(sql_update, text)  # 查找对应的数据
         results = cur.fetchall()  # 查询到的字典组数
         jieguo = results[rows - 1]  # 提取最后一个字典
         UI_ryxxlr().xiugai(jieguo)

@@ -83,7 +83,7 @@ class UI_ryxxlr(QDialog):
     @Slot(bool)
     def on_action_queren_clicked(self, checked):
         sql = {}
-        """['ID', '部门', '组别', '职位', '工号', '姓名', '性别', '联系电话', '入职日期', '离职日期', '待遇',
+        """['ID', '部门', '组别', '职位', '工号', '姓名', '性别', '联系电话', '入职日期', '入职工龄', '离职日期', '待遇',
          '出生日期', '身份证号码', '地址', '密码', '紧急联系人', '紧急联系人电话', '调薪日期', '入职照片', '备注']
          """
         sql['姓名'] = self.ui.Text_XingMing.text()
@@ -95,6 +95,7 @@ class UI_ryxxlr(QDialog):
         sql['联系电话'] = self.ui.Text_LianXiDianHua.text()
         sql['身份证号码'] = self.ui.Text_ShenFenZhengHaoMa.text()
         sql['入职日期'] = self.Text_RuZhi.text()
+        sql['入职工龄'] = self.ui.Text_GongZuoNianFen.text()
         DaiYu = self.ui.Text_DaiYu.text().find(' ')
         sql['待遇'] = self.ui.Text_DaiYu.text()[DaiYu + 1:]
         sql['密码'] = self.ui.Text_GongHao.text()
@@ -154,6 +155,8 @@ class UI_ryxxlr(QDialog):
             self.ui.Text_ZhiWei.setText('')
             self.ui.Text_LianXiDianHua.setText('')
             self.ui.Text_ShenFenZhengHaoMa.setText('')
+            self.ui.Text_GongZuoNianFen.setText('')
+            self.ui.Text_ChuSheng_RiQi.setText('')
             self.Text_RuZhi.clear()
             self.ui.Text_DaiYu.clear()
             self.ui.Text_GongHao.setText('')
@@ -181,18 +184,23 @@ class UI_ryxxlr(QDialog):
         xiugai_ui.ui.Text_ZhiWei.setText(sql['职位'])
         xiugai_ui.ui.Text_LianXiDianHua.setText(sql['联系电话'])
         xiugai_ui.ui.Text_ShenFenZhengHaoMa.setText(sql['身份证号码'])
-        xiugai_ui.Text_RuZhi.setDate(QDate.fromString(sql['入职日期']))
-        xiugai_ui.ui.Text_RuZhi_RiQi.setText(sql['入职日期'])
-        print(xiugai_ui.ui.Text_RuZhi_RiQi.text())
+        xiugai_ui.ui.Text_GongZuoNianFen.setText(sql['入职工龄'])
+        xiugai_ui.Text_RuZhi.date_str(sql['入职日期'])
         xiugai_ui.ui.Text_DaiYu.setSpecialValueText(sql['待遇'])
         xiugai_ui.ui.Text_GongHao.setText(sql['密码'])
         xiugai_ui.ui.Text_DiZhi.setText(sql['地址'])
         xiugai_ui.ui.Text_JinJiLianXiRen.setText(sql['紧急联系人'])
         xiugai_ui.ui.Text_JinJiLianXiHaoMa.setText(sql['紧急联系人电话'])
         xiugai_ui.ui.Text_ChuSheng_RiQi.setText(sql['出生日期'])
-        xiugai_ui.Text_HeTong.setSpecialValueText(sql['合同日期'])
-        xiugai_ui.Text_TiaoXin.setSpecialValueText(sql['调薪日期'])
-        xiugai_ui.Text_LiZhi.setSpecialValueText(sql['离职日期'])
+        xiugai_ui.Text_HeTong.date_str(sql['合同日期'])
+
+        # riqi = sql['调薪日期']
+        # date = QDate(int(riqi.split('/')[0]), int(riqi.split('/')[1]), int(riqi.split('/')[2]))
+        xiugai_ui.Text_TiaoXin.date_str(sql['调薪日期'])
+
+        # riqi = sql['离职日期']
+        # date = QDate(int(riqi.split('/')[0]), int(riqi.split('/')[1]), int(riqi.split('/')[2]))
+        xiugai_ui.Text_LiZhi.date_str(sql['离职日期'])
 
         Image = cv2.imread(sql['入职照片'])
         show = cv2.cvtColor(Image, cv2.COLOR_BGR2RGB)
@@ -202,6 +210,7 @@ class UI_ryxxlr(QDialog):
         xiugai_ui.ui.Text_BeiZhu.setText(sql['备注'])
         xiugai_ui.Text_TiaoXin.setFocus()       # 调薪日期获得焦点
         xiugai_ui.exec_()
+
 
     # 打开相机
     @Slot(bool)

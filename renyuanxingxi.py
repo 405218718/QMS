@@ -1,9 +1,11 @@
+import os
 import sys
 import pymysql
 from PySide2.QtCore import Slot
 from PySide2.QtWidgets import QApplication, QMainWindow, QMessageBox
 from ShuJuKuCaoZuo import DuiXiang as DX, DateEdit
 from 人员信息 import Ui_renyuanxinxi
+from 人员信息查看 import UI_ryxxck
 from RenYuanXingXi_LuRu import UI_ryxxlr
 
 # 数据库切换 connect_db.select_db('库名')
@@ -141,19 +143,47 @@ class UI_ryxx(QMainWindow):
         result = msgbox.exec() # 执行对话框，并获取返回值
         if result == QMessageBox.Yes:
             db = DX().connect_db()
-            cur = db.cursor(pymysql.cursors.DictCursor)     # 使用字典类型输出
+            cur = db.cursor()
             sql_update = "delete FROM 人员信息 WHERE 工号 = %s order by ID desc limit 1"
+            sql_updats = "select 入职照片 FROM 人员信息 WHERE 工号 = %s order by ID desc limit 1"
             try:
                 # 向sql语句传递参数
-                cur.execute(sql_update, text)
-                # 提交
+                cur.execute(sql_updats, text)  # 查找对应的数据
+                results = cur.fetchone()  # 查询结果（元组）
+                os.remove(results[0])  # 删除指定路径文件
+
+                cur.execute(sql_update, text)   # 查找对应的数据
+                # # 提交
                 db.commit()
                 self.ui.action_chaxun.trigger()     # 触发查询按钮,设置触发功能：triggered.connect(lambda:print("退出"))
 
             except Exception as e:
                 # 错误回滚
                 db.rollback()
+                QMessageBox.information(self, '提示信息', '操作失败!')
 
+    # 查看功能
+    @Slot(bool)
+    def on_action_chakan_triggered(self, clicked):
+        """
+        在’人员信息查看‘内加入以下语句：
+        class UI_ryxxck(QDialog):
+            def __init__(self, parent=None):
+                super().__init__(parent)  # 调用父类构造函数，创建窗体
+                self.ui = Ui_Dialog()  # 创建UI对象
+                self.ui.setupUi(self)  # 构造UI界面
+        if __name__ == "__main__":
+            app = QApplication(sys.argv)  # 创建一个QApplication，也就是你要开发的软件app
+            form = UI_ryxxck()  # ui是Ui_MainWindow()类的实例化对象
+            form.show()  # 执行QMainWindow的show()方法，显示这个QMainWindow
+            sys.exit(app.exec_())  # 使用exit()或者点击关闭按钮退出QApplication
+
+        :param clicked:
+        :return:
+        """
+
+        dlgTableSize = UI_ryxxck(self)
+        dlgTableSize.exec_()
 
     # 表头设置
     @Slot(bool)

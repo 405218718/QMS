@@ -10,7 +10,7 @@ from 人员信息录入 import Ui_Dialog
 
 
 """
-使用此界面需先设置指定存放图片的路径\\image_rs
+使用此界面需先在ShuJuKuCaoZuo设置公共路径
 """
 
 class UI_ryxxlr(QDialog):
@@ -25,9 +25,9 @@ class UI_ryxxlr(QDialog):
         self.timer_camera.timeout.connect(self.show_camera)     # 定时器不未O时执行
 
         # os.getcwd()   # 工作的目录路径
-        self.MuLu = "E:\\QMS\\" + "image_rs"    # 存放路径
+        self.MuLu = DX.image + "image_rs"    # 存放路径
         if not os.path.exists(self.MuLu):       # 检查路径是否存在
-            os.mkdir("E:\\QMS\\" + "image_rs")  # 创建目录
+            os.mkdir(DX.image + "image_rs")  # 创建目录
 
         self.Text_RuZhi = DateEdit(self.ui.Text_RuZhi_RiQi)
         self.Text_RuZhi.resize(self.ui.Text_RuZhi_RiQi.width(), self.ui.Text_RuZhi_RiQi.height())
@@ -112,7 +112,6 @@ class UI_ryxxlr(QDialog):
         sql['入职照片'] = lujing + '\\QMS_rs_' + str(self.now_time) + '.jpg'
         for key in list(sql.keys()):
             if not sql.get(key):
-                os.remove(sql['入职照片'])
                 QMessageBox.warning(self, '提示信息', key+'不能为空')
                 break
         else:
@@ -122,6 +121,7 @@ class UI_ryxxlr(QDialog):
             sql_Table = '人员信息' + str(tuple(list(sql.keys()))).replace('\'','')  # 列表转元组转字符串，再删除引号
             values = tuple(list(sql.values()))   # 列表转元组
             if DX.XinZeng(DX(),sql_Table,values) == 'ok':       #数据添加成功
+                # os.remove(sql['入职照片'])    # 删除指定路径文件
                 cv2.imwrite(lujing + '\\QMS_rs_' + str(self.now_time) + '.jpg', self.ZhaoPian)  # 保存路径+保存命名+图像
                 QMessageBox.information(self, '提示信息', '操作成功!')
                 sql.clear()
@@ -193,13 +193,7 @@ class UI_ryxxlr(QDialog):
         xiugai_ui.ui.Text_JinJiLianXiHaoMa.setText(sql['紧急联系人电话'])
         xiugai_ui.ui.Text_ChuSheng_RiQi.setText(sql['出生日期'])
         xiugai_ui.Text_HeTong.date_str(sql['合同日期'])
-
-        # riqi = sql['调薪日期']
-        # date = QDate(int(riqi.split('/')[0]), int(riqi.split('/')[1]), int(riqi.split('/')[2]))
         xiugai_ui.Text_TiaoXin.date_str(sql['调薪日期'])
-
-        # riqi = sql['离职日期']
-        # date = QDate(int(riqi.split('/')[0]), int(riqi.split('/')[1]), int(riqi.split('/')[2]))
         xiugai_ui.Text_LiZhi.date_str(sql['离职日期'])
 
         Image = cv2.imread(sql['入职照片'])
@@ -207,6 +201,7 @@ class UI_ryxxlr(QDialog):
         showImage = QImage(show.data, show.shape[1], show.shape[0], QImage.Format_RGB888)
         xiugai_ui.ui.Text_TuPian.setPixmap(QPixmap.fromImage(showImage))
         xiugai_ui.ui.Text_TuPian.setScaledContents(True)    # 入职照片
+
         xiugai_ui.ui.Text_BeiZhu.setText(sql['备注'])
         xiugai_ui.Text_TiaoXin.setFocus()       # 调薪日期获得焦点
         xiugai_ui.exec_()

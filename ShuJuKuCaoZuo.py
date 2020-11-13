@@ -6,7 +6,7 @@ from PySide2.QtCore import QDate
 
 
 class DuiXiang:
-    GongSiMing = '飞云科技有限公司'  # 公司名称
+    GongSiMing = '广东天倬智能装备科技有限公司'  # 公司名称
     image = "E:\\QMS\\"  # 文件存储
 
     def __init__(self):

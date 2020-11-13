@@ -1,7 +1,10 @@
 import os
 import sys
+
+import cv2
 import pymysql
-from PySide2.QtCore import Slot
+from PySide2.QtCore import Slot, Qt
+from PySide2.QtGui import QImage, QPixmap
 from PySide2.QtWidgets import QApplication, QMainWindow, QMessageBox
 from ShuJuKuCaoZuo import DuiXiang as DX, DateEdit
 from 人员信息 import Ui_renyuanxinxi
@@ -181,8 +184,32 @@ class UI_ryxx(QMainWindow):
         :param clicked:
         :return:
         """
+        row = self.ui.Text_ShuJuXianShi.currentRow()    # currentRow当前行号,currentColumn当前列号
+        text = self.ui.Text_ShuJuXianShi.item(row, 3).text()   # 读取表格相对位置文本
+        db = DX().connect_db()
+        cur = db.cursor(pymysql.cursors.DictCursor)     # 使用字典类型输出
+        sql_update = "select * FROM 人员信息 WHERE 工号 = %s order by ID desc limit 1"
+        rows = cur.execute(sql_update, text)  # 查找对应的数据
+        results = cur.fetchall()  # 查询到的字典组数
+        sql = results[rows - 1]  # 提取最后一个字典
 
         dlgTableSize = UI_ryxxck(self)
+        dlgTableSize.ui.Text_GongSiMingCheng.setText(DX.GongSiMing)
+        dlgTableSize.ui.Text_GongSiMingCheng.setAlignment(Qt.AlignCenter)   # AlignLeft 居左，AlignCenter居中，AlignRight居右
+        ft.setPointSize(20)
+        dlgTableSize.ui.Text_GongSiMingCheng.setFont(ft)
+        dlgTableSize.ui.Text_DongHao.setText('编号：' + sql['工号'])
+        dlgTableSize.ui.Text_XingMing.setText('姓 名：' + sql['姓名'])
+        dlgTableSize.ui.Text_BuMen.setText('部 门：'+sql['部门'])
+        dlgTableSize.ui.Text_ZhiWei.setText('职 位：' + sql['职位'])
+        dlgTableSize.ui.Text_RuZhi_RiQi.setText('入职日期：' + sql['入职日期'])
+        dlgTableSize.ui.Text_DianHua.setText('电 话：' + sql['联系电话'])
+
+        Image = cv2.imread(sql['入职照片'])
+        show = cv2.cvtColor(Image, cv2.COLOR_BGR2RGB)
+        showImage = QImage(show.data, show.shape[1], show.shape[0], QImage.Format_RGB888)
+        dlgTableSize.ui.Text_TuPian.setPixmap(QPixmap.fromImage(showImage))
+        dlgTableSize.ui.Text_TuPian.setScaledContents(True)    # 入职照片
         dlgTableSize.exec_()
 
     # 表头设置

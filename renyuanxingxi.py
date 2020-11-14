@@ -6,7 +6,6 @@ import pymysql
 from PySide2.QtCore import Slot, Qt
 from PySide2.QtGui import QImage, QPixmap
 from PySide2.QtWidgets import QApplication, QMainWindow, QMessageBox
-from numpy import size
 
 from ShuJuKuCaoZuo import DuiXiang as DX, DateEdit
 from 人员信息 import Ui_renyuanxinxi
@@ -206,6 +205,8 @@ class UI_ryxx(QMainWindow):
         dlgTableSize.ui.Text_GongSiMingCheng.setStyleSheet("QLabel{color:rgb(225,22,173,255);font-size:25px;font-weight:normal;font-family:Arial;}")
         dlgTableSize.ui.Text_GongSiMingCheng.adjustSize()  # 自适应函数->adjustSize()是继承于QWidget中
         dlgTableSize.ui.Text_DongHao.setText('编号：' + sql['工号'])
+        dlgTableSize.ui.Text_DongHao.setAlignment(Qt.AlignCenter)
+
         dlgTableSize.ui.Text_XingMing.setText('姓 名：' + sql['姓名'])
         dlgTableSize.ui.Text_BuMen.setText('部 门：'+sql['部门'])
         dlgTableSize.ui.Text_ZhiWei.setText('职 位：' + sql['职位'])
@@ -223,13 +224,17 @@ class UI_ryxx(QMainWindow):
     @Slot(bool)
     def on_action_biaotoushezhi_triggered(self, clicked):
         """
-        ['ID', '部门', '组别', '职位', '工号', '姓名', '性别', '联系电话', '入职日期', '入职工龄', '合同日期', '离职日期', '待遇',
-        '出生日期', '身份证号码', '地址', '密码', '紧急联系人', '紧急联系人电话', '调薪日期', '入职照片', '备注']
+        ['ID', '部门', '组别', '职位', '工号', '姓名', '性别', '联系电话', '入职日期', '入职工龄', '合同日期', '离职日期',
+         '待遇', '出生日期', '身份证号码', '地址', '密码', '紧急联系人', '紧急联系人电话', '调薪日期', '入职照片', '备注']
+        库名：CREATE TABLE `人员信息` (
+        ID自动递增：`id` bigint(100) NOT NULL AUTO_INCREMENT COMMENT '唯一不重复',PRIMARY KEY (`id`)
+        其它内容设置：`部门` varchar(255) COLLATE utf8_estonian_ci DEFAULT NULL,
+        结尾：) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_estonian_ci ROW_FORMAT=DYNAMIC;
         :param clicked:
         :return:
         """
         sql = 'select * FROM 人员信息;'
-        biaotou = DX.HuoQuZiDuan(DX(),sql)
+        biaotou = DX.HuoQuZiDuan(DX(), sql)
 
         print(biaotou)
 

@@ -86,24 +86,24 @@ class UI_ryxxlr(QDialog):
         """['ID', '部门', '组别', '职位', '工号', '姓名', '性别', '联系电话', '入职日期', '入职工龄', '离职日期', '待遇',
          '出生日期', '身份证号码', '地址', '密码', '紧急联系人', '紧急联系人电话', '调薪日期', '入职照片', '备注']
          """
-        sql['姓名'] = self.ui.Text_XingMing.text()
-        sql['性别'] = self.ui.Text_XingBie.currentText()
-        sql['部门'] = self.ui.Text_BuMen.text()
-        sql['工号'] = self.ui.Text_GongHao.text()
-        sql['组别'] = self.ui.Text_ZuBie.text()
-        sql['职位'] = self.ui.Text_ZhiWei.text()
-        sql['联系电话'] = self.ui.Text_LianXiDianHua.text()
-        sql['身份证号码'] = self.ui.Text_ShenFenZhengHaoMa.text()
-        sql['入职日期'] = self.Text_RuZhi.text()
-        sql['入职工龄'] = self.ui.Text_GongZuoNianFen.text()
+        sql['姓名'] = self.ui.Text_XingMing.text().strip()
+        sql['性别'] = self.ui.Text_XingBie.currentText().strip()
+        sql['部门'] = self.ui.Text_BuMen.text().strip()
+        sql['工号'] = self.ui.Text_GongHao.text().strip()
+        sql['组别'] = self.ui.Text_ZuBie.text().strip()
+        sql['职位'] = self.ui.Text_ZhiWei.text().strip()
+        sql['联系电话'] = self.ui.Text_LianXiDianHua.text().strip()
+        sql['身份证号码'] = self.ui.Text_ShenFenZhengHaoMa.text().strip()
+        sql['入职日期'] = self.Text_RuZhi.text().strip()
+        sql['入职工龄'] = self.ui.Text_GongZuoNianFen.text().strip()
         DaiYu = self.ui.Text_DaiYu.text().find(' ')
-        sql['待遇'] = self.ui.Text_DaiYu.text()[DaiYu + 1:]
-        sql['密码'] = self.ui.Text_GongHao.text()
-        sql['地址'] = self.ui.Text_DiZhi.text()
-        sql['紧急联系人'] = self.ui.Text_JinJiLianXiRen.text()
-        sql['紧急联系人电话'] = self.ui.Text_JinJiLianXiHaoMa.text()
-        sql['出生日期'] = self.ui.Text_ChuSheng_RiQi.text()
-        sql['合同日期'] = self.Text_HeTong.text()
+        sql['待遇'] = self.ui.Text_DaiYu.text()[DaiYu + 1:].strip()
+        sql['密码'] = self.ui.Text_GongHao.text().strip()
+        sql['地址'] = self.ui.Text_DiZhi.text().strip()
+        sql['紧急联系人'] = self.ui.Text_JinJiLianXiRen.text().strip()
+        sql['紧急联系人电话'] = self.ui.Text_JinJiLianXiHaoMa.text().strip()
+        sql['出生日期'] = self.ui.Text_ChuSheng_RiQi.text().strip()
+        sql['合同日期'] = self.Text_HeTong.text().strip()
 
         lujing = self.MuLu + "\\" + time.strftime('%Y')  # 工作的目录路径+文件夹+文件名=存放路径
         if not os.path.exists(lujing):  # 检查路径是否存在
@@ -115,9 +115,9 @@ class UI_ryxxlr(QDialog):
                 QMessageBox.warning(self, '提示信息', key+'不能为空')
                 break
         else:
-            sql['调薪日期'] = self.Text_TiaoXin.text()
-            sql['离职日期'] = self.Text_LiZhi.text()
-            sql['备注'] = self.ui.Text_BeiZhu.text()
+            sql['调薪日期'] = self.Text_TiaoXin.text().strip()
+            sql['离职日期'] = self.Text_LiZhi.text().strip()
+            sql['备注'] = self.ui.Text_BeiZhu.text().strip()
             sql_Table = '人员信息' + str(tuple(list(sql.keys()))).replace('\'','')  # 列表转元组转字符串，再删除引号
             values = tuple(list(sql.values()))   # 列表转元组
             if DX.XinZeng(DX(),sql_Table,values) == 'ok':       #数据添加成功

@@ -6,6 +6,8 @@ import pymysql
 from PySide2.QtCore import Slot, Qt
 from PySide2.QtGui import QImage, QPixmap
 from PySide2.QtWidgets import QApplication, QMainWindow, QMessageBox
+from numpy import size
+
 from ShuJuKuCaoZuo import DuiXiang as DX, DateEdit
 from 人员信息 import Ui_renyuanxinxi
 from 人员信息查看 import UI_ryxxck
@@ -40,13 +42,13 @@ class UI_ryxx(QMainWindow):
     def on_action_chaxun_triggered(self, clicked):
         # self.ui.ryxx_chaxun.clicked.connect(self.chaxun_ryxx)   # 查询按钮
         L = []
-        if self.ui.Text_BuMen.currentText() != "":
-            L.append('部门 =\'%s\'' % self.ui.Text_BuMen.currentText())
+        if self.ui.Text_BuMen.currentText().strip() != "":
+            L.append('部门 =\'%s\'' % self.ui.Text_BuMen.currentText().strip())
         if self.ui.Text_GongHao.text() != "":
-            L.append('工号 = \'%s\'' % self.ui.Text_GongHao.text())
-        if self.ui.Text_XingMing.text() != "":
-            L.append('姓名 = \'%s\'' % self.ui.Text_XingMing.text())
-        if self.ui.Text_ShaiXuan.currentText() != "全部人员":
+            L.append('工号 = \'%s\'' % self.ui.Text_GongHao.text().strip())
+        if self.ui.Text_XingMing.text().strip() != "":
+            L.append('姓名 = \'%s\'' % self.ui.Text_XingMing.text().strip())
+        if self.ui.Text_ShaiXuan.currentText().strip() != "全部人员":
             LiZhi = 'STR_TO_DATE(离职日期,\'%Y/%m/%d\')'
             RuZhi = 'STR_TO_DATE(入职日期,\'%Y/%m/%d\')'
             if self.ui.Text_ShaiXuan.currentText() == "在职人员":
@@ -54,17 +56,17 @@ class UI_ryxx(QMainWindow):
                     # 'STR_TO_DATE(离职日期, \'%Y-%m-%d\') BETWEEN STR_TO_DATE(起始时间, \'%Y-%m-%d\')'
                     L.append('(离职日期 = "" or ' + LiZhi + ' >= \'%s\')' % self.Text_QiShi_RiQi.text())
                     L.append(RuZhi + ' <= \'%s\'' % self.Text_JieShu_RiQi.text())
-                elif self.Text_QiShi_RiQi.text() == "" and self.Text_JieShu_RiQi.text() == "":
+                elif self.Text_QiShi_RiQi.text().strip() == "" and self.Text_JieShu_RiQi.text().strip() == "":
                     L.append('离职日期 = ""')
                 else:
                     QMessageBox.about(self, '提示信息', '日期范围不能只填一个')
                     return
-            if self.ui.Text_ShaiXuan.currentText() == "离职人员":
+            if self.ui.Text_ShaiXuan.currentText().strip() == "离职人员":
                 if self.Text_QiShi_RiQi.text() != "" and self.Text_JieShu_RiQi.text() != "":
-                    L.append('离职日期 >= \'%s\'' % self.Text_QiShi_RiQi.text())
-                    L.append('离职日期 <= \'%s\'' % self.Text_JieShu_RiQi.text())
+                    L.append('离职日期 >= \'%s\'' % self.Text_QiShi_RiQi.text().strip())
+                    L.append('离职日期 <= \'%s\'' % self.Text_JieShu_RiQi.text().strip())
                 elif self.Text_QiShi_RiQi.text() != "" and self.Text_JieShu_RiQi.text() == "":
-                    L.append('离职日期 >= \'%s\'' % self.Text_QiShi_RiQi.text())
+                    L.append('离职日期 >= \'%s\'' % self.Text_QiShi_RiQi.text().strip())
                 elif self.Text_QiShi_RiQi.text() == "" and self.Text_JieShu_RiQi.text() != "":
                     L.append('离职日期 <= \'%s\'' % self.Text_JieShu_RiQi.text())
                 else:
@@ -196,8 +198,13 @@ class UI_ryxx(QMainWindow):
         dlgTableSize = UI_ryxxck(self)
         dlgTableSize.ui.Text_GongSiMingCheng.setText(DX.GongSiMing)
         dlgTableSize.ui.Text_GongSiMingCheng.setAlignment(Qt.AlignCenter)   # AlignLeft 居左，AlignCenter居中，AlignRight居右
-        ft.setPointSize(20)
-        dlgTableSize.ui.Text_GongSiMingCheng.setFont(ft)
+
+        # color: rgb()中的四个参数, 前三个是控制颜色, 第四个控制透明度
+        # font - size: 设置字体大小
+        # font - weight: bold可设置字体加粗
+        # font - family: 选择自己想要的颜色
+        dlgTableSize.ui.Text_GongSiMingCheng.setStyleSheet("QLabel{color:rgb(225,22,173,255);font-size:25px;font-weight:normal;font-family:Arial;}")
+        dlgTableSize.ui.Text_GongSiMingCheng.adjustSize()  # 自适应函数->adjustSize()是继承于QWidget中
         dlgTableSize.ui.Text_DongHao.setText('编号：' + sql['工号'])
         dlgTableSize.ui.Text_XingMing.setText('姓 名：' + sql['姓名'])
         dlgTableSize.ui.Text_BuMen.setText('部 门：'+sql['部门'])

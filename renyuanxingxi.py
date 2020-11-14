@@ -111,8 +111,9 @@ class UI_ryxx(QMainWindow):
     # 新增按钮
     @Slot(bool)
     def on_action_xinzeng_triggered(self, clicked):
-        dlgTableSize = UI_ryxxlr(self)
-        dlgTableSize.exec_()
+        XinZeng = UI_ryxxlr(self)
+        XinZeng.ZhuangTai = 0
+        XinZeng.exec_()
 
     # 修改按钮
     @Slot(bool)
@@ -149,12 +150,14 @@ class UI_ryxx(QMainWindow):
             db = DX().connect_db()
             cur = db.cursor()
             sql_update = "delete FROM 人员信息 WHERE 工号 = %s order by ID desc limit 1"
-            sql_updats = "select 入职照片 FROM 人员信息 WHERE 工号 = %s order by ID desc limit 1"
+            sql_updats = "select 入职照片 FROM 人员信息 WHERE 工号 = %s order by ID desc "
             try:
                 # 向sql语句传递参数
-                cur.execute(sql_updats, text)  # 查找对应的数据
-                results = cur.fetchone()  # 查询结果（元组）
-                os.remove(results[0])  # 删除指定路径文件
+                rows = cur.execute(sql_updats, text)  # 查找对应的数据
+                if rows == 1:
+                    results = cur.fetchone()  # 查询结果（元组）
+                    os.remove(results[0])  # 删除指定路径文件
+
 
                 cur.execute(sql_update, text)   # 查找对应的数据
                 # # 提交

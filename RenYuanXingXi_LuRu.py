@@ -37,7 +37,7 @@ class UI_ryxxlr(QDialog):
         self.Text_TiaoXin.resize(self.ui.Text_TiaoXin_RiQi.width(), self.ui.Text_TiaoXin_RiQi.height())
         self.Text_LiZhi = DateEdit(self.ui.Text_LiZhi_RiQi)
         self.Text_LiZhi.resize(self.ui.Text_LiZhi_RiQi.width(), self.ui.Text_LiZhi_RiQi.height())
-
+        self.ZhuangTai = ""     # 0为新增功能 ， 1为修改功能
         #限制输入
         regx1 = ("[a-zA-Z0-9.-]+$")  #限制输入数值+字母+"."+"-"
         # regx2 = ("[0-9.]+$")  # 限制输入数值+“.”
@@ -108,8 +108,11 @@ class UI_ryxxlr(QDialog):
         lujing = self.MuLu + "\\" + time.strftime('%Y')  # 工作的目录路径+文件夹+文件名=存放路径
         if not os.path.exists(lujing):  # 检查路径是否存在
             os.mkdir(self.MuLu + "\\" + time.strftime('%Y'))  # 创建目录
+        if self.ZhuangTai == 0:
+            sql['入职照片'] = lujing + '\\QMS_rs_' + str(self.now_time) + '.jpg'
+        else:
+            sql['入职照片'] = self.ZhuangTai
 
-        sql['入职照片'] = lujing + '\\QMS_rs_' + str(self.now_time) + '.jpg'
         for key in list(sql.keys()):
             if not sql.get(key):
                 QMessageBox.warning(self, '提示信息', key+'不能为空')
@@ -122,7 +125,8 @@ class UI_ryxxlr(QDialog):
             values = tuple(list(sql.values()))   # 列表转元组
             if DX.XinZeng(DX(),sql_Table,values) == 'ok':       #数据添加成功
                 # os.remove(sql['入职照片'])    # 删除指定路径文件
-                cv2.imwrite(lujing + '\\QMS_rs_' + str(self.now_time) + '.jpg', self.ZhaoPian)  # 保存路径+保存命名+图像
+                if self.ZhuangTai == 0:
+                    cv2.imwrite(lujing + '\\QMS_rs_' + str(self.now_time) + '.jpg', self.ZhaoPian)  # 保存路径+保存命名+图像
                 QMessageBox.information(self, '提示信息', '操作成功!')
                 sql.clear()
                 self.close()
@@ -195,15 +199,15 @@ class UI_ryxxlr(QDialog):
         xiugai_ui.Text_HeTong.date_str(sql['合同日期'])
         xiugai_ui.Text_TiaoXin.date_str(sql['调薪日期'])
         xiugai_ui.Text_LiZhi.date_str(sql['离职日期'])
-
+        xiugai_ui.ZhuangTai = sql['入职照片']
         Image = cv2.imread(sql['入职照片'])
         show = cv2.cvtColor(Image, cv2.COLOR_BGR2RGB)
         showImage = QImage(show.data, show.shape[1], show.shape[0], QImage.Format_RGB888)
         xiugai_ui.ui.Text_TuPian.setPixmap(QPixmap.fromImage(showImage))
         xiugai_ui.ui.Text_TuPian.setScaledContents(True)    # 入职照片
-
         xiugai_ui.ui.Text_BeiZhu.setText(sql['备注'])
         xiugai_ui.Text_TiaoXin.setFocus()       # 调薪日期获得焦点
+        # xiugai_ui.action_queren.trigger()  # 触发确认按钮
         xiugai_ui.exec_()
 
 
@@ -241,6 +245,7 @@ class UI_ryxxlr(QDialog):
             show = cv2.cvtColor(self.image, cv2.COLOR_BGR2RGB)
             showImage = QImage(show.data, show.shape[1], show.shape[0], QImage.Format_RGB888)
             self.ui.Text_TuPian.setPixmap(QPixmap.fromImage(showImage))
+            # self.ui.Text_TuPian.pixmap().toImage()  # 获取QLabel上的图像QImage
             self.ui.Text_TuPian.setScaledContents(True)
             self.ZhaoPian = self.image
 

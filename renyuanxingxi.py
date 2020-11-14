@@ -44,11 +44,11 @@ class UI_ryxx(QMainWindow):
         L = []
         if self.ui.Text_BuMen.currentText().strip() != "":
             L.append('部门 =\'%s\'' % self.ui.Text_BuMen.currentText().strip())
-        if self.ui.Text_GongHao.text() != "":
+        if self.ui.Text_GongHao.text().strip() != "":
             L.append('工号 = \'%s\'' % self.ui.Text_GongHao.text().strip())
         if self.ui.Text_XingMing.text().strip() != "":
             L.append('姓名 = \'%s\'' % self.ui.Text_XingMing.text().strip())
-        if self.ui.Text_ShaiXuan.currentText().strip() != "全部人员":
+        if self.ui.Text_ShaiXuan.currentText() != "全部人员":
             LiZhi = 'STR_TO_DATE(离职日期,\'%Y/%m/%d\')'
             RuZhi = 'STR_TO_DATE(入职日期,\'%Y/%m/%d\')'
             if self.ui.Text_ShaiXuan.currentText() == "在职人员":
@@ -56,12 +56,12 @@ class UI_ryxx(QMainWindow):
                     # 'STR_TO_DATE(离职日期, \'%Y-%m-%d\') BETWEEN STR_TO_DATE(起始时间, \'%Y-%m-%d\')'
                     L.append('(离职日期 = "" or ' + LiZhi + ' >= \'%s\')' % self.Text_QiShi_RiQi.text())
                     L.append(RuZhi + ' <= \'%s\'' % self.Text_JieShu_RiQi.text())
-                elif self.Text_QiShi_RiQi.text().strip() == "" and self.Text_JieShu_RiQi.text().strip() == "":
+                elif self.Text_QiShi_RiQi.text() == "" and self.Text_JieShu_RiQi.text() == "":
                     L.append('离职日期 = ""')
                 else:
                     QMessageBox.about(self, '提示信息', '日期范围不能只填一个')
                     return
-            if self.ui.Text_ShaiXuan.currentText().strip() == "离职人员":
+            if self.ui.Text_ShaiXuan.currentText() == "离职人员":
                 if self.Text_QiShi_RiQi.text() != "" and self.Text_JieShu_RiQi.text() != "":
                     L.append('离职日期 >= \'%s\'' % self.Text_QiShi_RiQi.text().strip())
                     L.append('离职日期 <= \'%s\'' % self.Text_JieShu_RiQi.text().strip())

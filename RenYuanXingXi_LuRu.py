@@ -37,7 +37,7 @@ class UI_ryxxlr(QDialog):
         self.Text_TiaoXin.resize(self.ui.Text_TiaoXin_RiQi.width(), self.ui.Text_TiaoXin_RiQi.height())
         self.Text_LiZhi = DateEdit(self.ui.Text_LiZhi_RiQi)
         self.Text_LiZhi.resize(self.ui.Text_LiZhi_RiQi.width(), self.ui.Text_LiZhi_RiQi.height())
-        self.ZhuangTai = ""     # 0为新增功能 ， 1为修改功能
+        self.ZhuangTai = 0     # 0为新增功能 ， 1为修改功能
         #限制输入
         regx1 = ("[a-zA-Z0-9.-]+$")  #限制输入数值+字母+"."+"-"
         # regx2 = ("[0-9.]+$")  # 限制输入数值+“.”
@@ -123,7 +123,7 @@ class UI_ryxxlr(QDialog):
             sql['备注'] = self.ui.Text_BeiZhu.text().strip()
             sql_Table = '人员信息' + str(tuple(list(sql.keys()))).replace('\'','')  # 列表转元组转字符串，再删除引号
             values = tuple(list(sql.values()))   # 列表转元组
-            if DX.XinZeng(DX(),sql_Table,values) == 'ok':       #数据添加成功
+            if DX.XinZeng(DX(), sql_Table, values) == 'ok':       #数据添加成功
                 # os.remove(sql['入职照片'])    # 删除指定路径文件
                 if self.ZhuangTai == 0:
                     cv2.imwrite(lujing + '\\QMS_rs_' + str(self.now_time) + '.jpg', self.ZhaoPian)  # 保存路径+保存命名+图像

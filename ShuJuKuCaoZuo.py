@@ -1,8 +1,10 @@
-import pymysql
-from PySide2.QtGui import QValidator
-from PySide2.QtWidgets import QMessageBox,QTableWidgetItem, QAbstractItemView,QDateEdit,QLineEdit
-from PySide2.QtCore import QDate
+import time
 
+import cv2
+import pymysql
+from PySide2.QtGui import QValidator, QImage, QPixmap
+from PySide2.QtWidgets import QMessageBox,QTableWidgetItem, QAbstractItemView,QDateEdit,QLineEdit
+from PySide2.QtCore import QDate, QTimer
 
 
 class DuiXiang:
@@ -262,5 +264,4 @@ class DateEdit(QDateEdit):
         # 日期发生改变时执行
         if self.date() == QDate(2000, 1, 1):
             self.setDate(QDate.currentDate())  # 设置当前日期
-
 

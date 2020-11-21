@@ -119,55 +119,62 @@ class UI_ryxx(QMainWindow):
     @Slot(bool)
     def on_action_xiugai_triggered(self, clicked):
         row = self.ui.Text_ShuJuXianShi.currentRow()    # currentRow当前行号,currentColumn当前列号
-        text = self.ui.Text_ShuJuXianShi.item(row, 3).text()   # 读取表格相对位置文本
-        db = DX().connect_db()
-        cur = db.cursor(pymysql.cursors.DictCursor)     # 使用字典类型输出
-        sql_update = "select * FROM 人员信息 WHERE 工号 = %s order by ID desc limit 1"
-        rows = cur.execute(sql_update, text)  # 查找对应的数据
-        results = cur.fetchall()  # 查询到的字典组数
-        jieguo = results[rows - 1]  # 提取最后一个字典
-        UI_ryxxlr().xiugai(jieguo)
+        if row == -1:
+            QMessageBox.information(self, '提示信息', '未选择需要的修改信息!')
+
+        else:
+            text = self.ui.Text_ShuJuXianShi.item(row, 3).text()   # 读取表格相对位置文本
+            db = DX().connect_db()
+            cur = db.cursor(pymysql.cursors.DictCursor)     # 使用字典类型输出
+            sql_update = "select * FROM 人员信息 WHERE 工号 = %s order by ID desc limit 1"
+            rows = cur.execute(sql_update, text)  # 查找对应的数据
+            results = cur.fetchall()  # 查询到的字典组数
+            jieguo = results[rows - 1]  # 提取最后一个字典
+            UI_ryxxlr().xiugai(jieguo)
 
     # 删除按钮
     @Slot(bool)
     def on_action_shanchu_triggered(self, clicked):
         row = self.ui.Text_ShuJuXianShi.currentRow()    # currentRow当前行号,currentColumn当前列号
-        text = self.ui.Text_ShuJuXianShi.item(row, 3).text()   # 读取表格相对位置文本
-        text1 = self.ui.Text_ShuJuXianShi.item(row, 4).text()  # 读取表格相对位置文本
-        # ret = QMessageBox.warning(self, '提示信息', '确定重置吗？？？!', QStringLiteral("确定"),QStringLiteral("取消"))
-        msgbox = QMessageBox(self)  # 指定父窗口控件
-        msgbox.setWindowTitle('提示信息')  # 对话框标题
-        msgbox.setText("确定要删除  %s  %s   吗？？？" % (text, text1))  # 设置文本
-        msgbox.setStandardButtons(QMessageBox.Yes | QMessageBox.No)     # 设置对话框有几个按钮
-        msgbox.button(QMessageBox.Yes).setText("确定")    # 设置按钮文本
-        msgbox.button(QMessageBox.No).setText("取消")     # 设置按钮文本
-        # msgbox.button(QMessageBox.Cancel).setText("结束")   #还有abort,retry,ignore按钮
-        # msgbox.setGeometry(500,500,0,0)     #消息框位置、大小设置
-        msgbox.setIcon(QMessageBox.Warning)  # 图标图片：QMessageBox.Information信息框，QMessageBox.Question问答框，
-        # QMessageBox.Warning警告框，QMessageBox.Ctitical危险框，QMessageBox.About关于框
-        result = msgbox.exec() # 执行对话框，并获取返回值
-        if result == QMessageBox.Yes:
-            db = DX().connect_db()
-            cur = db.cursor()
-            sql_update = "delete FROM 人员信息 WHERE 工号 = %s order by ID desc limit 1"
-            sql_updats = "select 入职照片 FROM 人员信息 WHERE 工号 = %s order by ID desc "
-            try:
-                # 向sql语句传递参数
-                rows = cur.execute(sql_updats, text)  # 查找对应的数据
-                if rows == 1:
-                    results = cur.fetchone()  # 查询结果（元组）
-                    os.remove(results[0])  # 删除指定路径文件
+        if row == -1:
+            QMessageBox.information(self, '提示信息', '未选择需要的删除信息!')
+        else:
+            text = self.ui.Text_ShuJuXianShi.item(row, 3).text()   # 读取表格相对位置文本
+            text1 = self.ui.Text_ShuJuXianShi.item(row, 4).text()  # 读取表格相对位置文本
+            # ret = QMessageBox.warning(self, '提示信息', '确定重置吗？？？!', QStringLiteral("确定"),QStringLiteral("取消"))
+            msgbox = QMessageBox(self)  # 指定父窗口控件
+            msgbox.setWindowTitle('提示信息')  # 对话框标题
+            msgbox.setText("确定要删除  %s  %s   吗？？？" % (text, text1))  # 设置文本
+            msgbox.setStandardButtons(QMessageBox.Yes | QMessageBox.No)     # 设置对话框有几个按钮
+            msgbox.button(QMessageBox.Yes).setText("确定")    # 设置按钮文本
+            msgbox.button(QMessageBox.No).setText("取消")     # 设置按钮文本
+            # msgbox.button(QMessageBox.Cancel).setText("结束")   #还有abort,retry,ignore按钮
+            # msgbox.setGeometry(500,500,0,0)     #消息框位置、大小设置
+            msgbox.setIcon(QMessageBox.Warning)  # 图标图片：QMessageBox.Information信息框，QMessageBox.Question问答框，
+            # QMessageBox.Warning警告框，QMessageBox.Ctitical危险框，QMessageBox.About关于框
+            result = msgbox.exec() # 执行对话框，并获取返回值
+            if result == QMessageBox.Yes:
+                db = DX().connect_db()
+                cur = db.cursor()
+                sql_update = "delete FROM 人员信息 WHERE 工号 = %s order by ID desc limit 1"
+                sql_updats = "select 入职照片 FROM 人员信息 WHERE 工号 = %s order by ID desc "
+                try:
+                    # 向sql语句传递参数
+                    rows = cur.execute(sql_updats, text)  # 查找对应的数据
+                    if rows == 1:
+                        results = cur.fetchone()  # 查询结果（元组）
+                        os.remove(results[0])  # 删除指定路径文件
 
 
-                cur.execute(sql_update, text)   # 查找对应的数据
-                # # 提交
-                db.commit()
-                self.ui.action_chaxun.trigger()     # 触发查询按钮,设置触发功能：triggered.connect(lambda:print("退出"))
+                    cur.execute(sql_update, text)   # 查找对应的数据
+                    # # 提交
+                    db.commit()
+                    self.ui.action_chaxun.trigger()     # 触发查询按钮,设置触发功能：triggered.connect(lambda:print("退出"))
 
-            except Exception as e:
-                # 错误回滚
-                db.rollback()
-                QMessageBox.information(self, '提示信息', '操作失败!')
+                except Exception as e:
+                    # 错误回滚
+                    db.rollback()
+                    QMessageBox.information(self, '提示信息', '操作失败!')
 
     # 查看功能
     @Slot(bool)
@@ -189,39 +196,42 @@ class UI_ryxx(QMainWindow):
         :return:
         """
         row = self.ui.Text_ShuJuXianShi.currentRow()    # currentRow当前行号,currentColumn当前列号
-        text = self.ui.Text_ShuJuXianShi.item(row, 3).text()   # 读取表格相对位置文本
-        db = DX().connect_db()
-        cur = db.cursor(pymysql.cursors.DictCursor)     # 使用字典类型输出
-        sql_update = "select * FROM 人员信息 WHERE 工号 = %s order by ID desc limit 1"
-        rows = cur.execute(sql_update, text)  # 查找对应的数据
-        results = cur.fetchall()  # 查询到的字典组数
-        sql = results[rows - 1]  # 提取最后一个字典
+        if row == -1:
+            QMessageBox.information(self, '提示信息', '未选择需要的查看信息!')
+        else:
+            text = self.ui.Text_ShuJuXianShi.item(row, 3).text()   # 读取表格相对位置文本
+            db = DX().connect_db()
+            cur = db.cursor(pymysql.cursors.DictCursor)     # 使用字典类型输出
+            sql_update = "select * FROM 人员信息 WHERE 工号 = %s order by ID desc limit 1"
+            rows = cur.execute(sql_update, text)  # 查找对应的数据
+            results = cur.fetchall()  # 查询到的字典组数
+            sql = results[rows - 1]  # 提取最后一个字典
 
-        dlgTableSize = UI_ryxxck(self)
-        dlgTableSize.ui.Text_GongSiMingCheng.setText(DX.GongSiMing)
-        dlgTableSize.ui.Text_GongSiMingCheng.setAlignment(Qt.AlignCenter)   # AlignLeft 居左，AlignCenter居中，AlignRight居右
+            dlgTableSize = UI_ryxxck(self)
+            dlgTableSize.ui.Text_GongSiMingCheng.setText(DX.GongSiMing)
+            dlgTableSize.ui.Text_GongSiMingCheng.setAlignment(Qt.AlignCenter)   # AlignLeft 居左，AlignCenter居中，AlignRight居右
 
-        # color: rgb()中的四个参数, 前三个是控制颜色, 第四个控制透明度
-        # font - size: 设置字体大小
-        # font - weight: bold可设置字体加粗
-        # font - family: 选择自己想要的颜色
-        dlgTableSize.ui.Text_GongSiMingCheng.setStyleSheet("QLabel{color:rgb(225,22,173,255);font-size:25px;font-weight:normal;font-family:Arial;}")
-        dlgTableSize.ui.Text_GongSiMingCheng.adjustSize()  # 自适应函数->adjustSize()是继承于QWidget中
-        dlgTableSize.ui.Text_DongHao.setText('编号：' + sql['工号'])
-        dlgTableSize.ui.Text_DongHao.setAlignment(Qt.AlignCenter)
+            # color: rgb()中的四个参数, 前三个是控制颜色, 第四个控制透明度
+            # font - size: 设置字体大小
+            # font - weight: bold可设置字体加粗
+            # font - family: 选择自己想要的颜色
+            dlgTableSize.ui.Text_GongSiMingCheng.setStyleSheet("QLabel{color:rgb(225,22,173,255);font-size:25px;font-weight:normal;font-family:Arial;}")
+            dlgTableSize.ui.Text_GongSiMingCheng.adjustSize()  # 自适应函数->adjustSize()是继承于QWidget中
+            dlgTableSize.ui.Text_DongHao.setText('编号：' + sql['工号'])
+            dlgTableSize.ui.Text_DongHao.setAlignment(Qt.AlignCenter)
 
-        dlgTableSize.ui.Text_XingMing.setText('姓 名：' + sql['姓名'])
-        dlgTableSize.ui.Text_BuMen.setText('部 门：'+sql['部门'])
-        dlgTableSize.ui.Text_ZhiWei.setText('职 位：' + sql['职位'])
-        dlgTableSize.ui.Text_RuZhi_RiQi.setText('入职日期：' + sql['入职日期'])
-        dlgTableSize.ui.Text_DianHua.setText('电 话：' + sql['联系电话'])
+            dlgTableSize.ui.Text_XingMing.setText('姓 名：' + sql['姓名'])
+            dlgTableSize.ui.Text_BuMen.setText('部 门：'+sql['部门'])
+            dlgTableSize.ui.Text_ZhiWei.setText('职 位：' + sql['职位'])
+            dlgTableSize.ui.Text_RuZhi_RiQi.setText('入职日期：' + sql['入职日期'])
+            dlgTableSize.ui.Text_DianHua.setText('电 话：' + sql['联系电话'])
 
-        Image = cv2.imread(sql['入职照片'])
-        show = cv2.cvtColor(Image, cv2.COLOR_BGR2RGB)
-        showImage = QImage(show.data, show.shape[1], show.shape[0], QImage.Format_RGB888)
-        dlgTableSize.ui.Text_TuPian.setPixmap(QPixmap.fromImage(showImage))
-        dlgTableSize.ui.Text_TuPian.setScaledContents(True)    # 入职照片
-        dlgTableSize.exec_()
+            Image = cv2.imread(sql['入职照片'])
+            show = cv2.cvtColor(Image, cv2.COLOR_BGR2RGB)
+            showImage = QImage(show.data, show.shape[1], show.shape[0], QImage.Format_RGB888)
+            dlgTableSize.ui.Text_TuPian.setPixmap(QPixmap.fromImage(showImage))
+            dlgTableSize.ui.Text_TuPian.setScaledContents(True)    # 入职照片
+            dlgTableSize.exec_()
 
     # 表头设置
     @Slot(bool)

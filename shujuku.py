@@ -71,15 +71,16 @@ def create_sql_tb(conn, cursor, tablename, dataframe:list, col_limit=''):
     """
     # list_Type, list_Len = find_dfm_cols_most(dataframe)
     # print(list_Type, list_Len)
-    # list_colname = dataframe  # 新表的列名为数据框的列名
+    # list_colname = list(dataframe.columns)  # 新表的列名为数据框的列名
     # list_col_desc = []  # 列描述,sql语言
     # for i in range(len(list_colname)):
     #     print('正创建列:\t{} '.format(list_colname[i]))
     #     # col_limit = input('Please enter the limits of the column:\t')
     #     col_desc = list_colname[i] + ' ' + list_Type[i] + '(' + str(list_Len[i]) + ')' + col_limit
     #     list_col_desc.append(col_desc)
-    sql = 'CREATE TABLE %s' % tablename + '(`id` varchar(100) COLLATE utf8_estonian_ci NOT NULL COMMENT,' + \
-          'varchar(255) COLLATE utf8_estonian_ci DEFAULT NULL,'.join(dataframe) + ')'  # 用于执行的sql语句
+    sql = 'CREATE TABLE %s' % tablename + '(`ID` varchar(100) COLLATE utf8_estonian_ci NOT NULL COMMENT,' + \
+          'varchar(255) COLLATE utf8_estonian_ci DEFAULT NULL,'.join(dataframe) + \
+          ') ENGINE = InnoDB DEFAULT CHARSET = utf8 COLLATE = utf8_estonian_ci ROW_FORMAT = DYNAMIC;'  # 用于执行的sql语句
     # sql = sql.replace('datetime(0)', 'datetime')
     try:
         # print(sql)
@@ -90,8 +91,6 @@ def create_sql_tb(conn, cursor, tablename, dataframe:list, col_limit=''):
         if select == 'Y' or 'y':
             sql1 = 'drop table if exists {}'.format(tablename)  # 删除表
             cursor.execute(sql1)
-            sql = 'CREATE TABLE %s' % tablename + '(`id` varchar(100) COLLATE utf8_estonian_ci NOT NULL COMMENT,' + \
-                  'varchar(255) COLLATE utf8_estonian_ci DEFAULT NULL,'.join(dataframe) + ')'  # 用于执行的sql语句
             # sql = 'CREATE TABLE %s' % (tablename) + '(' + ','.join(list_col_desc) + ')'
             # sql = sql.replace('datetime(0)', 'datetime')
             cursor.execute(sql)

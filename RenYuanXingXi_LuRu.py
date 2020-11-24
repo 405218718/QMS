@@ -106,7 +106,7 @@ class UI_ryxxlr(QDialog):
         sql['出生日期'] = self.ui.Text_ChuSheng_RiQi.text().strip()
         sql['合同日期'] = self.Text_HeTong.text().strip()
 
-        lujing = self.MuLu + "\\" + time.strftime('%Y')  # 工作的目录路径+文件夹+文件名=存放路径
+        lujing = self.MuLu + "\\" + time.strftime('%Y')  # 工作的目录路径+文件夹=存放路径
         if not os.path.exists(lujing):  # 检查路径是否存在
             os.mkdir(self.MuLu + "\\" + time.strftime('%Y'))  # 创建目录
         if self.ZhuangTai == 0:
@@ -129,7 +129,7 @@ class UI_ryxxlr(QDialog):
             if DX.XinZeng(DX(), sql_Table, values) == 'ok':       #数据添加成功
                 # os.remove(sql['入职照片'])    # 删除指定路径文件
                 if self.ZhuangTai == 0:
-                    shutil.move(self.lujing, "path/to/new/destination/for/file.foo")
+                    shutil.move(self.lujing, lujing+self.newName)    # 移动到指定路径
                     # cv2.imwrite(lujing + '\\QMS_rs_' + str(self.now_time) + '.jpg', self.ZhaoPian)  # 保存路径+保存命名+图像
                 QMessageBox.information(self, '提示信息', '操作成功!')
                 sql.clear()
@@ -243,10 +243,10 @@ class UI_ryxxlr(QDialog):
         paishe.exec_()
         filePath = os.path.dirname(paishe.lujing)   # 获取路径
         name = os.path.basename(paishe.lujing)    # 旧文件名
-        newName = '\\QMS_rs_' + name               # 新命名
-        os.rename(filePath + name, filePath + newName)     # 修改文件名称
+        self.newName = '\\QMS_rs_' + name               # 新命名
+        os.rename(filePath + name, filePath + self.newName)     # 修改文件名称
         # lujing = paishe.on_action_QueRne_clicked()
-        self.lujing = filePath + newName  # 获取路径+文件名
+        self.lujing = filePath + self.newName  # 获取路径+文件名
 
         print(self.lujing)
         # Image = cv2.imread(lujing)

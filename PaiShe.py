@@ -12,7 +12,7 @@ from 拍照 import Ui_zhaopian
 
 
 """
-使用此界面需先在ShuJuKuCaoZuo设置公共路径
+备注：软件安装路径不能有中文
 """
 
 class UI_paishe(QDialog):
@@ -66,14 +66,17 @@ class UI_paishe(QDialog):
             # self.ui.Text_TuPian.pixmap().toImage()  # 获取QLabel上的图像QImage
             self.ui.XianShi.setScaledContents(True)
             # os.getcwd()   # 工作的目录路径
-            self.lujing = os.getcwd() + '\\QMS_rs_' + str(self.now_time) + '.jpg'  # 保存路径+保存命名+图像
+            self.lujing = os.getcwd() + '\\' + str(self.now_time) + '.jpg'  # 保存路径+保存命名+图像
             cv2.imwrite(self.lujing, self.image, [int(cv2.IMWRITE_PNG_COMPRESSION), 9])  # 保存路径+图像+第三个参数针对特定的格式：
             # 对于JPEG，其表示的是图像的质量，用0-100的整数表示；从0到9,压缩级别越高，图像尺寸越小。默认级别为3
             if self.cap.isOpened():
                 self.cap.release()  # 释放摄像头
-
+        if not os.path.exists(self.lujing):
+            QMessageBox.information(self, '提示信息', '拍摄失败!\n'
+                                                  '备注：软件安装路径不能有中文')
             # if self.timer_camera.isActive():
             #     self.timer_camera.stop()      # 暂停定时器
+        else:
             self.close()    # 关闭窗口
             return self.lujing
 

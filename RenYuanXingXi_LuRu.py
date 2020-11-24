@@ -1,4 +1,5 @@
 import os
+import shutil
 import sys
 import time
 import cv2
@@ -7,7 +8,7 @@ from PySide2.QtGui import QRegExpValidator, QImage, QPixmap
 from PySide2.QtWidgets import QApplication, QDialog, QMessageBox, QLineEdit
 from ShuJuKuCaoZuo import DuiXiang as DX, DateEdit
 from 人员信息录入 import Ui_Dialog
-
+from PaiShe import UI_paishe
 
 """
 使用此界面需先在ShuJuKuCaoZuo设置公共路径
@@ -109,7 +110,9 @@ class UI_ryxxlr(QDialog):
         if not os.path.exists(lujing):  # 检查路径是否存在
             os.mkdir(self.MuLu + "\\" + time.strftime('%Y'))  # 创建目录
         if self.ZhuangTai == 0:
-            sql['入职照片'] = lujing + '\\QMS_rs_' + str(self.now_time) + '.jpg'
+            sql['入职照片'] = self.lujing
+            # sql['入职照片'] = lujing + '\\QMS_rs_' + str(self.now_time) + '.jpg'
+
         else:
             sql['入职照片'] = self.ZhuangTai
 
@@ -126,7 +129,8 @@ class UI_ryxxlr(QDialog):
             if DX.XinZeng(DX(), sql_Table, values) == 'ok':       #数据添加成功
                 # os.remove(sql['入职照片'])    # 删除指定路径文件
                 if self.ZhuangTai == 0:
-                    cv2.imwrite(lujing + '\\QMS_rs_' + str(self.now_time) + '.jpg', self.ZhaoPian)  # 保存路径+保存命名+图像
+                    shutil.move(self.lujing, "path/to/new/destination/for/file.foo")
+                    # cv2.imwrite(lujing + '\\QMS_rs_' + str(self.now_time) + '.jpg', self.ZhaoPian)  # 保存路径+保存命名+图像
                 QMessageBox.information(self, '提示信息', '操作成功!')
                 sql.clear()
                 self.close()
@@ -235,24 +239,42 @@ class UI_ryxxlr(QDialog):
     # 拍照
     @Slot(bool)
     def on_action_paizhao_clicked(self, checked):
-        if self.timer_camera.isActive():
-            self.now_time = time.strftime('%Y%m%d%H%M%S',time.localtime(time.time()))
-            cv2.putText(self.image, str(self.now_time),
-                        (int(self.image.shape[1]/2-130), int(self.image.shape[0]-10)),
-                        cv2.FONT_HERSHEY_DUPLEX,
-                        1.0, (255, 255, 255), 1)    # 图片对象、文本、像素、字体、字体大小、颜色、字体粗细
-            self.timer_camera.stop()    # 暂停定时器
-            show = cv2.cvtColor(self.image, cv2.COLOR_BGR2RGB)
-            showImage = QImage(show.data, show.shape[1], show.shape[0], QImage.Format_RGB888)
-            self.ui.Text_TuPian.setPixmap(QPixmap.fromImage(showImage))
-            # self.ui.Text_TuPian.pixmap().toImage()  # 获取QLabel上的图像QImage
-            self.ui.Text_TuPian.setScaledContents(True)
-            self.ZhaoPian = self.image
+        paishe = UI_paishe(self)
+        paishe.exec_()
+        filePath = os.path.dirname(paishe.lujing)   # 获取路径
+        name = os.path.basename(paishe.lujing)    # 旧文件名
+        newName = '\\QMS_rs_' + name               # 新命名
+        os.rename(filePath + name, filePath + newName)     # 修改文件名称
+        # lujing = paishe.on_action_QueRne_clicked()
+        self.lujing = filePath + newName  # 获取路径+文件名
 
-            if self.cap.isOpened():
-                self.cap.release()  # 释放摄像头
-            # if self.timer_camera.isActive():
-            #     self.timer_camera.stop()      # 暂停定时器
+        print(self.lujing)
+        # Image = cv2.imread(lujing)
+        # show = cv2.cvtColor(Image, cv2.COLOR_BGR2RGB)
+        # showImage = QImage(show.data, show.shape[1], show.shape[0], QImage.Format_RGB888)
+        # self.ui.Text_TuPian.setPixmap(QPixmap.fromImage(showImage))
+        # self.ui.Text_TuPian.setScaledContents(True)    # 入职照片
+        #
+
+
+        # if self.timer_camera.isActive():
+        #     self.now_time = time.strftime('%Y%m%d%H%M%S',time.localtime(time.time()))
+        #     cv2.putText(self.image, str(self.now_time),
+        #                 (int(self.image.shape[1]/2-130), int(self.image.shape[0]-10)),
+        #                 cv2.FONT_HERSHEY_DUPLEX,
+        #                 1.0, (255, 255, 255), 1)    # 图片对象、文本、像素、字体、字体大小、颜色、字体粗细
+        #     self.timer_camera.stop()    # 暂停定时器
+        #     show = cv2.cvtColor(self.image, cv2.COLOR_BGR2RGB)
+        #     showImage = QImage(show.data, show.shape[1], show.shape[0], QImage.Format_RGB888)
+        #     self.ui.Text_TuPian.setPixmap(QPixmap.fromImage(showImage))
+        #     # self.ui.Text_TuPian.pixmap().toImage()  # 获取QLabel上的图像QImage
+        #     self.ui.Text_TuPian.setScaledContents(True)
+        #     self.ZhaoPian = self.image
+        #
+        #     if self.cap.isOpened():
+        #         self.cap.release()  # 释放摄像头
+        #     # if self.timer_camera.isActive():
+        #     #     self.timer_camera.stop()      # 暂停定时器
 
 
 

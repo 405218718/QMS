@@ -2,17 +2,20 @@ import os
 import shutil
 import sys
 import time
+
 import cv2
-from PySide2.QtCore import Slot, QTimer, QDate
+from PySide2.QtCore import Slot
 from PySide2.QtGui import QRegExpValidator, QImage, QPixmap
 from PySide2.QtWidgets import QApplication, QDialog, QMessageBox, QLineEdit
+
+from PaiShe import UI_paishe
 from ShuJuKuCaoZuo import DuiXiang as DX, DateEdit
 from 人员信息录入 import Ui_Dialog
-from PaiShe import UI_paishe
 
 """
 使用此界面需先在ShuJuKuCaoZuo设置公共路径
 """
+
 
 class UI_ryxxlr(QDialog):
     def __init__(self, parent=None):
@@ -20,16 +23,15 @@ class UI_ryxxlr(QDialog):
         self.ui = Ui_Dialog()  # 创建UI对象
         self.ui.setupUi(self)  # 构造UI界面
         self.setWindowTitle('人员信息录入')  # 设置窗体标题
-        self.timer_camera = QTimer()  # 定时器
-        self.cap = cv2.VideoCapture()   # 准备获取图像
-        self.CAM_NUM = 0                # 摄像头序号
-        self.timer_camera.timeout.connect(self.show_camera)     # 定时器不未O时执行
+        # self.timer_camera = QTimer()  # 定时器
+        # self.cap = cv2.VideoCapture()   # 准备获取图像
+        # self.CAM_NUM = 0                # 摄像头序号
+        # self.timer_camera.timeout.connect(self.show_camera)     # 定时器不未O时执行
 
         # os.getcwd()   # 工作的目录路径
         self.MuLu = DX.image + "image_rs"    # 存放路径
         if not os.path.exists(self.MuLu):       # 检查路径是否存在
             os.mkdir(DX.image + "image_rs")  # 创建目录
-
         self.Text_RuZhi = DateEdit(self.ui.Text_RuZhi_RiQi)
         self.Text_RuZhi.resize(self.ui.Text_RuZhi_RiQi.width(), self.ui.Text_RuZhi_RiQi.height())
         self.Text_HeTong = DateEdit(self.ui.Text_HeTong_RiQi)
@@ -45,11 +47,11 @@ class UI_ryxxlr(QDialog):
         regx3 = ("[0-9]+$")  # 限制输入数值
         regx4 = ("[X0-9]+$")  # 限制输入数值+字母"X"
         # self.ui.Text_GongHao.setMaxLength(128)  #限制输入长度, 最大为128
-        self.ui.Text_GongHao.setValidator(QRegExpValidator(regx1,self.ui.Text_GongHao))
-        self.ui.Text_GongZuoNianFen.setValidator(QRegExpValidator(regx3,self.ui.Text_GongHao))
-        self.ui.Text_LianXiDianHua.setValidator(QRegExpValidator(regx3, self.ui.Text_GongHao))
-        self.ui.Text_JinJiLianXiHaoMa.setValidator(QRegExpValidator(regx3, self.ui.Text_GongHao))
-        self.ui.Text_ShenFenZhengHaoMa.setValidator(QRegExpValidator(regx4, self.ui.Text_GongHao))
+        self.ui.Text_GongHao.setValidator(QRegExpValidator(regx1, self.ui.Text_GongHao))
+        self.ui.Text_GongZuoNianFen.setValidator(QRegExpValidator(regx3, self.ui.Text_GongHao))
+        self.ui.Text_LianXiDianHua.setValidator(QRegExpValidator(regx3,  self.ui.Text_GongHao))
+        self.ui.Text_JinJiLianXiHaoMa.setValidator(QRegExpValidator(regx3,  self.ui.Text_GongHao))
+        self.ui.Text_ShenFenZhengHaoMa.setValidator(QRegExpValidator(regx4,  self.ui.Text_GongHao))
 
     # 隐藏
     def yincang(self):
@@ -106,13 +108,12 @@ class UI_ryxxlr(QDialog):
         sql['出生日期'] = self.ui.Text_ChuSheng_RiQi.text().strip()
         sql['合同日期'] = self.Text_HeTong.text().strip()
 
-        lujing = self.MuLu + "\\" + time.strftime('%Y')  # 工作的目录路径+文件夹=存放路径
+        lujing = self.MuLu + "\\" + time.strftime('%Y')  # 目录路径+文件夹=存放路径
         if not os.path.exists(lujing):  # 检查路径是否存在
             os.mkdir(self.MuLu + "\\" + time.strftime('%Y'))  # 创建目录
         if self.ZhuangTai == 0:
-            sql['入职照片'] = self.lujing
+            sql['入职照片'] = lujing+'\\'+self.newName
             # sql['入职照片'] = lujing + '\\QMS_rs_' + str(self.now_time) + '.jpg'
-
         else:
             sql['入职照片'] = self.ZhuangTai
 
@@ -124,12 +125,12 @@ class UI_ryxxlr(QDialog):
             sql['调薪日期'] = self.Text_TiaoXin.text().strip()
             sql['离职日期'] = self.Text_LiZhi.text().strip()
             sql['备注'] = self.ui.Text_BeiZhu.text().strip()
-            sql_Table = '人员信息' + str(tuple(list(sql.keys()))).replace('\'','')  # 列表转元组转字符串，再删除引号
+            sql_Table = '人员信息' + str(tuple(list(sql.keys()))).replace('\'', '')  # 列表转元组转字符串，再删除引号
             values = tuple(list(sql.values()))   # 列表转元组
             if DX.XinZeng(DX(), sql_Table, values) == 'ok':       #数据添加成功
                 # os.remove(sql['入职照片'])    # 删除指定路径文件
                 if self.ZhuangTai == 0:
-                    shutil.move(self.lujing, lujing+self.newName)    # 移动到指定路径
+                    shutil.move(self.lujing, lujing+'\\'+self.newName)    # 移动到指定路径
                     # cv2.imwrite(lujing + '\\QMS_rs_' + str(self.now_time) + '.jpg', self.ZhaoPian)  # 保存路径+保存命名+图像
                 QMessageBox.information(self, '提示信息', '操作成功!')
                 sql.clear()
@@ -212,29 +213,11 @@ class UI_ryxxlr(QDialog):
         xiugai_ui.ui.Text_BeiZhu.setText(sql['备注'])
         xiugai_ui.Text_TiaoXin.setFocus()       # 调薪日期获得焦点
         # xiugai_ui.action_queren.trigger()  # 触发确认按钮
+        self.ZhuangTai = 1
         xiugai_ui.exec_()
 
 
-    # 打开相机
-    @Slot(bool)
-    def on_action_dakaixiangji_clicked(self, checked):
-        if not self.timer_camera.isActive():
-            flag = self.cap.open(self.CAM_NUM)
-            if flag == False:
-                msg = QMessageBox.warning(
-                    self, u"提示信息", u"请检测相机与电脑是否连接正确",
-                    buttons=QMessageBox.Ok,
-                    defaultButton=QMessageBox.Ok)
-            else:
-                self.timer_camera.start(30)
 
-    def show_camera(self):
-        flag, self.image = self.cap.read()
-        self.image = cv2.flip(self.image, 1, dst=None)  # 左右翻转
-        show = cv2.cvtColor(self.image, cv2.COLOR_BGR2RGB)
-        showImage = QImage(show.data, show.shape[1], show.shape[0], QImage.Format_RGB888)
-        self.ui.Text_TuPian.setPixmap(QPixmap.fromImage(showImage))
-        self.ui.Text_TuPian.setScaledContents(True)
 
     # 拍照
     @Slot(bool)
@@ -243,38 +226,16 @@ class UI_ryxxlr(QDialog):
         paishe.exec_()
         filePath = os.path.dirname(paishe.lujing)   # 获取路径
         name = os.path.basename(paishe.lujing)    # 旧文件名
-        self.newName = '\\QMS_rs_' + name               # 新命名
-        os.rename(filePath + name, filePath + self.newName)     # 修改文件名称
+        self.newName = 'QMS_rs_' + name               # 新命名
+        os.rename(paishe.lujing, filePath + '\\' + self.newName)     # 修改文件名称
         # lujing = paishe.on_action_QueRne_clicked()
-        self.lujing = filePath + self.newName  # 获取路径+文件名
+        self.lujing = filePath + '\\' + self.newName  # 获取路径+文件名
+        Image = cv2.imread(self.lujing)
+        show = cv2.cvtColor(Image, cv2.COLOR_BGR2RGB)
+        showImage = QImage(show.data, show.shape[1], show.shape[0], QImage.Format_RGB888)
+        self.ui.Text_TuPian.setPixmap(QPixmap.fromImage(showImage))
+        self.ui.Text_TuPian.setScaledContents(True)  # 入职照片
 
-        print(self.lujing)
-        # Image = cv2.imread(lujing)
-        # show = cv2.cvtColor(Image, cv2.COLOR_BGR2RGB)
-        # showImage = QImage(show.data, show.shape[1], show.shape[0], QImage.Format_RGB888)
-        # self.ui.Text_TuPian.setPixmap(QPixmap.fromImage(showImage))
-        # self.ui.Text_TuPian.setScaledContents(True)    # 入职照片
-        #
-
-
-        # if self.timer_camera.isActive():
-        #     self.now_time = time.strftime('%Y%m%d%H%M%S',time.localtime(time.time()))
-        #     cv2.putText(self.image, str(self.now_time),
-        #                 (int(self.image.shape[1]/2-130), int(self.image.shape[0]-10)),
-        #                 cv2.FONT_HERSHEY_DUPLEX,
-        #                 1.0, (255, 255, 255), 1)    # 图片对象、文本、像素、字体、字体大小、颜色、字体粗细
-        #     self.timer_camera.stop()    # 暂停定时器
-        #     show = cv2.cvtColor(self.image, cv2.COLOR_BGR2RGB)
-        #     showImage = QImage(show.data, show.shape[1], show.shape[0], QImage.Format_RGB888)
-        #     self.ui.Text_TuPian.setPixmap(QPixmap.fromImage(showImage))
-        #     # self.ui.Text_TuPian.pixmap().toImage()  # 获取QLabel上的图像QImage
-        #     self.ui.Text_TuPian.setScaledContents(True)
-        #     self.ZhaoPian = self.image
-        #
-        #     if self.cap.isOpened():
-        #         self.cap.release()  # 释放摄像头
-        #     # if self.timer_camera.isActive():
-        #     #     self.timer_camera.stop()      # 暂停定时器
 
 
 

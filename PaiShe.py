@@ -25,9 +25,11 @@ class UI_paishe(QDialog):
         self.cap = cv2.VideoCapture()   # 准备获取图像
         self.CAM_NUM = 0                # 摄像头序号
         self.timer_camera.timeout.connect(self.show_camera)     # 定时器不未O时执行
-        self.button_open_camera_click()
-        self.resize(640, 512)
-
+        self.button_open_camera_click()     # 打开摄像头
+        # os.getcwd()   # 工作的目录路径
+        self.MRlujing = "E:\\QMS\\"
+        self.resize(640, 512)   # 设置窗口大小
+        self.lujing1 = 0
 
     # 打开相机
     def button_open_camera_click(self):
@@ -52,7 +54,7 @@ class UI_paishe(QDialog):
 
     # 确认
     @Slot(bool)
-    def on_action_QueRne_clicked(self, checked):
+    def on_action_PaiShe_clicked(self, checked):
         if self.timer_camera.isActive():
             self.now_time = time.strftime('%Y%m%d%H%M%S', time.localtime(time.time()))
             cv2.putText(self.image, str(self.now_time),
@@ -65,18 +67,26 @@ class UI_paishe(QDialog):
             self.ui.XianShi.setPixmap(QPixmap.fromImage(showImage))
             # self.ui.Text_TuPian.pixmap().toImage()  # 获取QLabel上的图像QImage
             self.ui.XianShi.setScaledContents(True)
-            # os.getcwd()   # 工作的目录路径
-            self.lujing = os.getcwd() + '\\' + str(self.now_time) + '.jpg'  # 保存路径+保存命名+图像
-            cv2.imwrite(self.lujing, self.image, [int(cv2.IMWRITE_PNG_COMPRESSION), 9])  # 保存路径+图像+第三个参数针对特定的格式：
+            self.lujing1 = self.MRlujing + '\\' + str(self.now_time) + '.jpg'  # 保存路径+保存命名+图像
+            cv2.imwrite(self.lujing1, self.image, [int(cv2.IMWRITE_PNG_COMPRESSION), 9])  # 保存路径+图像+第三个参数针对特定的格式：
             # 对于JPEG，其表示的是图像的质量，用0-100的整数表示；从0到9,压缩级别越高，图像尺寸越小。默认级别为3
-            if self.cap.isOpened():
-                self.cap.release()  # 释放摄像头
-        if not os.path.exists(self.lujing):
-            QMessageBox.information(self, '提示信息', '拍摄失败!\n'
+
+
+
+    # 确认
+    @Slot(bool)
+    def on_action_QueRne_clicked(self, checked):
+        if not os.path.exists(self.lujing1) or self.lujing1 == 0:
+            QMessageBox.warning(self, '提示信息', '拍摄失败或没有点击“拍摄!\n'
                                                   '备注：软件安装路径不能有中文')
+            self.button_open_camera_click()
+
             # if self.timer_camera.isActive():
             #     self.timer_camera.stop()      # 暂停定时器
         else:
+            self.lujing = self.lujing1
+            if self.cap.isOpened():
+                self.cap.release()  # 释放摄像头
             self.close()    # 关闭窗口
             return self.lujing
 

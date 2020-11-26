@@ -41,6 +41,7 @@ class UI_ryxxlr(QDialog):
         self.Text_LiZhi = DateEdit(self.ui.Text_LiZhi_RiQi)
         self.Text_LiZhi.resize(self.ui.Text_LiZhi_RiQi.width(), self.ui.Text_LiZhi_RiQi.height())
         self.ZhuangTai = 0     # 0为新增功能 ， 1为修改功能
+        self.ui.Text_TuPian.mousePressEvent = self.doSomething      # 点击Qlabel触发功能
         #限制输入
         regx1 = ("[a-zA-Z0-9.-]+$")  #限制输入数值+字母+"."+"-"
         # regx2 = ("[0-9.]+$")  # 限制输入数值+“.”
@@ -81,6 +82,26 @@ class UI_ryxxlr(QDialog):
             else:
                 self.ui.Text_XingBie.setEditText('男')
             self.ui.Text_ChuSheng_RiQi.setText(year+'/'+month+'/'+date)
+
+    # Qlabel拍摄
+    def doSomething(self, event):
+        if self.ui.Text_TuPian.text() == "":
+            print('已有图片')
+        else:
+            paishe = UI_paishe(self)
+            paishe.exec_()
+            filePath = os.path.dirname(paishe.lujing)   # 获取路径
+            name = os.path.basename(paishe.lujing)    # 旧文件名
+            self.newName = 'QMS_rs_' + name               # 新命名
+            os.rename(paishe.lujing, filePath + '\\' + self.newName)     # 修改文件名称
+            # lujing = paishe.on_action_QueRne_clicked()
+            self.lujing = filePath + '\\' + self.newName  # 获取路径+文件名
+            Image = cv2.imread(self.lujing)
+            show = cv2.cvtColor(Image, cv2.COLOR_BGR2RGB)
+            showImage = QImage(show.data, show.shape[1], show.shape[0], QImage.Format_RGB888)
+            self.ui.Text_TuPian.setPixmap(QPixmap.fromImage(showImage))
+            self.ui.Text_TuPian.setScaledContents(True)  # 入职照片
+            self.ui.Text_TuPian.text("")
 
     # 确认按钮
     @Slot(bool)
@@ -178,8 +199,8 @@ class UI_ryxxlr(QDialog):
             self.Text_LiZhi.clear()
             self.ui.Text_BeiZhu.clear()
             self.ui.Text_TuPian.clear()
-
         else:
+            self.ui.Text_TuPian.setText('点击打开摄像头')
             pass
 
     # 修改功能
@@ -214,30 +235,8 @@ class UI_ryxxlr(QDialog):
         xiugai_ui.Text_TiaoXin.setFocus()       # 调薪日期获得焦点
         # xiugai_ui.action_queren.trigger()  # 触发确认按钮
         self.ZhuangTai = 1
+        xiugai_ui.ui.Text_TuPian.setText("")
         xiugai_ui.exec_()
-
-
-
-
-    # 拍照
-    @Slot(bool)
-    def on_action_paizhao_clicked(self, checked):
-        paishe = UI_paishe(self)
-        paishe.exec_()
-        filePath = os.path.dirname(paishe.lujing)   # 获取路径
-        name = os.path.basename(paishe.lujing)    # 旧文件名
-        self.newName = 'QMS_rs_' + name               # 新命名
-        os.rename(paishe.lujing, filePath + '\\' + self.newName)     # 修改文件名称
-        # lujing = paishe.on_action_QueRne_clicked()
-        self.lujing = filePath + '\\' + self.newName  # 获取路径+文件名
-        Image = cv2.imread(self.lujing)
-        show = cv2.cvtColor(Image, cv2.COLOR_BGR2RGB)
-        showImage = QImage(show.data, show.shape[1], show.shape[0], QImage.Format_RGB888)
-        self.ui.Text_TuPian.setPixmap(QPixmap.fromImage(showImage))
-        self.ui.Text_TuPian.setScaledContents(True)  # 入职照片
-
-
-
 
 
 if __name__ == "__main__":

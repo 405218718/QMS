@@ -786,32 +786,6 @@
     <string>重置</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="action_paizhao">
-   <property name="geometry">
-    <rect>
-     <x>550</x>
-     <y>250</y>
-     <width>81</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>拍照</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="action_dakaixiangji">
-   <property name="geometry">
-    <rect>
-     <x>410</x>
-     <y>250</y>
-     <width>81</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>打开相机</string>
-   </property>
-  </widget>
   <widget class="QDoubleSpinBox" name="Text_DaiYu">
    <property name="geometry">
     <rect>
@@ -928,7 +902,7 @@
      <x>400</x>
      <y>10</y>
      <width>231</width>
-     <height>231</height>
+     <height>271</height>
     </rect>
    </property>
    <property name="sizePolicy">
@@ -960,8 +934,6 @@
   <tabstop>Text_ShenFenZhengHaoMa</tabstop>
   <tabstop>Text_DiZhi</tabstop>
   <tabstop>Text_BeiZhu</tabstop>
-  <tabstop>action_dakaixiangji</tabstop>
-  <tabstop>action_paizhao</tabstop>
   <tabstop>action_queren</tabstop>
   <tabstop>action_chongzhi</tabstop>
   <tabstop>Text_TiaoXin_RiQi</tabstop>

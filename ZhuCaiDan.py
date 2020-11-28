@@ -1,12 +1,15 @@
 import sys
 from datetime import datetime
+
 import pymysql
+from PySide2.QtCore import Slot, QDate, QDateTime, Qt
 from PySide2.QtGui import QIcon
 from PySide2.QtWidgets import QApplication, QMessageBox, QLabel, QMainWindow, QTabBar
-from PySide2.QtCore import Slot, QDate, QDateTime, Qt
-from 主界面 import Ui_MainWindow
+
 from RenYuanXingXi import UI_ryxx
 from XiangMuXingXi import UI_xmxx
+from 主界面 import Ui_MainWindow
+from ShuJuKuCaoZuo import GongSiMing
 
 L = []
 bt = '飞云信息管理平台'     # 窗体标题
@@ -29,8 +32,8 @@ class zhujiemian_UI(QMainWindow):
         sql_renyuan = "select * FROM 人员信息 WHERE 工号 = %s order by ID desc limit 1"
         rows = self.cur.execute(sql_renyuan, L[len(L) - 1])
         rows = self.cur.fetchone()
-        qiye = QLabel(bt)           # 设置窗体标题
-        qiye.setMinimumWidth(150)
+        qiye = QLabel(GongSiMing)           # 设置窗体标题
+        qiye.setMinimumWidth(250)
         gonghao = QLabel("工号：%s" % L[len(L) - 1])
         gonghao.setMinimumWidth(120)
         xingming = QLabel("姓名：%s" % rows['姓名'])

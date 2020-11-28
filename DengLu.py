@@ -3,7 +3,7 @@ import sys
 from PySide2.QtWidgets import QMainWindow, QApplication, QMessageBox
 from PySide2.QtCore import Qt, Slot
 from 登陆 import Ui_Form
-from ZhuCaiDan import zhujiemian_UI
+from ZhuCaiDan import zhujiemian_UI, bt
 
 
 class dengluUI(QMainWindow):
@@ -12,6 +12,7 @@ class dengluUI(QMainWindow):
         super().__init__(parent)  # 调用父类构造函数，创建窗体
         self.ui = Ui_Form()  # 创建UI对象
         self.ui.setupUi(self)  # 构造UI界面
+        self.ui.label_8.setText(bt)     # 设置窗体标题
 
         # #美化界面，删除原生边框，设置窗口透明度
         # elf.setFixedSize(self.ui.width(), self.ui.height())  # 禁止拉伸窗口大小
@@ -126,12 +127,12 @@ class dengluUI(QMainWindow):
 
     # 设置按钮
     @Slot(bool)
-    def on_shezhi_2_clicked(self,checked):
+    def on_shezhi_2_clicked(self, checked):
         self.ui.tabWidget.setCurrentIndex(1)
 
     # 确认按钮
     @Slot(bool)
-    def on_queren_clicked(self,checked):
+    def on_queren_clicked(self, checked):
         try:
             self.connect_db()
             file = open('my.ini', 'w')
@@ -156,14 +157,10 @@ class dengluUI(QMainWindow):
             print("保存失败")
 
 # 显示登陆界面
-
-
 class denglu_ui():
     app = QApplication(sys.argv)  # 创建一个QApplication，也就是你要开发的软件app
     form = dengluUI()  # ui是Ui_MainWindow()类的实例化对象
     form.show()  # 执行QMainWindow的show()方法，显示这个QMainWindow
     sys.exit(app.exec_())  # 使用exit()或者点击关闭按钮退出QApplication
-
-
 if __name__ == "__main__":
     denglu_ui()

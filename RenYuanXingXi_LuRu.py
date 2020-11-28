@@ -9,7 +9,7 @@ from PySide2.QtGui import QRegExpValidator, QImage, QPixmap
 from PySide2.QtWidgets import QApplication, QDialog, QMessageBox, QLineEdit
 
 from PaiShe import UI_paishe
-from ShuJuKuCaoZuo import DuiXiang as DX, DateEdit
+from ShuJuKuCaoZuo import DuiXiang as DX, DateEdit, image, image
 from 人员信息录入 import Ui_Dialog
 
 """
@@ -29,9 +29,9 @@ class UI_ryxxlr(QDialog):
         # self.timer_camera.timeout.connect(self.show_camera)     # 定时器不未O时执行
 
         # os.getcwd()   # 工作的目录路径
-        self.MuLu = DX.image + "image_rs"    # 存放路径
+        self.MuLu = image + "image_rs"    # 存放路径
         if not os.path.exists(self.MuLu):       # 检查路径是否存在
-            os.mkdir(DX.image + "image_rs")  # 创建目录
+            os.mkdir(image + "image_rs")  # 创建目录
         self.Text_RuZhi = DateEdit(self.ui.Text_RuZhi_RiQi)
         self.Text_RuZhi.resize(self.ui.Text_RuZhi_RiQi.width(), self.ui.Text_RuZhi_RiQi.height())
         self.Text_HeTong = DateEdit(self.ui.Text_HeTong_RiQi)

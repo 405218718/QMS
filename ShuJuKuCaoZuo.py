@@ -1,16 +1,11 @@
-import time
-
-import cv2
 import pymysql
-from PySide2.QtGui import QValidator, QImage, QPixmap
-from PySide2.QtWidgets import QMessageBox,QTableWidgetItem, QAbstractItemView,QDateEdit,QLineEdit
-from PySide2.QtCore import QDate, QTimer
+from PySide2.QtCore import QDate
+from PySide2.QtGui import QValidator
+from PySide2.QtWidgets import QMessageBox, QTableWidgetItem, QAbstractItemView, QDateEdit
 
-
+GongSiMing = '广东天倬智能装备科技有限公司'  # 公司名称
+image = "E:\\QMS\\"  # 文件存储
 class DuiXiang:
-    GongSiMing = '广东天倬智能装备科技有限公司'  # 公司名称
-    image = "E:\\QMS\\"  # 文件存储
-
     def __init__(self):
         db = self.connect_db()
         # 获取游标
@@ -93,10 +88,11 @@ class DuiXiang:
                 charset=str(L[5]))  # 字体设置"utf8"
             return db
         except IOError:
-            QMessageBox.about(self, '提示信息', '服务器链接失败')
+            QMessageBox.about(self, '提示信息', '服务器链接失败')      # 图标图片：QMessageBox.information信息框，QMessageBox.question问答框，
+        # QMessageBox.warning警告框，QMessageBox.ctitical危险框，QMessageBox.about关于框
 
     #获取MySql某个表所有字段名
-    def HuoQuZiDuan(self,sql):
+    def HuoQuZiDuan(self, sql):
         """
         获取MySql某个表所有字段名
         sql = 'select * FROM 人员信息;'
@@ -121,7 +117,7 @@ class DuiXiang:
         # cursor.close()
 
     #新增表记录
-    def XinZeng(self,sql_Table,values):
+    def XinZeng(self, sql_Table, values):
         """
         新增数据\n
         insert into 表名(字段名列表) values(值1),...(值N);
@@ -177,7 +173,7 @@ class DuiXiang:
             db.close()
 
     #删除表记录
-    def ShanChu(self,sql_Table,condition):
+    def ShanChu(self, sql_Table, condition):
         """
         删除表记录
         1、delete from 表名 where 条件;\n
@@ -195,7 +191,7 @@ class DuiXiang:
         sql_delete = "delete from %s where %s"
         try:
             # 向sql语句传递参数
-            cur.execute(sql_delete,(sql_Table,condition))
+            cur.execute(sql_delete, (sql_Table, condition))
             # 提交
             db.commit()
             return 'OK'

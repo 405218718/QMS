@@ -25,72 +25,72 @@ class MyDateEdit(QLineEdit):
         # 信号和槽连接
         self.show_action.triggered.connect(self.show_signal)
 
-    # def _show_calendar_func(self):
-    #     """
-    #     发射显示日历信号
-    #     :return: None
-    #     """
-    #     self.show_signal.emit()
+    def _show_calendar_func(self):
+        """
+        发射显示日历信号
+        :return: None
+        """
+        self.show_signal.emit()
 
-    # def _check_input_func(self, year, month, day):
-    #     """
-    #     判断日期是否正确
-    #     :param year:
-    #     :param month:
-    #     :param day:
-    #     :return: True or False
-    #     """
-    #     # 年部分必须填满四个数
-    #     if len(year) != 4:
-    #         return False
-    #
-    #     # 月部分必须填满两个数
-    #     if len(month) != 2:
-    #         return False
-    #     else:
-    #         # 填满的话必须小于12
-    #         if int(month) > 12:
-    #             return False
-    #
-    #     # 日部分必须填满两个数
-    #     if len(day) != 2:
-    #         return False
-    #     else:
-    #         # 填满的话必须小于31
-    #         if int(day) > 31:
-    #             return False
-    #
-    #     # 上面如果都符合，则用QDate.isValid()方法判断日期是否合理
-    #     if not QDate.isValid(int(year), int(month), int(day)):
-    #         return False
-    #     return True
-    #
-    # def date(self):
-    #     """
-    #     获取日期
-    #     :return:self.my_date(QDate类型)
-    #     """
-    #     # 获取日期中的年月日部分
-    #     year = self.text().split('/')[0]
-    #     month = self.text().split('/')[1]
-    #     day = self.text().split('/')[2]
-    #
-    #     # 进行判断，合理则发送日期，不合理发送信号
-    #     check_result = self._check_input_func(year, month, day)
-    #     if check_result:
-    #         self.my_date = QDate(int(year), int(month), int(day))
-    #         self.check_signal.emit(True)
-    #         return self.my_date
-    #     else:
-    #         self.check_signal.emit(False)
-    #
-    # def setDate(self, QDate):
-    #     """
-    #     设置日期
-    #     :param QDate: QDate类型参数
-    #     :return: None
-    #     """
-    #     self.setText(QDate.toString(self.display_format))
+    def _check_input_func(self, year, month, day):
+        """
+        判断日期是否正确
+        :param year:
+        :param month:
+        :param day:
+        :return: True or False
+        """
+        # 年部分必须填满四个数
+        if len(year) != 4:
+            return False
+
+        # 月部分必须填满两个数
+        if len(month) != 2:
+            return False
+        else:
+            # 填满的话必须小于12
+            if int(month) > 12:
+                return False
+
+        # 日部分必须填满两个数
+        if len(day) != 2:
+            return False
+        else:
+            # 填满的话必须小于31
+            if int(day) > 31:
+                return False
+
+        # 上面如果都符合，则用QDate.isValid()方法判断日期是否合理
+        if not QDate.isValid(int(year), int(month), int(day)):
+            return False
+        return True
+
+    def date(self):
+        """
+        获取日期
+        :return:self.my_date(QDate类型)
+        """
+        # 获取日期中的年月日部分
+        year = self.text().split('/')[0]
+        month = self.text().split('/')[1]
+        day = self.text().split('/')[2]
+
+        # 进行判断，合理则发送日期，不合理发送信号
+        check_result = self._check_input_func(year, month, day)
+        if check_result:
+            self.my_date = QDate(int(year), int(month), int(day))
+            self.check_signal.emit(True)
+            return self.my_date
+        else:
+            self.check_signal.emit(False)
+
+    def setDate(self, QDate):
+        """
+        设置日期
+        :param QDate: QDate类型参数
+        :return: None
+        """
+        self.setText(QDate.toString(self.display_format))
 
 
 class MyCalendar(QCalendarWidget):

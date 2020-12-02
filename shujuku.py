@@ -12,13 +12,18 @@ class jianli:
 
     def __init__(self):
         DB = {}
-        DB["host"] = input('host:')  # 'localhost',  # "192.168.202.1""127.0.0.1"
+        DB["host"] = '127.0.0.1'  # input('host:')  # 'localhost',  # "192.168.202.1""127.0.0.1"
         # port = input('port:')   # 3306
-        DB["user"] = input('user:')   # 'root'
-        DB["password"] = input('password:')   # '080420'
+        DB["user"] = 'root'     # input('user:')   # 'root'
+        DB["password"] = '080420'   # input('password:')   # '080420'
         DB["db"] = input('db:')   # 'mysql'
-        DB["charset"] = input('charset:')  # 字体设置"utf8"
-        conn, cursor = self.get_sql_conn(DB)
+        DB["charset"] = 'utf8'  # input('charset:')  # 字体设置"utf8"
+        conn, cursor = self.get_sql_conn(DB)    # 创建、连接库
+        renshixitong = ['ID', '部门', '组别', '职位', '工号', '姓名', '性别', '联系电话', '入职日期', '入职工龄', '合同日期', '离职日期',
+                        '待遇', '出生日期', '身份证号码', '地址', '密码', '紧急联系人', '紧急联系人电话', '调薪日期', '入职照片', '备注']
+
+        self.create_sql_tb(conn, cursor, '人员信息', renshixitong)
+
 
 
     # 连接
@@ -77,7 +82,7 @@ class jianli:
 
 
     # 创建tablename表
-    def create_sql_tb(conn, cursor, tablename, dataframe: list):
+    def create_sql_tb(self, conn, cursor, tablename, dataframe:list):
         """
         :param conn: 连接符
         :param cursor: 游标
@@ -85,6 +90,7 @@ class jianli:
         :param dataframe: 按照数据框的情况,创建列名、列的长度
         :return: 创建情况
         """
+        print(' varchar(255) COLLATE utf8_estonian_ci DEFAULT NULL,'.join(dataframe))
         # conn, cursor = get_sql_conn(DB)   # 数据库连接
 
         # list_Type, list_Len = find_dfm_cols_most(dataframe)
@@ -97,7 +103,7 @@ class jianli:
         #     col_desc = list_colname[i] + ' ' + list_Type[i] + '(' + str(list_Len[i]) + ')' + col_limit
         #     list_col_desc.append(col_desc)
         sql = 'CREATE TABLE %s' % tablename + '(`ID` varchar(100) COLLATE utf8_estonian_ci NOT NULL COMMENT,' + \
-              'varchar(255) COLLATE utf8_estonian_ci DEFAULT NULL,'.join(dataframe) + \
+              ' varchar(255) COLLATE utf8_estonian_ci DEFAULT NULL,'.join(dataframe) + \
               ') ENGINE = InnoDB DEFAULT CHARSET = utf8 COLLATE = utf8_estonian_ci ROW_FORMAT = DYNAMIC;'  # 用于执行的sql语句
         # sql = sql.replace('datetime(0)', 'datetime')
         try:
@@ -119,3 +125,4 @@ class jianli:
             conn.commit()
 
 
+jianli()

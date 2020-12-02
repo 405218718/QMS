@@ -3,11 +3,12 @@ import sys
 
 import cv2
 import pymysql
+import xlwings as xw
 from PySide2.QtCore import Slot, Qt
 from PySide2.QtGui import QImage, QPixmap
 from PySide2.QtWidgets import QApplication, QMainWindow, QMessageBox
 
-from ShuJuKuCaoZuo import DuiXiang as DX, DateEdit
+from ShuJuKuCaoZuo import DuiXiang as DX, DateEdit, GongSiMing
 from 人员信息 import Ui_renyuanxinxi
 from 人员信息查看 import UI_ryxxck
 from RenYuanXingXi_LuRu import UI_ryxxlr
@@ -24,7 +25,6 @@ class UI_ryxx(QMainWindow):
         self.Text_JieShu_RiQi = DateEdit(self.ui.Text_JieShu_RiQi)
         self.Text_JieShu_RiQi.resize(self.ui.Text_JieShu_RiQi.width(),
                                     self.ui.Text_JieShu_RiQi.height())
-        # DX.DateEdit(self.ui.Text_QiShi_RiQi,self.ui.Text_JieShu_RiQi)
 
         self.ui.Text_ShaiXuan.clear()
         provinces = ["在职人员", "全部人员", "离职人员", "入职日期", "生日日期"]  # 列表数据
@@ -208,7 +208,7 @@ class UI_ryxx(QMainWindow):
             sql = results[rows - 1]  # 提取最后一个字典
 
             dlgTableSize = UI_ryxxck(self)
-            dlgTableSize.ui.Text_GongSiMingCheng.setText(DX.GongSiMing)
+            dlgTableSize.ui.Text_GongSiMingCheng.setText(GongSiMing)
             dlgTableSize.ui.Text_GongSiMingCheng.setAlignment(Qt.AlignCenter)   # AlignLeft 居左，AlignCenter居中，AlignRight居右
 
             # color: rgb()中的四个参数, 前三个是控制颜色, 第四个控制透明度
@@ -232,6 +232,35 @@ class UI_ryxx(QMainWindow):
             dlgTableSize.ui.Text_TuPian.setPixmap(QPixmap.fromImage(showImage))
             dlgTableSize.ui.Text_TuPian.setScaledContents(True)    # 入职照片
             dlgTableSize.exec_()
+
+    # 导出数据
+    @Slot(bool)
+    def on_action_daochu_triggered(self, clicked):
+        db = DX().connect_db()  # 获取游标
+        cur = db.cursor(pymysql.cursors.DictCursor)  # 使用字典类型输出
+        rows = cur.execute('select * FROM 人员信息;')   # 获取数组
+        results = cur.fetchall()  # 查询到的字典组数
+        titles = list(results[0].keys())   # 写入表头
+        # app = xw.App(visible=True, add_book=False)  # 创建应用
+        # # visible=True   显示Excel工作簿；False  不显示工作簿
+        # # add_book=False   不再新建一个工作簿;True  另外再新建一个工作簿
+        # excelFile = app.books.add()
+        # excelFile.sheets.add("test")
+        # excelFile.save(r"c:\temp\1.xlsx")
+        wb = xw.Book()
+        sht = wb.sheets[0]  # 新建工作薄
+        sht.range('a1').value = titles  # 写入表头
+        info_list = []
+        if rows != 0:
+            n = 0
+            while n < rows:
+                info_list.append(list(results[n].values()))  # 保存的数据
+                n = n+1
+        sht.range('a2').value = info_list    # 写入数据
+        del info_list
+        wb.save(r'C:\Users\fanwei\Desktop\Track.xlsx')   # 保存工作簿
+        wb.close()
+
 
     # 表头设置
     @Slot(bool)

@@ -19,10 +19,16 @@ class jianli:
         DB["db"] = input('db:')   # 'mysql'
         DB["charset"] = 'utf8'  # input('charset:')  # 字体设置"utf8"
         conn, cursor = self.get_sql_conn(DB)    # 创建、连接库
-        renshixitong = ['ID', '部门', '组别', '职位', '工号', '姓名', '性别', '联系电话', '入职日期', '入职工龄', '合同日期', '离职日期',
-                        '待遇', '出生日期', '身份证号码', '地址', '密码', '紧急联系人', '紧急联系人电话', '调薪日期', '入职照片', '备注']
+        # renshixitong = ['部门', '组别', '职位', '工号', '姓名', '性别', '联系电话', '入职日期', '入职工龄', '合同日期', '离职日期',
+        #                 '待遇', '出生日期', '身份证号码', '地址', '密码', '紧急联系人', '紧急联系人电话', '调薪日期', '入职照片', '备注']
+        # self.create_sql_tb(conn, cursor, '人员信息', renshixitong)
+        xiangmuxitong = ['项目编号', '产品编码', '类型', '等级', '尺寸', '业务担当', '项目担当', '设计担当', '装配担当', '下单日期',
+                         '出货日期', '出货状态', '备注']
+        self.create_sql_tb(conn, cursor, '项目信息', xiangmuxitong)
+        # 项目计划 = ['厂内编号', '料条阶段', '结构阶段', '拆图阶段', '采购阶段', '加工阶段', '拼锣阶段', '首次试模', '全模样', 'OK样', '客户验收', '移模', '备注']
+        # 外协记录 = ['送货单号', '申请单编码', '申请人', '模具编号', '页码', '工件名称', '工件规格', '材质', '数量', '单位', '加工方式', '加工种类', '加工商', '重量', '金额(含税)', '税率', '金额(未含税)', '创建日期', '要求交期', '出厂日期', '回厂日期', '是否结算', '对账月份', '付款日期', '审核人', '审核时间', '备注']
 
-        self.create_sql_tb(conn, cursor, '人员信息', renshixitong)
+
 
 
 
@@ -70,17 +76,6 @@ class jianli:
             conn.commit()  # 提交事务
             print('\n\n')
 
-
-    # # 创建《人员信息》表库
-    # def create_sql_db(self, conn, cursor):
-    #     sql = 'CREATE TABLE `人员信息`(`id` varchar(100) COLLATE utf8_estonian_ci NOT NULL COMMENT '唯一不重复', ' \
-    #             '`部门` varchar(255) COLLATE utf8_estonian_ci DEFAULT NULL, ' \
-    #             'PRIMARY KEY(`id`)' \
-    #             ') ENGINE = InnoDB DEFAULT CHARSET = utf8 COLLATE = utf8_estonian_ci ROW_FORMAT = DYNAMIC;'
-    #     cursor.execute(sql)
-    #     conn.commit()
-
-
     # 创建tablename表
     def create_sql_tb(self, conn, cursor, tablename, dataframe:list):
         """
@@ -90,22 +85,15 @@ class jianli:
         :param dataframe: 按照数据框的情况,创建列名、列的长度
         :return: 创建情况
         """
-        print(' varchar(255) COLLATE utf8_estonian_ci DEFAULT NULL,'.join(dataframe))
-        # conn, cursor = get_sql_conn(DB)   # 数据库连接
+        list_col_desc = []
+        for i in range(len(dataframe)):
+            # print('正创建列:\t{} '.format(dataframe[i]))
+            col_desc = '`'+dataframe[i]+'`'+' varchar(255) COLLATE utf8_estonian_ci DEFAULT NULL,'
 
-        # list_Type, list_Len = find_dfm_cols_most(dataframe)
-        # print(list_Type, list_Len)
-        # list_colname = list(dataframe.columns)  # 新表的列名为数据框的列名
-        # list_col_desc = []  # 列描述,sql语言
-        # for i in range(len(list_colname)):
-        #     print('正创建列:\t{} '.format(list_colname[i]))
-        #     # col_limit = input('Please enter the limits of the column:\t')
-        #     col_desc = list_colname[i] + ' ' + list_Type[i] + '(' + str(list_Len[i]) + ')' + col_limit
-        #     list_col_desc.append(col_desc)
-        sql = 'CREATE TABLE %s' % tablename + '(`ID` varchar(100) COLLATE utf8_estonian_ci NOT NULL COMMENT,' + \
-              ' varchar(255) COLLATE utf8_estonian_ci DEFAULT NULL,'.join(dataframe) + \
-              ') ENGINE = InnoDB DEFAULT CHARSET = utf8 COLLATE = utf8_estonian_ci ROW_FORMAT = DYNAMIC;'  # 用于执行的sql语句
-        # sql = sql.replace('datetime(0)', 'datetime')
+            list_col_desc.append(col_desc)
+        sql = 'CREATE TABLE `'+tablename + '` (`ID` varchar(100) COLLATE utf8_estonian_ci NOT NULL, ' + \
+              ' '.join(list_col_desc) +\
+              'PRIMARY KEY (`id`)) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_estonian_ci ROW_FORMAT=DYNAMIC;'
         try:
             cursor.execute(sql)
         except Exception as e:

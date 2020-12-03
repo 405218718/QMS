@@ -3,7 +3,7 @@ from PySide2.QtCore import Slot
 from PySide2.QtWidgets import QApplication, QMainWindow
 from General import DuiXiang as DX, DateEdit
 from 项目信息 import Ui_xiangmuxinxi
-from RenYuanXingXi import UI_ryxxlr
+
 
 
 class UI_xmxx(QMainWindow):
@@ -20,8 +20,8 @@ class UI_xmxx(QMainWindow):
         # DX.DateEdit(self.ui.Text_QiShi_RiQi,self.ui.Text_JieShu_RiQi)
         self.tab = {}  # 空字典
         # # 新增选项卡（标题等同）
-        self.tab['xiangmuxinxi'] = ["部门", "组别", "职位", "工号", "姓名", "性别", "联系电话", "入职日期", "出生日期",
-                                    "身份证号码", "地址", "待遇", "调薪日期", "离职日期", "备注"]
+        self.tab['xiangmuxinxi'] = ['项目编号', '产品编码', '类型', '等级', '尺寸', '业务担当', '项目担当', '设计担当', '装配担当',
+                                    '下单日期', '出货日期', '出货状态', '备注']
         DX.add_tab(self.tab['xiangmuxinxi'], self.ui.Text_ShuJuXianShi)
 
     # # 新增按钮
@@ -35,14 +35,18 @@ class UI_xmxx(QMainWindow):
     def on_action_chaxun_triggered(self, clicked):
         # self.ui.ryxx_chaxun.clicked.connect(self.chaxun_ryxx)   # 查询按钮
         L = []
-        if self.ui.Text_BuMen.currentText() != "":
-            L.append('BuMen = %s' % self.ui.Text_BuMen.currentText())
-        if self.ui.Text_GongHao.text() != "":
-            L.append('GongHao = %s' % self.ui.Text_GongHao.text())
-        if self.ui.Text_XingMing.text() != "":
-            L.append('XingMing = %s' % self.ui.Text_XingMing.text())
-        if self.ui.Text_ShaiXuan.currentText() != "":
-            L.append('ShaiXuan = %s' % self.ui.Text_ShaiXuan.currentText())
+        if self.ui.Text_KeHu.currentText() != "":
+            L.append('客户 = %s' % self.ui.Text_KeHu.currentText())
+        if self.ui.Text_XiangMuBianHao.currentText().strip() != "":
+            L.append('项目编号 = %s' % self.ui.Text_XiangMuBianHao.currentText().strip())
+        if self.ui.Text_KeHuBianHhao.currentText().strip() != "":
+            L.append('客户编号 = %s' % self.ui.Text_KeHuBianHhao.currentText().strip())
+        if self.ui.Text_DanDangBuMen.currentText().strip() != "":
+            L.append('担当部门 = %s' % self.ui.Text_DanDangBuMen.currentText().strip())
+        if self.ui.Text_DanDangRen.currentText().strip() != "":
+            L.append('担当人 = %s' % self.ui.Text_DanDangRen.currentText().strip())
+        if self.ui.Text_shaixuan.currentText().strip() != "":
+            L.append('筛选状态 = %s' % self.ui.Text_shaixuan.currentText().strip())
         if self.Text_QiShi_RiQi.text() != "":
             L.append('RiQi >= %s ' % self.Text_QiShi_RiQi.text())
         if self.Text_JieShu_RiQi.text() != "":

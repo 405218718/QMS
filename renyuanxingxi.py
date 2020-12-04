@@ -241,14 +241,13 @@ class UI_ryxx(QMainWindow):
         rows = cur.execute('select * FROM 人员信息;')   # 获取数组
         results = cur.fetchall()  # 查询到的字典组数
         titles = list(results[0].keys())   # 写入表头
-        # app = xw.App(visible=True, add_book=False)  # 创建应用
-        # # visible=True   显示Excel工作簿；False  不显示工作簿
-        # # add_book=False   不再新建一个工作簿;True  另外再新建一个工作簿
-        # excelFile = app.books.add()
-        # excelFile.sheets.add("test")
-        # excelFile.save(r"c:\temp\1.xlsx")
-        wb = xw.Book()
-        sht = wb.sheets[0]  # 新建工作薄
+        app = xw.App(visible=False, add_book=False)  # 创建应用
+        # visible=True   显示Excel工作簿；False  不显示工作簿
+        # add_book=False   不再新建一个工作簿;True  另外再新建一个工作簿
+        # app.screen_updating = False
+        # :屏幕更新，就是说代码对于excel的操作你可以看见，关闭实时更新可以加快脚本运行。默认是True。
+        wb = app.books.add()    # 创建新的工作薄
+        sht = wb.sheets.add("test")  # 新建工作表
         sht.range('a1').value = titles  # 写入表头
         info_list = []
         if rows != 0:
@@ -257,10 +256,11 @@ class UI_ryxx(QMainWindow):
                 info_list.append(list(results[n].values()))  # 保存的数据
                 n = n+1
         sht.range('a2').value = info_list    # 写入数据
-        del info_list
         wb.save(r'C:\Users\fanwei\Desktop\Track.xlsx')   # 保存工作簿
-        wb.close()
-
+        wb.close()  # 关闭工作簿
+        app.kill()  # 终止进程，强制退出。
+        # quit()  # 在不保存的情况下，退出excel程序。
+        # del info_list
 
     # 表头设置
     @Slot(bool)

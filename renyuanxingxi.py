@@ -237,30 +237,21 @@ class UI_ryxx(QMainWindow):
     @Slot(bool)
     def on_action_daochu_triggered(self, clicked):
         db = DX().connect_db()  # 获取游标
-        cur = db.cursor(pymysql.cursors.DictCursor)  # 使用字典类型输出
+        cur = db.cursor()  # 连接
         rows = cur.execute('select * FROM 人员信息;')   # 获取数组
-        results = cur.fetchall()  # 查询到的字典组数
-        titles = list(results[0].keys())   # 写入表头
-        app = xw.App(visible=False, add_book=False)  # 创建应用
-        # visible=True   显示Excel工作簿；False  不显示工作簿
-        # add_book=False   不再新建一个工作簿;True  另外再新建一个工作簿
-        # app.screen_updating = False
-        # :屏幕更新，就是说代码对于excel的操作你可以看见，关闭实时更新可以加快脚本运行。默认是True。
-        wb = app.books.add()    # 创建新的工作薄
+        titles = []
+        # 所有字段名
+        for field in cur.description:
+            titles.append(field[0])
+        info_list = cur.fetchall()  # 查询到的元组数
+        ws = xw.App(visible=False, add_book=False)  # 创建应用
+        wb = ws.books.add()    # 创建新的工作薄
         sht = wb.sheets.add("test")  # 新建工作表
         sht.range('a1').value = titles  # 写入表头
-        info_list = []
-        if rows != 0:
-            n = 0
-            while n < rows:
-                info_list.append(list(results[n].values()))  # 保存的数据
-                n = n+1
         sht.range('a2').value = info_list    # 写入数据
         wb.save(r'C:\Users\fanwei\Desktop\Track.xlsx')   # 保存工作簿
         wb.close()  # 关闭工作簿
-        app.kill()  # 终止进程，强制退出。
-        # quit()  # 在不保存的情况下，退出excel程序。
-        # del info_list
+        ws.quit()  # 在不保存的情况下，退出excel程序。
 
     # 表头设置
     @Slot(bool)

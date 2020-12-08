@@ -1,4 +1,5 @@
 import xlwings as xw
+import pandas as pd
 
 app = xw.App(visible=False, add_book=False)  # 创建应用
 # visible=True   显示Excel工作簿；False  不显示工作簿
@@ -19,17 +20,34 @@ wb = app.books.open(r'C:\Users\fanwei\Desktop\CPM修改模费用.xlsx')  # 打�
 bsheets = wb.sheets     # 显示当前工作簿中所有表单
 sheets_list = []
 for on in bsheets:
-    sheets_list.append(wb.sheets[on].name)
+    sheets_list.append(wb.sheets[on].name)      # 列表内加入工作表名称
 print(sheets_list)
 sht = wb.sheets('明细')   # 打开工作表
 print(sht.used_range.last_cell.row)      # 读取sht的总行数
 print(sht.used_range.last_cell.column)   # 读取sht的总行列
-print(sht.range((1, 1)).expand('right').value)
+print(sht.range((1, 1)).expand('right').value)   # 'up', 'down', 'left', 'right'方向（“上” ，“下” ，“右” ，“左”范围）
+if 'Sheet' in sheets_list:
+    wb.sheets('Sheet').clear()    # 清除格式和内容
+else:
+    wb.sheets.add("Sheet")  # 新建工作表
+sht = wb.sheets('Sheet')   # 打开工作表
+df_1 = pd.DataFrame([[1, 2, 3], [4, 5, 6]], columns=['col1', 'col2', 'col3'], index=['a', 'b'])
+sht.range("A1").value = df_1
 
-
+# pandas.pivot_table(*data*, *values=None*, *index=None*, *columns=None*, *aggfunc='mean'*, *fill_value=None*,*margins=False*, *dropna=True*, *margins_name='All'*, *observed=False*)
+# # data：dataframe格式数据
+# # values：需要汇总计算的列，可多选
+# # index：行分组键，一般是用于分组的列名或其他分组键，作为结果DataFrame的行索引
+# # columns：列分组键，一般是用于分组的列名或其他分组键，作为结果DataFrame的列索引
+# # aggfunc：聚合函数或函数列表，默认为平均值
+# # fill_value：设定缺失替换值
+# # margins：是否添加行列的总计
+# # dropna：默认为True，如果列的所有值都是NaN，将不作为计算列，False时，被保留
+# # margins_name：汇总行列的名称，默认为All
+# # observed：是否显示观测值
 # sht.range('a1').value = [[1], [2], [3], [4], [5]]   # 列方向（嵌套列表）
 # sht.range('a2').value = [['Foo 1', 'Foo 2', 'Foo 3'], [10, 20, 30]]  # 写入两行数据
-# aa = sht.range('A2').expand('right').address    # 'up', 'down', 'right', 'left'方向（“上” ，“下” ，“右” ，“左”之一）
+# aa = sht.range('A2').expand('right').address    # 'up', 'down', 'left', 'right'方向（“上” ，“下” ，“右” ，“左”之一）
 # print(sht.range(aa).value)
 # aa = sht.range('A2').expand().address   # 以A2 行、列 最大有效数据范围
 # print(sht.range(aa).value)
@@ -58,6 +76,8 @@ print(sht.range((1, 1)).expand('right').value)
 
 
 # wb.save(r'C:\Users\fanwei\Desktop\Track.xlsx')  # 保存工作簿
-wb.close()  # 关闭工作簿
+
 # app.kill()  # 终止进程，强制退出。
+wb.save()  # 保存工作簿
+wb.close()  # 关闭工作簿
 app.quit()  # 在不保存的情况下，退出excel程序。

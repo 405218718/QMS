@@ -1,5 +1,6 @@
 import xlwings as xw
 import pandas as pd
+import numpy as np
 
 app = xw.App(visible=False, add_book=False)  # 创建应用
 # visible=True   显示Excel工作簿；False  不显示工作簿
@@ -23,16 +24,20 @@ for on in bsheets:
     sheets_list.append(wb.sheets[on].name)      # 列表内加入工作表名称
 print(sheets_list)
 sht = wb.sheets('明细')   # 打开工作表
-print(sht.used_range.last_cell.row)      # 读取sht的总行数
-print(sht.used_range.last_cell.column)   # 读取sht的总行列
-print(sht.range((1, 1)).expand('right').value)   # 'up', 'down', 'left', 'right'方向（“上” ，“下” ，“右” ，“左”范围）
+rowss = sht.used_range.last_cell.row      # 读取sht的总行数
+columnss = sht.used_range.last_cell.column   # 读取sht的总行列
+
+date = sht.range((1, 1)).options(pd.DataFrame, expand='table').value    # 将读取全部数据，输出类型为DataFrame
+# print(date)
+pf = pd.pivot_table(date, index=[u'设计部门', u'钳工部门'], values=[u'异常加工费', u'异常材料费'], aggfunc=np.sum, fill_value=1, margins=1)
 if 'Sheet' in sheets_list:
     wb.sheets('Sheet').clear()    # 清除格式和内容
 else:
     wb.sheets.add("Sheet")  # 新建工作表
 sht = wb.sheets('Sheet')   # 打开工作表
-df_1 = pd.DataFrame([[1, 2, 3], [4, 5, 6]], columns=['col1', 'col2', 'col3'], index=['a', 'b'])
-sht.range("A1").value = df_1
+# df_1 = pd.DataFrame([[1, 2, 3], [4, 5, 6]], columns=['col1', 'col2', 'col3'], index=['a', 'b'])
+# sht.range("A1").value = df_1
+sht.range("A1").value = pf
 
 # pandas.pivot_table(*data*, *values=None*, *index=None*, *columns=None*, *aggfunc='mean'*, *fill_value=None*,*margins=False*, *dropna=True*, *margins_name='All'*, *observed=False*)
 # # data：dataframe格式数据

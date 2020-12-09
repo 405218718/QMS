@@ -24,20 +24,15 @@ for on in bsheets:
     sheets_list.append(wb.sheets[on].name)      # 列表内加入工作表名称
 print(sheets_list)
 sht = wb.sheets('明细')   # 打开工作表
-rowss = sht.used_range.last_cell.row      # 读取sht的总行数
-columnss = sht.used_range.last_cell.column   # 读取sht的总行列
-
 date = sht.range((1, 1)).options(pd.DataFrame, expand='table').value    # 将读取全部数据，输出类型为DataFrame
-# print(date)
 pf = pd.pivot_table(date, index=[u'设计部门', u'钳工部门'], values=[u'异常加工费', u'异常材料费'], aggfunc=np.sum, fill_value=1, margins=1)
 if 'Sheet' in sheets_list:
     wb.sheets('Sheet').clear()    # 清除格式和内容
 else:
     wb.sheets.add("Sheet")  # 新建工作表
 sht = wb.sheets('Sheet')   # 打开工作表
-# df_1 = pd.DataFrame([[1, 2, 3], [4, 5, 6]], columns=['col1', 'col2', 'col3'], index=['a', 'b'])
-# sht.range("A1").value = df_1
 sht.range("A1").value = pf
+sht.api.Rows(2).Insert()    #插入行
 
 # pandas.pivot_table(*data*, *values=None*, *index=None*, *columns=None*, *aggfunc='mean'*, *fill_value=None*,*margins=False*, *dropna=True*, *margins_name='All'*, *observed=False*)
 # # data：dataframe格式数据
@@ -50,6 +45,10 @@ sht.range("A1").value = pf
 # # dropna：默认为True，如果列的所有值都是NaN，将不作为计算列，False时，被保留
 # # margins_name：汇总行列的名称，默认为All
 # # observed：是否显示观测值
+# df_1 = pd.DataFrame([[1, 2, 3], [4, 5, 6]], columns=['col1', 'col2', 'col3'], index=['a', 'b'])
+# sht.range("A1").value = df_1
+
+
 # sht.range('a1').value = [[1], [2], [3], [4], [5]]   # 列方向（嵌套列表）
 # sht.range('a2').value = [['Foo 1', 'Foo 2', 'Foo 3'], [10, 20, 30]]  # 写入两行数据
 # aa = sht.range('A2').expand('right').address    # 'up', 'down', 'left', 'right'方向（“上” ，“下” ，“右” ，“左”之一）

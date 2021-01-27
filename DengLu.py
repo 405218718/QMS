@@ -45,11 +45,12 @@ class dengluUI(QMainWindow):
             QMessageBox.about(self, '提示信息', '服务器设置错误')
             self.ui.tabWidget.setCurrentIndex(1)
 
-        #pane 指整个tab组件 ，border-width 组件的外框宽度， border-color 外框颜色， border-style外框风格，
-        #比如outset就是凸出立体感，border-radius  外框的圆角像素。而本示例是无外框，无背景图的。
+        # pane 指整个tab组件 ，border-width 组件的外框宽度， border-color 外框颜色， border-style外框风格，
+        # 比如outset就是凸出立体感，border-radius  外框的圆角像素。而本示例是无外框，无背景图的。
         str = "QTabWidget::pane{border-width: 0px;border-color:white;border-" \
               "style:outset;background-color: rgb(250, 250, 250);border-radius: 3px;}"
         self.ui.tabWidget.setStyleSheet(str)
+        self.ui.mima.returnPressed.connect(self.on_denglu_2_clicked(self))    # 回车激活登录
 
 
 
@@ -86,7 +87,7 @@ class dengluUI(QMainWindow):
 
     #登录按钮
     @Slot(bool)
-    def on_denglu_2_clicked(self,checked):
+    def on_denglu_2_clicked(self, checked):
         zhanghao = self.ui.zhanghao.text()
         mima = self.ui.mima.text()
         db = self.connect_db()

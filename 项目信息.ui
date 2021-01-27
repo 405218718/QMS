@@ -455,8 +455,8 @@
   </widget>
   <action name="action_xinzeng">
    <property name="icon">
-    <iconset>
-     <normaloff>ICO/png/1081676.png</normaloff>ICO/png/1081676.png</iconset>
+    <iconset resource="res.qrc">
+     <normaloff>:/new/prefix1/ICO/png/1081676.png</normaloff>:/new/prefix1/ICO/png/1081676.png</iconset>
    </property>
    <property name="text">
     <string>新增</string>
@@ -467,8 +467,8 @@
   </action>
   <action name="action_shanchu">
    <property name="icon">
-    <iconset>
-     <normaloff>ICO/png/1081640.png</normaloff>ICO/png/1081640.png</iconset>
+    <iconset resource="res.qrc">
+     <normaloff>:/new/prefix1/ICO/png/1081640.png</normaloff>:/new/prefix1/ICO/png/1081640.png</iconset>
    </property>
    <property name="text">
     <string>删除</string>
@@ -476,8 +476,8 @@
   </action>
   <action name="action_xiugai">
    <property name="icon">
-    <iconset>
-     <normaloff>ICO/png/1073170.png</normaloff>ICO/png/1073170.png</iconset>
+    <iconset resource="res.qrc">
+     <normaloff>:/new/prefix1/ICO/png/1073170.png</normaloff>:/new/prefix1/ICO/png/1073170.png</iconset>
    </property>
    <property name="text">
     <string>修改</string>
@@ -485,8 +485,8 @@
   </action>
   <action name="action_chakan">
    <property name="icon">
-    <iconset>
-     <normaloff>ICO/png/1081662.png</normaloff>ICO/png/1081662.png</iconset>
+    <iconset resource="res.qrc">
+     <normaloff>:/new/prefix1/ICO/png/1081662.png</normaloff>:/new/prefix1/ICO/png/1081662.png</iconset>
    </property>
    <property name="text">
     <string>查看</string>
@@ -494,8 +494,8 @@
   </action>
   <action name="action_daochu">
    <property name="icon">
-    <iconset>
-     <normaloff>ICO/png/1081656.png</normaloff>ICO/png/1081656.png</iconset>
+    <iconset resource="res.qrc">
+     <normaloff>:/new/prefix1/ICO/png/1081656.png</normaloff>:/new/prefix1/ICO/png/1081656.png</iconset>
    </property>
    <property name="text">
     <string>导出</string>
@@ -503,8 +503,8 @@
   </action>
   <action name="action_liuchengtiaozhuan">
    <property name="icon">
-    <iconset>
-     <normaloff>ICO/png/1081628.png</normaloff>ICO/png/1081628.png</iconset>
+    <iconset resource="res.qrc">
+     <normaloff>:/new/prefix1/ICO/png/1081628.png</normaloff>:/new/prefix1/ICO/png/1081628.png</iconset>
    </property>
    <property name="text">
     <string>流程跳转</string>
@@ -512,8 +512,8 @@
   </action>
   <action name="action_chaxun">
    <property name="icon">
-    <iconset>
-     <normaloff>ICO/png/1168148.png</normaloff>ICO/png/1168148.png</iconset>
+    <iconset resource="res.qrc">
+     <normaloff>:/new/prefix1/ICO/png/1168148.png</normaloff>:/new/prefix1/ICO/png/1168148.png</iconset>
    </property>
    <property name="text">
     <string>查询</string>
@@ -533,8 +533,8 @@
   </action>
   <action name="action_biaotoushezhi">
    <property name="icon">
-    <iconset>
-     <normaloff>ICO/png/1187149.png</normaloff>ICO/png/1187149.png</iconset>
+    <iconset resource="res.qrc">
+     <normaloff>:/new/prefix1/ICO/png/1187149.png</normaloff>:/new/prefix1/ICO/png/1187149.png</iconset>
    </property>
    <property name="text">
     <string>表头设置</string>
@@ -542,8 +542,8 @@
   </action>
   <action name="action_liuchengshezhi">
    <property name="icon">
-    <iconset>
-     <normaloff>ICO/png/1081680.png</normaloff>ICO/png/1081680.png</iconset>
+    <iconset resource="res.qrc">
+     <normaloff>:/new/prefix1/ICO/png/1081680.png</normaloff>:/new/prefix1/ICO/png/1081680.png</iconset>
    </property>
    <property name="text">
     <string>流程设置</string>
@@ -562,6 +562,8 @@
   <tabstop>Text_BianJi</tabstop>
   <tabstop>Text_ShuJuXianShi</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="res.qrc"/>
+ </resources>
  <connections/>
 </ui>

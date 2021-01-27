@@ -38,8 +38,8 @@
    <string>登陆</string>
   </property>
   <property name="windowIcon">
-   <iconset>
-    <normaloff>ICO/主题.png</normaloff>ICO/主题.png</iconset>
+   <iconset resource="res.qrc">
+    <normaloff>:/new/prefix1/ICO/主题.png</normaloff>:/new/prefix1/ICO/主题.png</iconset>
   </property>
   <property name="layoutDirection">
    <enum>Qt::LeftToRight</enum>
@@ -275,7 +275,7 @@
       <string/>
      </property>
      <property name="pixmap">
-      <pixmap>ICO/png/shell32.dll(45).png</pixmap>
+      <pixmap resource="res.qrc">:/new/prefix1/ICO/png/shell32.dll(45).png</pixmap>
      </property>
     </widget>
     <widget class="QLineEdit" name="zhanghao">
@@ -330,7 +330,7 @@
       <enum>Qt::AutoText</enum>
      </property>
      <property name="pixmap">
-      <pixmap>ICO/png/shell32.dll(269).png</pixmap>
+      <pixmap resource="res.qrc">:/new/prefix1/ICO/png/shell32.dll(269).png</pixmap>
      </property>
      <property name="scaledContents">
       <bool>false</bool>
@@ -756,7 +756,10 @@
   <tabstop>chongzhi</tabstop>
   <tabstop>tuichu</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="res.qrc"/>
+  <include location="ui_rc.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>guanbi</sender>

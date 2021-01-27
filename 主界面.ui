@@ -23,8 +23,8 @@
    <string>飞云信息管理平台</string>
   </property>
   <property name="windowIcon">
-   <iconset>
-    <normaloff>ICO/主题.png</normaloff>ICO/主题.png</iconset>
+   <iconset resource="res.qrc">
+    <normaloff>:/new/prefix1/ICO/主题.png</normaloff>:/new/prefix1/ICO/主题.png</iconset>
   </property>
   <property name="statusTip">
    <string/>
@@ -262,8 +262,8 @@
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actFont_ranyuanchaxun">
    <property name="icon">
-    <iconset>
-     <normaloff>ICO/ico/shell32.dll(267).ico</normaloff>ICO/ico/shell32.dll(267).ico</iconset>
+    <iconset resource="res.qrc">
+     <normaloff>:/new/prefix1/ICO/png/shell32.dll(267).png</normaloff>:/new/prefix1/ICO/png/shell32.dll(267).png</iconset>
    </property>
    <property name="text">
     <string>人员查询</string>
@@ -271,8 +271,8 @@
   </action>
   <action name="加班记录">
    <property name="icon">
-    <iconset>
-     <normaloff>ICO/png/1218679.png</normaloff>ICO/png/1218679.png</iconset>
+    <iconset resource="res.qrc">
+     <normaloff>:/new/prefix1/ICO/png/1218679.png</normaloff>:/new/prefix1/ICO/png/1218679.png</iconset>
    </property>
    <property name="text">
     <string>加班记录</string>
@@ -280,8 +280,8 @@
   </action>
   <action name="请假记录">
    <property name="icon">
-    <iconset>
-     <normaloff>ICO/图标-07.png</normaloff>ICO/图标-07.png</iconset>
+    <iconset resource="res.qrc">
+     <normaloff>:/new/prefix1/ICO/图标-07.png</normaloff>:/new/prefix1/ICO/图标-07.png</iconset>
    </property>
    <property name="text">
     <string>请假记录</string>
@@ -299,8 +299,8 @@
   </action>
   <action name="actFont_xiangmuxinxi">
    <property name="icon">
-    <iconset>
-     <normaloff>ICO/图标-02.png</normaloff>ICO/图标-02.png</iconset>
+    <iconset resource="res.qrc">
+     <normaloff>:/new/prefix1/ICO/图标-02.png</normaloff>:/new/prefix1/ICO/图标-02.png</iconset>
    </property>
    <property name="text">
     <string>项目信息</string>
@@ -424,8 +424,8 @@
   </action>
   <action name="截图软件">
    <property name="icon">
-    <iconset>
-     <normaloff>ICO/ico/shell32.dll(3).ico</normaloff>ICO/ico/shell32.dll(3).ico</iconset>
+    <iconset resource="res.qrc">
+     <normaloff>:/new/prefix1/ICO/png/shell32.dll(3).png</normaloff>:/new/prefix1/ICO/png/shell32.dll(3).png</iconset>
    </property>
    <property name="text">
     <string>截图软件</string>
@@ -433,8 +433,8 @@
   </action>
   <action name="翻译软件">
    <property name="icon">
-    <iconset>
-     <normaloff>ICO/ico/shell32.dll(243).ico</normaloff>ICO/ico/shell32.dll(243).ico</iconset>
+    <iconset resource="res.qrc">
+     <normaloff>:/new/prefix1/ICO/png/shell32.dll(243).png</normaloff>:/new/prefix1/ICO/png/shell32.dll(243).png</iconset>
    </property>
    <property name="text">
     <string>翻译软件</string>
@@ -442,8 +442,8 @@
   </action>
   <action name="日历">
    <property name="icon">
-    <iconset>
-     <normaloff>ICO/png/1234864.png</normaloff>ICO/png/1234864.png</iconset>
+    <iconset resource="res.qrc">
+     <normaloff>:/new/prefix1/ICO/png/1234864.png</normaloff>:/new/prefix1/ICO/png/1234864.png</iconset>
    </property>
    <property name="text">
     <string>日历</string>
@@ -451,8 +451,8 @@
   </action>
   <action name="密码修改">
    <property name="icon">
-    <iconset>
-     <normaloff>ICO/ico/shell32.dll(194).ico</normaloff>ICO/ico/shell32.dll(194).ico</iconset>
+    <iconset resource="res.qrc">
+     <normaloff>:/new/prefix1/ICO/png/shell32.dll(194).png</normaloff>:/new/prefix1/ICO/png/shell32.dll(194).png</iconset>
    </property>
    <property name="text">
     <string>密码修改</string>
@@ -463,8 +463,8 @@
   </action>
   <action name="账号切换">
    <property name="icon">
-    <iconset>
-     <normaloff>ICO/ico/shell32.dll(269).ico</normaloff>ICO/ico/shell32.dll(269).ico</iconset>
+    <iconset resource="res.qrc">
+     <normaloff>:/new/prefix1/ICO/png/shell32.dll(269).png</normaloff>:/new/prefix1/ICO/png/shell32.dll(269).png</iconset>
    </property>
    <property name="text">
     <string>账号切换</string>
@@ -475,8 +475,8 @@
   </action>
   <action name="退出">
    <property name="icon">
-    <iconset>
-     <normaloff>ICO/ico/shell32.dll(240).ico</normaloff>ICO/ico/shell32.dll(240).ico</iconset>
+    <iconset resource="res.qrc">
+     <normaloff>:/new/prefix1/ICO/png/shell32.dll(240).png</normaloff>:/new/prefix1/ICO/png/shell32.dll(240).png</iconset>
    </property>
    <property name="text">
     <string>退出</string>
@@ -529,7 +529,9 @@
   </action>
  </widget>
  <layoutdefault spacing="0" margin="0"/>
- <resources/>
+ <resources>
+  <include location="res.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>退出</sender>

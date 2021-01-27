@@ -89,7 +89,7 @@ class DuiXiang:
             return db
         except IOError:
             QMessageBox.about(self, '提示信息', '服务器链接失败')      # 图标图片：QMessageBox.information信息框，QMessageBox.question问答框，
-        # QMessageBox.warning警告框，QMessageBox.ctitical危险框，QMessageBox.about关于框
+        # QMessageBox.warning警告框，QMessageBox.crtitical危险框，QMessageBox.about关于框
 
     #获取MySql某个表所有字段名
     def HuoQuZiDuan(self, sql):

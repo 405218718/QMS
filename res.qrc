@@ -1,0 +1,26 @@
+<RCC>
+    <qresource prefix="/new/prefix1">
+        <file>ICO/png/1073170.png</file>
+        <file>ICO/主题.png</file>
+        <file>ICO/png/shell32.dll(3).png</file>
+        <file>ICO/png/shell32.dll(243).png</file>
+        <file>ICO/png/1234864.png</file>
+        <file>ICO/png/shell32.dll(194).png</file>
+        <file>ICO/png/shell32.dll(269).png</file>
+        <file>ICO/png/shell32.dll(240).png</file>
+        <file>ICO/png/shell32.dll(267).png</file>
+        <file>ICO/图标-02.png</file>
+        <file>ICO/png/1218679.png</file>
+        <file>ICO/png/g1.png</file>
+        <file>ICO/图标-07.png</file>
+        <file>ICO/png/shell32.dll(45).png</file>
+        <file>ICO/png/1081676.png</file>
+        <file>ICO/png/1081640.png</file>
+        <file>ICO/png/1081662.png</file>
+        <file>ICO/png/1081656.png</file>
+        <file>ICO/png/1187149.png</file>
+        <file>ICO/png/1081680.png</file>
+        <file>ICO/png/1081628.png</file>
+        <file>ICO/png/1168148.png</file>
+    </qresource>
+</RCC>
